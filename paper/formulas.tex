@@ -1,0 +1,111 @@
+\section{Computation of line functions}
+
+The heart of pairings lies on the computation of line functions.
+A rational function $f_{r,P}$ associated to the point $P$ and some integer $r$
+is first constructed.
+Then, this function is evaluated at the point $Q$.
+The divisor associated to the function $f_{,P}$ is
+$$ div(f_{r,P}) = r(P) - (rP) - (r-1)(P_\infty). $$
+Miller's algorithm computes $f_{r,P}$ in the double-and-add manner
+and uses the following relation
+$$ f_{i+j,P} = f_{i,P} f_{j,P} \frac{l_1}{l_2}, $$
+where $l_1$ is a line through $iP$ and $jP$,
+and $l_2$ is a line through $(i+j)P$ and $-(i+j)P$.
+
+Constructing the line $l_1$ can be done by substituting $x$ and $y$ coordinates of points $iP$ and $jP$
+into an equation $y = mx + b$ and solving for $m$ and $b$.
+For Weierstrass curves, the line $l_2$ is simply a vertical line through $(i+j)P$.
+Therefor, the line $l_2$ is of the form $x = c$ where $c$ is the $x$-coordinate of the point $(i+j)P$.
+Note that the point $(i+j)P$ and $-(i+j)P$ have the same $x$-coordinate.
+However, for Hessian curves, the line $l_2$ is not a vertical line
+and thus has to be constructed in a similar way as the line $l_1$,
+i.e., solving for $m$ and $b$ of $y = mx + b$ using points $(i+j)P$ and $-(i+j)P$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Denominator elimination}
+We follow a similar technique as in~\cite{2008/lin} and~\cite{2011/mrabet}
+by rewriting an inversion into a fraction having denominator lies in a subfield.
+Define a finite field extension $\F{q^m}$ of a finite field $\F{q}$.
+%Define a finite field extension $F = \F{q^m}$ of a finite field $K = \F{q}$.
+%For $\alpha \in F = \F{q^m}$ and $K = \F{q}$,
+%the \emph{norm} $N_{F/K}(\alpha)$ of $\alpha$ over $K$ is defined by
+%$$ N_{F/K}(\alpha) = \alpha \cdot \alpha^q \cdot \cdots \cdot \alpha^{q^{m-1}} = \alpha^{(q^m-1)/(q-1)} $$
+%
+%one of properties
+%$N_{F/K}$ maps $F$ onto $K$ and $F^\ast$ on $K^\ast$.
+%Let $q = p^7$.
+Observe that
+$$ \frac{1}{a} = \frac{a^q \cdot a^{q^2}} {a \cdot a^{q} \cdot a^{q^2}} $$
+where $a \cdot a^{q} \cdot a^{q^2} = N(a)$, i.e., a $norm$ of $a$ which lies in $\F{q}$.
+Because $N(a) \in \F{q}$ which is a subfield of $\F{q^m}$,
+the final exponentiation forces $N(a)$ to become 1.
+This means that we can ignore the computation of the denominator $N(a)$.
+Therefore, instead of computing $\frac{1}{a}$,
+we compute $a^{q} \cdot a^{q^2}$ where
+$a^{q}$ and $a^{q^2}$ can be easily computed using Frobenius.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Explicit formulas}
+
+Recall the twsited Hessian curve equation in projective coordiates
+%$ a x^3 + y^3 = 1 + d x y, $ or
+$$ \mathcal{H}: a X^3 + Y^3 = Z^3 + d X Y Z. $$
+This subsection shows formulas to compute point doubling, point addition, and line functions associated to these operations.
+These formulas work under an assumption that the curve parameter $d = 0$.
+
+Symbols $\mul, \sqr, \add, \mulp{a}, \mulp{2}$ denote
+field multiplication, field squaring, field addition,
+field multiplication by curve constant $a$ and field multiplication by 2 over $\F{p}$,
+whereas $\mul_k$ and $\add_k$ denote
+field multiplication and field addition over $\F{p^k}$,
+and $\mul_e$ and $\add_e$ denote
+field multiplication and field addition over $\F{p^e}$ where $e = k/d$.
+
+\subsubsection{Doubling.}
+%	// 5M + 2S + 3*3 + 1*2 + 1*neg + 6*add
+%	// assume d = 0
+Given a point $P = (X_1,Y_1,Z_1)$ on $E/\F{p}$ and a point $Q = (X_Q,Y_Q,1)$ on $E'/\F{p^{k/d}}$,
+the following formulas compute the doubling of point $P = 2P = (X_3,Y_3,Z_3)$ and the line function $l$.
+\begin{align*}
+U &= Y_1^2;\	\qquad	A = Y_1 \cdot U;\	\qquad
+V = Z_1 ^ 2;\	\qquad	B = Z_1 \cdot V;\\
+X_3 &= X_1 \cdot (A - B);\	\quad
+Y_3 = -Z_1 \cdot (2A + B);\	\quad
+Z_3 = Y_1 \cdot (A + 2B);\\
+l_1 &= -X_Q \cdot (A + B) + X_1 \cdot (Y_Q \cdot U + V);	\\
+l_2 &= X_3 \cdot (Y_Q + 1) - X_Q \cdot (Y_3 + Z_3);	\\
+l &= l_1 \cdot Frobenius(l_2,7) \cdot Frobenius(l_2,14);
+\end{align*}
+The total number of operations is
+$ 5\mul +2\sqr + 3\add + 2\mulp{2} + $
+%$ 1\neg+ $
+$ (2\mul_k + 3\mul_e + 2\add_k + 2\add_e + 2\add) + $
+$ (2\mul_k + 2Frobenius$).
+
+\subsubsection{Addition.}
+Given points $P = (X_1,Y_1,1)$ and $R = (X_2,Y_2,Z_2)$ on $E/\F{p}$ and a point $Q = (X_Q,Y_Q,1)$ on $E'/\F{p^{k/d}}$,
+the following formulas compute the addition of points $P + R = (X_1,Y_1,Z_1) + (X_2,Y_2,Z_2) = (X_3,Y_3,Z_3)$ and the line function $l$.
+\begin{align*}
+A &= X_1 \cdot Z_2;\	\qquad
+C = Y_1 \cdot X_2;\	\qquad
+D = Y_1 \cdot Y_2;\	\qquad
+F = a X_1 \cdot X_2;\\
+G &= (D + Z_2) \cdot (A - C);\	\quad
+H = (D - Z_2) \cdot (A + C);\\
+J &= (D + F) \cdot (A - Y_2);\	\quad
+K = (D - F) \cdot (A + Y_2);\\
+X_3 &= G - H;\	\qquad
+Y_3 = K - J;\\
+Z_3 &= J + K - G - H - 2(B - F) \cdot (C + E);\\
+l_1 &= (Y_1 \cdot Z_2 - Y_2) \cdot (X_1 - X_Q) + (Y_Q - Y_1) \cdot (X_1 \cdot Z_2 - X_2);\\
+l_2 &= X_3 \cdot (Y_Q + 1) - X_Q \cdot (Y_3 + Z_3);\\
+l &= l_1 \cdot Frobenius(l_2,7) \cdot Frobenius(l_2,14);
+\end{align*}
+The total number of operations is
+$ 9\mul +16\add + 1\mulp{a} + 1\mulp{2} + $
+$ (2\mul_k + 2\mul_e + 2\mul + 3\add_k + 2\add_e + 3\add) + $
+$ (2\mul_k + 2Frobenius)$.
+
