@@ -53,6 +53,15 @@ Barreto-Naehrig curves~\cite{2006/barreto} (BN-curves),
 Barreto-Lynn-Scott curves~\cite{2003/bls} (BLS-curves), and
 Kachisa-Schaefer-Scott curves~\cite{2008/kss} (KSS-curves).
 
+BN-curves with 256-bit prime field used to be very popular for 128-bit security level.
+However, series of attacks on finite field, for instance,
+\cite{2016/KB} \cite{2015/BGGM} \cite{2015/BGK},
+have dramatically weakened security level.
+The recent article on ``Updating key size estimations for parings'' by Barbulescu and Duquesne \cite{2017/keysize}
+suggests to increase the prime field to be over 400 bits for BN-curves in order to achieve 128-bit security level.
+Increasing the field size has a direct effect of slowing down arithmetic operations which creates a huge impact on performance.
+%On the other hands, Chatterjee, Menezes and Rodriguez-Henriquez \cite{2017/degreeone} study pairing with embedding degree one.
+
 Performance of pairing-based cryptography relies on both
 elliptic-curve-point arithmetic and a computation of line functions.
 A pairing is a bilinear map from two elliptic curve groups $\mathbb{G}_1$ and $\mathbb{G}_2$ to

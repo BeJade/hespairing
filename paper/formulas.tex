@@ -56,13 +56,13 @@ $$ \mathcal{H}: a X^3 + Y^3 = Z^3 + d X Y Z. $$
 This subsection shows formulas to compute point doubling, point addition, and line functions associated to these operations.
 These formulas work under an assumption that the curve parameter $d = 0$.
 
-Symbols $\mul, \sqr, \add, \mulp{a}, \mulp{2}$ denote
-field multiplication, field squaring, field addition,
-field multiplication by curve constant $a$ and field multiplication by 2 over $\F{p}$,
-whereas $\mul_k$ and $\add_k$ denote
-field multiplication and field addition over $\F{p^k}$,
-and $\mul_e$ and $\add_e$ denote
-field multiplication and field addition over $\F{p^e}$ where $e = k/d$.
+Symbols $\mul, \sqr, \mulp{a}, \mulp{b}, k, d$ denote
+field multiplication,
+field squaring,
+field multiplication by curve constant $a$,
+field multiplication by curve constant $b$
+embedding degree and
+twist degree respectively.
 
 \subsubsection{Doubling.}
 %	// 5M + 2S + 3*3 + 1*2 + 1*neg + 6*add
@@ -70,20 +70,19 @@ field multiplication and field addition over $\F{p^e}$ where $e = k/d$.
 Given a point $P = (X_1,Y_1,Z_1)$ on $E/\F{p}$ and a point $Q = (X_Q,Y_Q,1)$ on $E'/\F{p^{k/d}}$,
 the following formulas compute the doubling of point $P = 2P = (X_3,Y_3,Z_3)$ and the line function $l$.
 \begin{align*}
-U &= Y_1^2;\	\qquad	A = Y_1 \cdot U;\	\qquad
-V = Z_1 ^ 2;\	\qquad	B = Z_1 \cdot V;\\
+T &= Y_1^2;\	\qquad	A = Y_1 \cdot T;\	\qquad
+S = Z_1 ^ 2;\	\qquad	B = Z_1 \cdot S;\\
 X_3 &= X_1 \cdot (A - B);\	\quad
 Y_3 = -Z_1 \cdot (2A + B);\	\quad
 Z_3 = Y_1 \cdot (A + 2B);\\
-l_1 &= -X_Q \cdot (A + B) + X_1 \cdot (Y_Q \cdot U + V);	\\
-l_2 &= X_3 \cdot (Y_Q + 1) - X_Q \cdot (Y_3 + Z_3);	\\
-l &= l_1 \cdot Frobenius(l_2,7) \cdot Frobenius(l_2,14);
+l_1 &= a X_1^2 X_Q + T \cdot Y_Q + S;\	\qquad
+l_a = X_3 \cdot Q_Y + X_3;	\\
+l_b &= X_Q \cdot (Y_3 + Z_3);\			\qquad
+l_c = (l_a^2 + l_a \cdot l_b + l_b^2);\		\qquad
+l = l_1 \cdot l_c;
 \end{align*}
 The total number of operations is
-$ 5\mul +2\sqr + 3\add + 2\mulp{2} + $
-%$ 1\neg+ $
-$ (2\mul_k + 3\mul_e + 2\add_k + 2\add_e + 2\add) + $
-$ (2\mul_k + 2Frobenius$).
+$ k(2\mul + \frac{2}{3}\sqr) + 5\mul +3\sqr + 1\mul_a$.
 
 \subsubsection{Addition.}
 Given points $P = (X_1,Y_1,1)$ and $R = (X_2,Y_2,Z_2)$ on $E/\F{p}$ and a point $Q = (X_Q,Y_Q,1)$ on $E'/\F{p^{k/d}}$,
@@ -101,11 +100,11 @@ X_3 &= G - H;\	\qquad
 Y_3 = K - J;\\
 Z_3 &= J + K - G - H - 2(B - F) \cdot (C + E);\\
 l_1 &= (Y_1 \cdot Z_2 - Y_2) \cdot (X_1 - X_Q) + (Y_Q - Y_1) \cdot (X_1 \cdot Z_2 - X_2);\\
-l_2 &= X_3 \cdot (Y_Q + 1) - X_Q \cdot (Y_3 + Z_3);\\
-l &= l_1 \cdot Frobenius(l_2,7) \cdot Frobenius(l_2,14);
+l_a &= Y_Q \cdot X_3 + X_3;\	\quad
+l_b = X_Y \cdot (Y_3 + Z_3);\	\quad
+l_c = (l_a^2 + l_a \cdot l_b + l_b^2);\\
+l &= l_1 \cdot \l_c;
 \end{align*}
 The total number of operations is
-$ 9\mul +16\add + 1\mulp{a} + 1\mulp{2} + $
-$ (2\mul_k + 2\mul_e + 2\mul + 3\add_k + 2\add_e + 3\add) + $
-$ (2\mul_k + 2Frobenius)$.
+$ k(2\mul + \frac{2}{3}\sqr) + 11\mul + 1\mul_a$.
 

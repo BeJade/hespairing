@@ -1,27 +1,46 @@
 \section{Comparison}
 
-Different curve models
+Most of the previous work concern even embedding degrees.
+Most of the previous work also concern Weierstrass model.
+There were some previous work on Hessian model but in even embedding degrees.
+There were also some previous work in odd embedding degrees, but in Weierstrass model.
+This work is the first to consider Hessian model in odd embedding degrees.
+Note that even embedding degrees have the advantage of completely ignoring the vertical line.
+But in odd embedding degrees, we need to compute that line (note that it is not a vertical line in the Hessian model).
+Therefore, the cost is higher in odd than in even embedding degrees.
+
+
 
 \begin{table}[h]
 \centering
 \caption{Cost of pairing computation}
 
-\begin{tabular}{ l | l | l}
+\begin{tabular}{ l | l | l | l}
 \hline
-\multicolumn{1}{c|}{Curve models}	&\multicolumn{1}{c|}{DBL}	&\multicolumn{1}{c}{mADD}	\\
+\multicolumn{1}{c|}{$k$}
+&\multicolumn{1}{c|}{Curve models}	&\multicolumn{1}{c|}{DBL}	&\multicolumn{1}{c}{mADD}	\\
 \hline
-$\mathcal{J}$, \cite{2008/IonicaJoux08} \cite{2009/fastertate}
-				&$1\Mul + 1\Sqr + k\mul + 1\mul + 11\sqr + 1\mulp{a}$	&$1\Mul + k\mul + 6\mul + 6\sqr$	\\
-$\mathcal{J},a = -3$, \cite{2009/fastertate}
-				&$1\Mul + 1\Sqr + k\mul + 6\mul + 5\sqr$		&$1\Mul + k\mul + 6\mul + 6\sqr$	\\
-$\mathcal{J},a = 0$, \cite{2009/fastertate}		
-				&$1\Mul + 1\Sqr + k\mul + 3\mul + 8\sqr$		&$1\Mul + k\mul + 6\mul + 6\sqr$	\\
-$\mathcal{P},a = 0, b = b^2$, \cite{2009/craig}
-				&$1\Mul + 1\Sqr + k\mul + 3\mul + 5\sqr$		&$1\Mul + k\mul + 10\mul + 2\sqr + 1\mulp{b}$	\\
-$\mathcal{E}$, \cite{2009/fastertate}			
-				&$1\Mul + 1\Sqr + k\mul + 6\mul + 5\sqr$		&$1\Mul + k\mul + 12\mul$	\\
-$\mathcal{H}$, \cite{2010/Gu}			&$1\Mul + 1\Sqr + k\mul + 3\mul + 6\sqr$		&$1\Mul + k\mul + 10\mul$	\\
-$\mathcal{H}$, this paper	&$1\Mul + 1\Sqr + k\mul + 3\mul + 6\sqr$		&$1\Mul + k\mul + 10\mul$	\\
+\multicolumn{1}{c|}{\multirow{6}{*}{even}}
+&$\mathcal{J}$, \cite{2008/IonicaJoux08} \cite{2009/fastertate}
+				&$k\mul + 1\mul + 11\sqr + 1\mulp{a}$	&$k\mul + 6\mul + 6\sqr$	\\
+&$\mathcal{J},a = -3$, \cite{2009/fastertate}
+				&$k\mul + 6\mul + 5\sqr$		&$k\mul + 6\mul + 6\sqr$	\\
+&$\mathcal{J},a = 0$, \cite{2009/fastertate}		
+				&$k\mul + 3\mul + 8\sqr$		&$k\mul + 6\mul + 6\sqr$	\\
+&$\mathcal{P},a = 0, b = b^2$, \cite{2009/craig}
+				&$k\mul + 3\mul + 5\sqr$		&$k\mul + 10\mul + 2\sqr + 1\mulp{b}$	\\
+&$\mathcal{E}$, \cite{2009/fastertate}			
+				&$k\mul + 6\mul + 5\sqr$		&$k\mul + 12\mul$	\\
+&$\mathcal{H}$, \cite{2010/Gu}	&$k\mul + 3\mul + 6\sqr$		&$k\mul + 10\mul$	\\
+\hline
+%\multirow{2}{*}{\rotatebox{90}{$k{=}3$}}
+\multicolumn{1}{c|}{\multirow{2}{*}{odd,$d{=}3$}}
+&$\mathcal{P}$, \cite{2010/CLN}	&$k\mul + 6\mul + 7\sqr + 1\mul_b$	&$k\mul + 13\mul + 3\sqr$	\\
+&$\mathcal{H}$, this paper
+				&$k(2\mul + \frac{2}{3}\sqr) + 5\mul + 3\sqr + 1\mul_a$
+									&$k(2\mul + \frac{2}{3}\sqr) + 11\mul + 1\mul_a$	\\
+%				&$1\Mul + 1\Sqr + \frac{5}{3}k\mul + \frac{2}{3}k\sqr + 5\mul + 3\sqr$
+%											&$1\Mul + \frac{5}{3}k\mul + \frac{2}{3}k\sqr + 11\mul$	\\
 \hline
 \end{tabular}
 \label{tbl-cmp}
@@ -33,6 +52,3 @@ $\mathcal{H}$, this paper	&$1\Mul + 1\Sqr + k\mul + 3\mul + 6\sqr$		&$1\Mul + k\
 \end{table}
 
 
-
-
-Different embedding degrees
