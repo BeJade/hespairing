@@ -25,26 +25,29 @@ i.e., solving for $m$ and $b$ of $y = mx + b$ using points $(i+j)P$ and $-(i+j)P
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Denominator elimination}
-We follow a similar technique as in~\cite{2008/lin} and~\cite{2009/deg15}
+We follow a similar technique as described in~\cite{2008/lin} and~\cite{2009/deg15}
 by rewriting an inversion into a fraction having denominator lies in a subfield.
-Define a finite field extension $\F{q^m}$ of a finite field $\F{q}$.
-%Define a finite field extension $F = \F{q^m}$ of a finite field $K = \F{q}$.
-%For $\alpha \in F = \F{q^m}$ and $K = \F{q}$,
-%the \emph{norm} $N_{F/K}(\alpha)$ of $\alpha$ over $K$ is defined by
-%$$ N_{F/K}(\alpha) = \alpha \cdot \alpha^q \cdot \cdots \cdot \alpha^{q^{m-1}} = \alpha^{(q^m-1)/(q-1)} $$
-%
-%one of properties
-%$N_{F/K}$ maps $F$ onto $K$ and $F^\ast$ on $K^\ast$.
-%Let $q = p^7$.
+Define a finite field extension $\F{q^k}$ of a finite field $\F{q}$,
+element $x,y \in \F{q^k}$.
+
+%Observe that
+%$$ \frac{1}{a} = \frac{a^q \cdot a^{q^2}} {a \cdot a^{q} \cdot a^{q^2}} $$
+%where $a \cdot a^{q} \cdot a^{q^2} = N(a)$, i.e., a $norm$ of $a$ which lies in $\F{q}$.
+%Because $N(a) \in \F{q}$ which is a subfield of $\F{q^m}$,
+%the final exponentiation forces $N(a)$ to become 1.
+%This means that we can ignore the computation of the denominator $N(a)$.
+%Therefore, instead of computing $\frac{1}{a}$,
+%we compute $a^{q} \cdot a^{q^2}$ where
+%$a^{q}$ and $a^{q^2}$ can be easily computed using Frobenius.
+
 Observe that
-$$ \frac{1}{a} = \frac{a^q \cdot a^{q^2}} {a \cdot a^{q} \cdot a^{q^2}} $$
-where $a \cdot a^{q} \cdot a^{q^2} = N(a)$, i.e., a $norm$ of $a$ which lies in $\F{q}$.
-Because $N(a) \in \F{q}$ which is a subfield of $\F{q^m}$,
-the final exponentiation forces $N(a)$ to become 1.
-This means that we can ignore the computation of the denominator $N(a)$.
-Therefore, instead of computing $\frac{1}{a}$,
-we compute $a^{q} \cdot a^{q^2}$ where
-$a^{q}$ and $a^{q^2}$ can be easily computed using Frobenius.
+$$ \frac{1}{x-y} = \frac{x^2 + xy + y^2}{x^3 - y^3}. $$
+Because $x^3$ and $y^3$ lie in a subfield of $\F{q^k}$ and so as $x^3 - y^3$,
+the final exponentiation forces $x^3 - y^3$ to become 1.
+This means that we can ignore the computation of the denominator $x^3 - y^3$.
+Therefore, instead of computing $\frac{1}{x-y}$,
+we compute $x^2 + xy + y^2$
+and the cost of division by $x - y$ beceomes the cost of multiplication by $x^2 + xy + y^2$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
