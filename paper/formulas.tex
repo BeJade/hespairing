@@ -21,6 +21,33 @@ However, for Hessian curves, the line $l_2$ is not a vertical line
 and thus has to be constructed in a similar way as the line $l_1$,
 i.e., solving for $m$ and $b$ of $y = mx + b$ using points $(i+j)P$ and $-(i+j)P$.
 
+Let $m = (m_{\ell-1}, \dots, m_1, m_0)$ be the binary representation of $m$.
+Initialize $R = P$ and $f = 1$.
+Algorithm~\ref{algo:miller} shows Miller's algorithm.
+%\renewcommand{\algorithmicrequire}{\textbf{Initialize:}}
+%\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\begin{algorithm}
+\caption{Miller's algorithm}
+\label{algo:miller}
+\begin{algorithmic}[1]
+
+%	\Require $R = P$ and $f = 1$
+
+	\For {$i := \ell - 2$ {\bf{down to}} $0$}
+		\State $f \leftarrow f^2 \cdot f_{DBL(R)}(Q)$
+		\State $R \leftarrow 2R$
+		\If {$m_i = 1$}
+			\State $f \leftarrow f \cdot f_{ADD(R,P)}(Q)$
+			\State $R \leftarrow R+P$
+		\EndIf
+	\EndFor
+	\State $f \leftarrow f^{(q^k-1)/r}$
+
+\end{algorithmic}
+\end{algorithm}
+%\begin{note}
+%``End'' statements are implied by indentation, as in Python.
+%\end{note}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

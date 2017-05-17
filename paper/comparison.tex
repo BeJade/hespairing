@@ -1,15 +1,36 @@
 \section{Comparison}
 
-Most of the previous work concern even embedding degrees.
-Most of the previous work also concern Weierstrass model.
-There were some previous work on Hessian model but in even embedding degrees.
-There were also some previous work in odd embedding degrees, but in Weierstrass model.
-This work is the first to consider Hessian model in odd embedding degrees.
+As previously described in Section~\ref{sec:intro} that:
+\begin{itemize}
+\item	most of the previous works concerned Weierstrass curves
+\item	most of the previous works concerned even embedding degrees
+\item	there were some previous works on Hessian curves but with even embedding degrees
+\item	there were also some previous works with odd embedding degrees but usisng Weierstrass curves
+\end{itemize}
+it is difficult to have a fair comparison between this work and previous works
+since this work happens to be the first to consider the twisted Hessian curves with odd embedding degrees.
 Note that even embedding degrees have the advantage of completely ignoring the vertical line.
 But in odd embedding degrees, we need to compute that line (note that it is not a vertical line in the Hessian model).
 Therefore, the cost is higher in odd than in even embedding degrees.
 
+Table~\ref{tbl-cmp} shows costs of pairing computation of 
+``DBL'' means doubling
+``mADD'' means mixed addition ($z$ coordinate is 1)
+$\mathcal{J}$ means Weierstrass model with Jacobian coordinates
+$\mathcal{P}$ means Weierstrass model with projective coordinates
+$\mathcal{E}$ means Edwards model
+$\mathcal{H}$ means Hessian model
+$k$ stands for embedding degree
+$d$ is the twist degree
+\mul and \sqr is the cost of field multiplication and field squaring over the base field $\F{q}$
 
+$\Mul$ and $\Sqr$ denote the cost of field multiplication and field squaring over the extension field.
+Doubling has to compute $f^2 \cdot l$.
+Therefore, the extra cost of $1M + 1S$ is required.
+Addition has to compute $f \cdot l$.
+Therefore, the extra cost of $1M$ is required.
+These extra costs are the same for all curve models regardless of embedding degrees.
+Therefore, we omit these costs from the table.
 
 \begin{table}[h]
 \centering
