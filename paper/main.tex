@@ -1,5 +1,5 @@
-%\documentclass[11pt, a4paper]{article}
-\documentclass[11pt,runningheads]{llncs}
+\documentclass[11pt, a4paper]{article}
+%\documentclass[11pt,runningheads]{llncs}
 %\documentclass[11pt, a4paper]{llncs}
 
 %\usepackage[a4paper]{geometry}
@@ -20,24 +20,19 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{amsmath}
-\usepackage{multirow}
-\usepackage{graphicx}
-\usepackage{algorithm}
-\usepackage[noend]{algpseudocode}
+\usepackage{amsthm}
 
-%\newenvironment{note}{
-%\par
-%\noindent
-%\textif{Note:}
-%\ignorespaces
-%}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
 
 \newif\ifpublic
 \publicfalse
 
 \begin{document}
 
-\title{Fast Pairing-Friendly Twisted Hessian Curves}
+\title{Fast Pairing-Friendly Hessian Curves}
 
 \ifpublic
 \author{Chitchanok Chuengsatiansup}
@@ -64,6 +59,7 @@ twisted Hessian curves, pairing-friendly curves, Tate pairing, odd embedding deg
 
 \input macro
 \input intro
+\input Tatepairing
 \input curves
 \input formulas
 \input comparison

@@ -1,67 +1,27 @@
 \section{Comparison}
 
-As previously described in Section~\ref{sec:intro} that:
-\begin{itemize}
-\item	most of the previous works concerned Weierstrass curves
-\item	most of the previous works concerned even embedding degrees
-\item	there were some previous works on Hessian curves but with even embedding degrees
-\item	there were also some previous works with odd embedding degrees but usisng Weierstrass curves
-\end{itemize}
-it is difficult to have a fair comparison between this work and previous works
-since this work happens to be the first to consider the twisted Hessian curves with odd embedding degrees.
-Note that even embedding degrees have the advantage of completely ignoring the vertical line.
-But in odd embedding degrees, we need to compute that line (note that it is not a vertical line in the Hessian model).
-Therefore, the cost is higher in odd than in even embedding degrees.
-
-Table~\ref{tbl-cmp} shows costs of pairing computation of 
-``DBL'' means doubling
-``mADD'' means mixed addition ($z$ coordinate is 1)
-$\mathcal{J}$ means Weierstrass model with Jacobian coordinates
-$\mathcal{P}$ means Weierstrass model with projective coordinates
-$\mathcal{E}$ means Edwards model
-$\mathcal{H}$ means Hessian model
-$k$ stands for embedding degree
-$d$ is the twist degree
-\mul and \sqr is the cost of field multiplication and field squaring over the base field $\F{q}$
-
-$\Mul$ and $\Sqr$ denote the cost of field multiplication and field squaring over the extension field.
-Doubling has to compute $f^2 \cdot l$.
-Therefore, the extra cost of $1M + 1S$ is required.
-Addition has to compute $f \cdot l$.
-Therefore, the extra cost of $1M$ is required.
-These extra costs are the same for all curve models regardless of embedding degrees.
-Therefore, we omit these costs from the table.
+Different curve models
 
 \begin{table}[h]
 \centering
 \caption{Cost of pairing computation}
 
-\begin{tabular}{ l | l | l | l}
+\begin{tabular}{ l | l | l}
 \hline
-\multicolumn{1}{c|}{$k$}
-&\multicolumn{1}{c|}{Curve models}	&\multicolumn{1}{c|}{DBL}	&\multicolumn{1}{c}{mADD}	\\
+\multicolumn{1}{c|}{Curve models}	&\multicolumn{1}{c|}{DBL}	&\multicolumn{1}{c}{mADD}	\\
 \hline
-\multicolumn{1}{c|}{\multirow{6}{*}{even}}
-&$\mathcal{J}$, \cite{2008/IonicaJoux08} \cite{2009/fastertate}
-				&$k\mul + 1\mul + 11\sqr + 1\mulp{a}$	&$k\mul + 6\mul + 6\sqr$	\\
-&$\mathcal{J},a = -3$, \cite{2009/fastertate}
-				&$k\mul + 6\mul + 5\sqr$		&$k\mul + 6\mul + 6\sqr$	\\
-&$\mathcal{J},a = 0$, \cite{2009/fastertate}		
-				&$k\mul + 3\mul + 8\sqr$		&$k\mul + 6\mul + 6\sqr$	\\
-&$\mathcal{P},a = 0, b = b^2$, \cite{2009/craig}
-				&$k\mul + 3\mul + 5\sqr$		&$k\mul + 10\mul + 2\sqr + 1\mulp{b}$	\\
-&$\mathcal{E}$, \cite{2009/fastertate}			
-				&$k\mul + 6\mul + 5\sqr$		&$k\mul + 12\mul$	\\
-&$\mathcal{H}$, \cite{2010/Gu}	&$k\mul + 3\mul + 6\sqr$		&$k\mul + 10\mul$	\\
-\hline
-%\multirow{2}{*}{\rotatebox{90}{$k{=}3$}}
-\multicolumn{1}{c|}{\multirow{2}{*}{odd,$d{=}3$}}
-&$\mathcal{P}$, \cite{2010/CLN}	&$k\mul + 6\mul + 7\sqr + 1\mul_b$	&$k\mul + 13\mul + 3\sqr$	\\
-&$\mathcal{H}$, this paper
-				&$k(2\mul + \frac{2}{3}\sqr) + 5\mul + 3\sqr + 1\mul_a$
-									&$k(2\mul + \frac{2}{3}\sqr) + 11\mul + 1\mul_a$	\\
-%				&$1\Mul + 1\Sqr + \frac{5}{3}k\mul + \frac{2}{3}k\sqr + 5\mul + 3\sqr$
-%											&$1\Mul + \frac{5}{3}k\mul + \frac{2}{3}k\sqr + 11\mul$	\\
+$\mathcal{J}$, \cite{2008/IonicaJoux08} \cite{2009/fastertate}
+				&$1\Mul + 1\Sqr + k\mul + 1\mul + 11\sqr + 1\mulp{a}$	&$1\Mul + k\mul + 6\mul + 6\sqr$	\\
+$\mathcal{J},a = -3$, \cite{2009/fastertate}
+				&$1\Mul + 1\Sqr + k\mul + 6\mul + 5\sqr$		&$1\Mul + k\mul + 6\mul + 6\sqr$	\\
+$\mathcal{J},a = 0$, \cite{2009/fastertate}		
+				&$1\Mul + 1\Sqr + k\mul + 3\mul + 8\sqr$		&$1\Mul + k\mul + 6\mul + 6\sqr$	\\
+$\mathcal{P},a = 0, b = b^2$, \cite{2009/craig}
+				&$1\Mul + 1\Sqr + k\mul + 3\mul + 5\sqr$		&$1\Mul + k\mul + 10\mul + 2\sqr + 1\mulp{b}$	\\
+$\mathcal{E}$, \cite{2009/fastertate}			
+				&$1\Mul + 1\Sqr + k\mul + 6\mul + 5\sqr$		&$1\Mul + k\mul + 12\mul$	\\
+$\mathcal{H}$, \cite{2010/Gu}			&$1\Mul + 1\Sqr + k\mul + 3\mul + 6\sqr$		&$1\Mul + k\mul + 10\mul$	\\
+$\mathcal{H}$, this paper	&$1\Mul + 1\Sqr + k\mul + 3\mul + 6\sqr$		&$1\Mul + k\mul + 10\mul$	\\
 \hline
 \end{tabular}
 \label{tbl-cmp}
@@ -73,3 +33,6 @@ Therefore, we omit these costs from the table.
 \end{table}
 
 
+
+
+Different embedding degrees

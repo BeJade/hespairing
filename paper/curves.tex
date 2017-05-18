@@ -1,37 +1,13 @@
-\section{Pairing-friendly twisted Hessian curves}
+\section{Pairing-friendly Hessian curves}
 
-Even though every elliptic curve can be written in a Weierstrass form,
-only those that contain points of order 3 can be written in a Hessian form.
-Almost all methods to generate pairing-friendly curves are for generating
-pairing-friendly Weierstrass curves.
-Therefore, one method to generate pairing-friendly Hessian curves is to
-search through constructions of pairing-friendly Weierstrass curves for curves that have points of order 3,
-then convert those curves into the Hessian form.
-
-Let $E$ be an elliptic curve defined over a finite field $\F{q}$ where $q$ is prime.
-Let $r$ be the largest prime-factor subgroup of $E(\F{q})$.
-Define an \emph{embedding degree $k$} as the smallest integer $k$ such that $r | q^k -1$.
-To construct parametric families of pairing-friendly curves for given polynomials $q(x)$ and $r(x)$,
-one needs to search for some value $x_0$ that results in $q(x_0)$ being prime.
-Then, there is an elliptic curve $E$ defined over $\F{q(x_0)}$ having a subgroup
-of order $r(x_0)$ and an embedding degree $k$ with respect to $r(x_0)$.
-
-Cyclotomic families are families of curves where the underlying field $K$ is a cyclotomic field,
-the largest prime-factor subgroup $r$ is a cyclotomic polynomial,
-and the field $K$ contains $\sqrt{-D}$ for some small discriminant $D$.
-We searched through~\cite{2010/freeman} and found 3 cyclotomic-family constructions that satisfy our point-of-order-3 conditions.
-These constructions are based on a cyclotomic field containing a cube root of unity,
-i.e., fields contain $\sqrt{-3}$.
-Therefore, we choose the discriminant $D = 3$.
-
-The following constructions are for generating pairing-friendly Weierstrass curves
-which can be converted into Hessian curves (see~\cite{2015/hessian} Section 5).
-Note that twists of these curves (see Section~\ref{twist}) are also expressible in the Hessian form.
-We categorized these constructions by embedding degrees.
-Note that $q(x)$ is a prime field,
-$r(x)$ is a subgroup of $E(\F{q(x)})$ which may not be prime,
-and $t(x)$ is a trace of $E/\F{q(x)}$ defined as $t(x) = q(x) + 1 - \#E(\F{q(x)})$
-where $\#E(\F{q(x)})$ denotes the number of points on $E(\F{q(x)})$.
+Recall that in Section \ref{Tate}, we define the reduced Tate pairing
+\[e_{r}:E(\FF_{p}) \times E(\FF_{p^{k}}) \longrightarrow \FF_{p^{k}}\] on an elliptic curve $E/\FF_{p}$ in the case that 
+\begin{itemize}\label{props}
+\item $p$ is prime,
+\item $r$ is the size of the largest prime order subgroup of $E(\FF_{p})$, and
+\item $k$ is the smallest integer for which $r | p^{k}-1$.
+\end{itemize}
+We will refer to an elliptic curve $E/\FF_{p}$ where $p,r,k$ are known and satisfy these properties as \emph{pairing-friendly}. To construct our pairing, we search for pairing-friendly elliptic curves with a point of order 3 so that it can be written in Hessian form. There are many constructions of parametric families of pairing-friendly curves listed in \cite{2010/freeman}. We recall below those families for which the curves also have a point of order 3, as shown in \cite[Section 5]{2015/hessian}.
 
 %\subsection{Cyclotomic families}
 %~\cite{2010/freeman}
@@ -57,13 +33,13 @@ where $\#E(\F{q(x)})$ denotes the number of points on $E(\F{q(x)})$.
 %$k \equiv 3 \pmod{6}$ and
 This construction follows Construction 6.6 in~\cite{2010/freeman}
 under the first subcase where $k \equiv 3 \pmod{6}$.
-Pairing-friendly curves having embedding degree $k \equiv 3 \pmod{18}$
-can be constructed using the following polynomials:
+Define
 \begin{align*}
 r(x) &= \Phi_{2k}(x),	\\
-t(x) &= x^{k/3+1} + 1,	\\
-q(x) &= \frac{1}{3} (x^2 - x + 1) (x^{2k/3} - x^{k/3} + 1) + x^{k/3+1}.
+k(x) &= x^{k/3+1} + 1,	\\
+q(x) &= \frac{1}{3} (x^2 - x + 1) (x^{2k/3} - x^{k/3} + 1) + x^{k/3+1},
 \end{align*}
+where $\Phi_{2k}(x)$ denotes the cyclotomic polynomial of degree $2k$. For infinitely many $x_{0}\in \mathbb{Z}$, we can construct an elliptic curve $E/\FF_{p(x_{0})}$ such that the integers $r=r(x_{0})$, $k=k(x_{0})$, and $q=q(x_{0})$ satisfy the properties listed in \ref{props} (hence $E$ is pairing-friendly). Furthermore, for such $x_{0}$, we have that $k(x_{0}) \equiv 3 \pmod{18}$.
 %try $k = 21$ $x = 3*2^5 + 2$
 %have point of order 3, also on twist, have q prime, but not both q and r  prime
 %$D = 3 -> d = 3$ can't have d=6 because doesn't divide k
@@ -75,13 +51,14 @@ q(x) &= \frac{1}{3} (x^2 - x + 1) (x^{2k/3} - x^{k/3} + 1) + x^{k/3+1}.
 %If $k \equiv 3 \pmod{6}$ and
 This construction follows Construction 6.6 in~\cite{2010/freeman}
 under the second subcase where $k \equiv 3 \pmod{6}$.
-Pairing-friendly curves having embedding degree $k \equiv 9,15 \pmod{18}$
-can be constructed using the following polynomials:
+Define
 \begin{align*}
 r(x) &= \Phi_{2k}(x),	\\
 t(x) &= -x^{k/3+1} + x + 1,	\\
-q(x) &= \frac{1}{3} (x+1)^2 (x^{2k/3} - x^{k/3} + 1) - x^{2k/3+1}.
+q(x) &= \frac{1}{3} (x+1)^2 (x^{2k/3} - x^{k/3} + 1) - x^{2k/3+1},
 \end{align*}
+where $\Phi_{2k}(x)$ denotes the cyclotomic polynomial of degree $2k$. For infinitely many $x_{0}\in \mathbb{Z}$, we can construct an elliptic curve $E/\FF_{p(x_{0})}$ such that the integers $r=r(x_{0})$, $k=k(x_{0})$, and $q=q(x_{0})$ satisfy the properties listed in \ref{props} (hence $E$ is pairing-friendly). Furthermore, for such $x_{0}$, we have that
+$k(x_{0}) \equiv 9,15 \pmod{18}$.
 %try $k = 15, 33$
 %$ 15: x = 3*2^{31} + 2$
 %$ 33: 3*2^{10} + 2$
@@ -93,13 +70,14 @@ q(x) &= \frac{1}{3} (x+1)^2 (x^{2k/3} - x^{k/3} + 1) - x^{2k/3+1}.
 
 \subsection{Construction 3: $k \equiv 0 \pmod{6}$ and $18 \nmid k$}
 This construction follows the last case of Construction 6.6 in~\cite{2010/freeman}.
-Pairing-friendly curves having embedding degree $k \equiv 0 \pmod{6}$ where $18 \nmid k$
-can be constructed using the following polynomials:
+Define
 \begin{align*}
 r(x) &= \Phi_k(x),	\\
 t(x) &= x+1,		\\
-q(x) &= \frac{1}{3} (x-1)^2 (x^{k/3} - x^{k/6} + 1) + x.
+q(x) &= \frac{1}{3} (x-1)^2 (x^{k/3} - x^{k/6} + 1) + x,
 \end{align*}
+where $\Phi_{2k}(x)$ denotes the cyclotomic polynomial of degree $2k$. For infinitely many $x_{0}\in \mathbb{Z}$, we can construct an elliptic curve $E/\FF_{p(x_{0})}$ such that the integers $r=r(x_{0})$, $k=k(x_{0})$, and $q=q(x_{0})$ satisfy the properties listed in \ref{props} (hence $E$ is pairing-friendly). Furthermore, for such $x_{0}$, we have that
+$k(x_{0}) \equiv 0 \pmod{6}$, where $18 \nmid k(x_{0})$.
 %try $k = 12$
 %$x = 3*2^{63}$
 %have point of order 3, also on twist, have q prime, have q and r prime
@@ -119,15 +97,11 @@ q(x) &= \frac{1}{3} (x-1)^2 (x^{k/3} - x^{k/6} + 1) + x.
 \label{twist}
 %To reduce the cost of pairing computation, we considered the concept of twists of curves.
 Let $E$ and $E'$ be elliptic curves over $\F{q}$.
-We call $E'$ a twist of $E$ if $E$ and $E'$ are isomorphic over some extension field of $\F{q}$.
-More precisely, $E'$ is a {\emph{degree-$d$ twist}} of $E$ if they are isomorphic over a degree $d$ extension and not over any smaller field.
-
-Twists of curves speed up pairing computations by allowing arithmetic to take place in a subfield instead of the full extension field.
-That is, instead of working over the full extension field $\F{q^k}$, a degree-$d$ twist makes it possible to work over a subfield $\F{q^{k/d}}$
-given $d$ divides $k$.
-The larger the degree of twist is, the smaller the subfield that can be.
-Thus, it is desirable to use the highest degree of twist available.
-However, the only possible degrees of twist are $d \in \{2,3,4,6\}$.
+We call $E'$ a \emph{twist} of $E$ if $E$ and $E'$ are isomorphic over some field extension of $\F{q}$.
+More precisely, $E'$ is a {\emph{degree-$d$ twist}} of $E$ if they are isomorphic over a degree $d$ extension and not over any smaller field. Suppose that
+\[E: x^{3} + y^{3} + z^{3} = 0\] is an elliptic curve defined over a field $\FF_{q}$. Then if $q \equiv 1 \text{ mod } 3$, the group $\FF_{q}^{*}/(\FF_{q}^{*})^{3}$ consists of 3 elements, and hence there exist 2 degree 3 twists of $E$ defined by
+\[E_{a}: aX^{3} + Y^{3} + Z^{3} = 0,\] where $1 \neq a \in \FF_{q}^{*}/(\FF_{q}^{*})^{3}$. In particular, if $3|k$, where $k$ is the embedding degree of $E/\FF_{q}$, and $\#E(\FF_{q}) \pmod{3} \neq 0$, then by \cite[Theorem 3]{Hess, Smart, Vercauteren}, we have that
+\[E(\FF_{q^{k}}) \cong \bigoplus_{a \in \FF_{q}^{*}/(\FF_{q}^{*})^{3}} E_{a}(\FF_{q^{k/3}}).\] Hence, we can speed up the evaluation of the line function at a point $Q \in E(\FF_{q^{k}})$ in the pairing computation by instead evaluating at a point $Q' \in E_{a}(\FF_{q^{k/3}})$.
 
 %To use the twists of curves, the degree $d$ must divide $k$.
 %For the case $k \equiv 3 \pmod{18}$ and $k \equiv 9,15 \pmod{18}$,
@@ -136,6 +110,7 @@ However, the only possible degrees of twist are $d \in \{2,3,4,6\}$.
 %all twisted degrees are possible, i.e., $d \in \{2,3,4,6\}$.
 
 %Recall that we focus only on curves that both the curves and theirs twists contain points of order 3.
+\textbf{is this really necessary?}
 To express twists of curves in the Hessian form,
 those twists must also contain points of order 3.
 To check whether the twisted curve $E'$ of $E$ contains points of order 3 or not,
