@@ -48,7 +48,7 @@ r(x) &= \Phi_{2k}(x),	\\
 k(x) &= x^{k/3+1} + 1,	\\
 q(x) &= \frac{1}{3} (x^2 - x + 1) (x^{2k/3} - x^{k/3} + 1) + x^{k/3+1},
 \end{align*}
-where $\Phi_{2k}(x)$ denotes the cyclotomic polynomial of degree $2k$. For infinitely many $x_{0}\in \mathbb{Z}$, we can construct an elliptic curve $E/\FF_{p(x_{0})}$ such that the integers $r=r(x_{0})$, $k=k(x_{0})$, and $q=q(x_{0})$ satisfy the properties listed in \ref{props} (hence $E$ is pairing-friendly). Furthermore, for such $x_{0}$, we have that $k(x_{0}) \equiv 3 \pmod{18}$.
+where $\Phi_{2k}(x)$ denotes the cyclotomic polynomial of degree $2k$. For infinitely many $x_{0}\in \mathbb{Z}$, we can construct an elliptic curve $E/\FF_{p(x_{0})}$ such that the integers $r=r(x_{0})$, $k=k(x_{0})$, and $p=p(x_{0})$ satisfy the properties for $E$ to be pairing-friendly. Furthermore, for such $x_{0}$, we have that $k(x_{0}) \equiv 3 \pmod{18}$.
 %try $k = 21$ $x = 3*2^5 + 2$
 %have point of order 3, also on twist, have q prime, but not both q and r  prime
 %$D = 3 -> d = 3$ can't have d=6 because doesn't divide k
@@ -66,7 +66,7 @@ r(x) &= \Phi_{2k}(x),	\\
 t(x) &= -x^{k/3+1} + x + 1,	\\
 q(x) &= \frac{1}{3} (x+1)^2 (x^{2k/3} - x^{k/3} + 1) - x^{2k/3+1},
 \end{align*}
-where $\Phi_{2k}(x)$ denotes the cyclotomic polynomial of degree $2k$. For infinitely many $x_{0}\in \mathbb{Z}$, we can construct an elliptic curve $E/\FF_{p(x_{0})}$ such that the integers $r=r(x_{0})$, $k=k(x_{0})$, and $q=q(x_{0})$ satisfy the properties listed in \ref{props} (hence $E$ is pairing-friendly). Furthermore, for such $x_{0}$, we have that
+where $\Phi_{2k}(x)$ denotes the cyclotomic polynomial of degree $2k$. For infinitely many $x_{0}\in \mathbb{Z}$, we can construct an elliptic curve $E/\FF_{p(x_{0})}$ such that the integers $r=r(x_{0})$, $k=k(x_{0})$, and $p=p(x_{0})$ satisfy the properties for $E$ to be pairing-friendly. Furthermore, for such $x_{0}$, we have that
 $k(x_{0}) \equiv 9,15 \pmod{18}$.
 %try $k = 15, 33$
 %$ 15: x = 3*2^{31} + 2$
@@ -85,7 +85,7 @@ r(x) &= \Phi_k(x),	\\
 t(x) &= x+1,		\\
 q(x) &= \frac{1}{3} (x-1)^2 (x^{k/3} - x^{k/6} + 1) + x,
 \end{align*}
-where $\Phi_{k}(x)$ denotes the cyclotomic polynomial of degree $k$. For infinitely many $x_{0}\in \mathbb{Z}$, we can construct an elliptic curve $E/\FF_{p(x_{0})}$ such that the integers $r=r(x_{0})$, $k=k(x_{0})$, and $p=p(x_{0})$ satisfy the properties listed in \ref{props} (hence $E$ is pairing-friendly). Furthermore, for such $x_{0}$, we have that
+where $\Phi_{k}(x)$ denotes the cyclotomic polynomial of degree $k$. For infinitely many $x_{0}\in \mathbb{Z}$, we can construct an elliptic curve $E/\FF_{p(x_{0})}$ such that the integers $r=r(x_{0})$, $k=k(x_{0})$, and $p=p(x_{0})$ satisfy the properties for $E$ to be pairing-friendly. Furthermore, for such $x_{0}$, we have that
 $k(x_{0}) \equiv 0 \pmod{6}$, where $18 \nmid k(x_{0})$.
 %try $k = 12$
 %$x = 3*2^{63}$
@@ -120,11 +120,11 @@ Suppose that
 \begin{proof}
 Every supersingular elliptic curve with a point of order 3 is of the form
 \[E': \alpha X^{3} + \beta Y^{3} + \gamma Z^{3} = 0,\] where $\alpha,\beta,\gamma \in \FF_{p^{k/3}}$. Furthermore, we know that $\alpha$, $\beta$, and $\gamma$ are non-zero as $E'$ is non-singular. Hence every twist of $E$ is isomorphic over $\FF_{p^{k/3}}$ to an elliptic curve $E'$ of the above form with $\alpha,\beta,\gamma \in \FF_{p^{k/3}}^{*}/(\FF_{p^{k/3}}^{*})^{3}$. Let $a'$ be a generator of the group $\FF_{p^{k/3}}^{*}/(\FF_{p^{k/3}}^{*})^{3}$, so that
-\[\FF_{p^{k/3}}^{*}/(\FF_{p^{k/3}}^{*})^{3} = \{1,a',a'^{2}\}.\] Then it is easy to see that
-\[ E_{a'} : a'X^{3} + Y^{3} + Z^{3} = 0,\] \[E_{a'^{2}} : a'^{2}X^{3} + Y^{3} + Z^{3} = 0,\] and\[ E_{1}: X^{3} + Y^{3} + Z^{3} = 0\] are the only non-$\FF_{p^{k/3}}$-isomorphic twists of $E$ such that any two of the coefficients $\alpha,\beta,\gamma$ are the same. It remains to show that the curve defined by $E'$ with $\alpha = 1$, $\beta = a'$, and $\gamma = a'^{2}$ is isomorphic over $F_{p^{k/3}}$ to \[E_{1}: X^{3} + Y^{3} + Z^{3} = 0.\]
+\[\FF_{p^{k/3}}^{*}/(\FF_{p^{k/3}}^{*})^{3} = \{1,a',a'^{2}\}.\] The curves defined by
+\[ E_{a'} : a'X^{3} + Y^{3} + Z^{3} = 0,\] \[E_{a'^{2}} : a'^{2}X^{3} + Y^{3} + Z^{3} = 0,\] and\[ E_{1}: X^{3} + Y^{3} + Z^{3} = 0\] are the only non-$\FF_{p^{k/3}}$-isomorphic twists of $E$ such that any two of the coefficients $\alpha,\beta,\gamma$ are the same. The curve $E'$ with $\alpha = 1$, $\beta = a'$, and $\gamma = a'^{2}$ is isomorphic over $F_{p^{k/3}}$ to \[E_{1}: X^{3} + Y^{3} + Z^{3} = 0.\]
 \end{proof}
 
-Now, if $3|k$, where $k$ is the embedding degree of $E/\FF_{p}$, and $\#E(\FF_{p}) \not\equiv 0 \text{ mod } 3$, then by \cite[Theorem 3]{Hess, Smart, Vercauteren} and the above Lemma, for any $a \in \FF_{p}^{*}$, we have that
+Now, if $3|k$, where $k$ is the embedding degree of $E/\FF_{p}$, and $\#E(\FF_{p}) \not\equiv 0 \text{ mod } 3$, then by \cite[Theorem 3]{2006/hess} and the above Lemma, for any $a \in \FF_{p}^{*}$, we have that
 \[E_{a}(\FF_{p^{k}}) \cong \bigoplus_{a' \in \FF_{p^{k/3}}^{*}/(\FF_{p^{k/3}}^{*})^{3}} E_{a'}(\FF_{p^{k/3}}).\] 
 In particular, every point $Q \in E_{a}(\FF_{p^{k}})$ is the image of a point $Q_{a'} \in E_{a'}(\FF_{p^{k/3}})$, for some $a' \in \FF_{p^{k/3}}^{*}/(\FF_{p^{k/3}}^{*})^{3}$, under the morphism
 \[\begin{array}{rccc}
@@ -141,9 +141,9 @@ where $b \in \FF_{p^{k}}$ satisfies $b^{3} = a'/a$. Hence, writing $Q = (x_{Q}:y
 
 %Recall that we focus only on curves that both the curves and theirs twists contain points of order 3.
 
-Also, as we are currently bound to using algorithms written for curves given in Weierstrass form, when we have computed a degree 3 twist $E'$ of a given elliptic curve $E$, we have to check whether it can be written in Hessian form, that is, whether or not $E'$ contains a point of order 3. To do this, we use the formulae for the number of points on twisted curves given in~\cite{2006/hess}.
-The formulae for calculating the number of points on twisted curves always come in pairs as there are exactly two twists, as we proved above.
-For example, the formulae for $d = 3$ stated in~\cite{2006/hess} are as follows:
+Also, as we are currently bound to using algorithms written for curves given in Weierstrass form, when we have computed a degree 3 twist $E'$ of a given elliptic curve $E$, we have to check whether it can be written in Hessian form, that is, whether or not $E'$ contains a point of order 3. To do this, we use the formulas for the number of points on twisted curves given in~\cite{2006/hess}.
+The formulas for calculating the number of points on twisted curves always come in pairs as there are exactly two twists, as we proved above.
+For example, the formulas stated in~\cite{2006/hess} are as follows:
 \begin{align*}
 \# E' (\F{p}) &= p + 1 - (3f - t) / 2 & with & \quad t^2 - 4p = -3f^2, \\
 \# E' (\F{p}) &= p + 1 - (-3f- t) / 2 & with & \quad t^2 - 4p = -3f^2.
