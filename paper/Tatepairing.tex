@@ -32,7 +32,7 @@ With notation as above, for $P \in G_{1}$ and $Q \in G_{2}$, we get that
 \[e_{r}(P,Q)= \prod_{m=1}^{r-1} \frac{L_{P,mP}(Q)^{\frac{p^{k}-1}{r}}}{L_{(m+1)P,-(m+1)P}(Q)^{\frac{p^{k}-1}{r}}}.\]
 \end{corollary}
 
-Hence, we only need to give formulae for addition and point doubling to compute the reduced Tate pairing restricted to $G_{1} \times G_{2}$. That is, Algorithm \ref{algo:miller} computes $e_{r}(P,Q)$ for $(P,Q) \in G_{1} \times G_{2}$.
+Hence, we only need to give formulas for addition and point doubling to compute the reduced Tate pairing restricted to $G_{1} \times G_{2}$. That is, Algorithm \ref{algo:miller} computes $e_{r}(P,Q)$ for $(P,Q) \in G_{1} \times G_{2}$. For a point $R$ on $E$, we denote by $\ell_{2R}$ the tangent line at $R$ and by $\ell_{R,P}$ the line passing through $R$ and $P$.
 
 \begin{algorithm}
 \caption{Miller's algorithm}
@@ -42,10 +42,10 @@ Hence, we only need to give formulae for addition and point doubling to compute 
 %	\Require $R = P$ and $f = 1$
 
 	\For {$i := \ell - 2$ {\bf{down to}} $0$}
-		\State $f \leftarrow f^2 \cdot f_{DBL(R)}(Q)$
+		\State $f \leftarrow f^2 \cdot \ell_{2R}(Q)$
 		\State $R \leftarrow 2R$
 		\If {$m_i = 1$}
-			\State $f \leftarrow f \cdot f_{ADD(R,P)}(Q)$
+			\State $f \leftarrow f \cdot \ell_{R,P}(Q)$
 			\State $R \leftarrow R+P$
 		\EndIf
 	\EndFor
