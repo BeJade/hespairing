@@ -1,35 +1,87 @@
 \section{Computation of line functions}
 
-We now move to the explicit computation of the line functions $\ell_{1} = L_{P,Q}$ and $\ell_{2} = L_{P,-P}$ given in the formula for the reduced Tate pairing. Recall from \ref{?} that the denominator of the reduced Tate pairing was given by
-\[L_{nP,-nP}(Q)^{\frac{q^{k}-1}{r}},\] where $P \in E(\FF_{q})$ and $Q \in E(\FF_{q^{k}})$. Recall also from \ref{?} that, possibly replacing $E$ by a twist, we may assume without loss of generality that $Q \in E(\FF_{q^{k/3}})$. Write $nP = (x_{nP},y_{nP},z_{nP})$ and $Q=(x_{Q},y_{Q},z_{Q})$. Then applying the group law we compute the equation of $L_{nP,-nP}$ to be
-\[Y + Z + (y_{nP} + z_{nP})X = 0,\] which evaluated at $Q$ gives an element $b$ of $\FF_{q^{k/3}}$. Now observe that
-\[(q^{k} -1) = (q^{k/3}-1)(\sum_{i=0}^{2k/3} q^{i}),\] and by minimality of the embedding degree that $r \not | q^{k/3}-1$, hence
-\[L_{nP,-nP}(Q)^{\frac{q^{k}-1}{r}} = b^{\frac{q^{k}-1}{r}} = (b^{q^{k/3}-1})^\frac{\sum_{i=0}^{2k/3} q^{i}}{r} = 1.\] So this does not contribute to the reduced Tate pairing.
+%XXX To Chloe: is this still correct? wouldn't everything collapse to 1?
+We now move to the explicit computation of the line functions
+$\ell_{1} = L_{P,Q}$ and $\ell_{2} = L_{P,-P}$
+given in the formula for the reduced Tate pairing.
+Recall from \ref{?} that the denominator of the reduced Tate pairing was given by
+\[L_{nP,-nP}(Q)^{\frac{q^{k}-1}{r}},\]
+where $P \in E(\FF_{q})$ and $Q \in E(\FF_{q^{k}})$.
+Recall also from \ref{?} that, possibly replacing $E$ by a twist,
+we may assume without loss of generality that $Q \in E(\FF_{q^{k/3}})$.
+Write $nP = (x_{nP},y_{nP},z_{nP})$ and $Q=(x_{Q},y_{Q},z_{Q})$.
+Then applying the group law we compute the equation of $L_{nP,-nP}$ to be
+\[Y + Z + (y_{nP} + z_{nP})X = 0,\] which evaluated at $Q$ gives an element $b$ of $\FF_{q^{k/3}}$.
+Now observe that
+\[(q^{k} -1) = (q^{k/3}-1)(\sum_{i=0}^{2k/3} q^{i}),\]
+and by minimality of the embedding degree that $r \not | q^{k/3}-1$,
+hence
+\[L_{nP,-nP}(Q)^{\frac{q^{k}-1}{r}} = b^{\frac{q^{k}-1}{r}} = (b^{q^{k/3}-1})^\frac{\sum_{i=0}^{2k/3} q^{i}}{r} = 1.\]
+So this does not contribute to the reduced Tate pairing.
+%%%%%%%%%%%%%%%%%%%%
 
+The heart of pairings lies on the computation of line functions.
+A rational function $f_{r,P}$ associated to the point $P$ and some integer $r$
+is first constructed.
+Then, this function is evaluated at the point $Q$.
+The divisor associated to the function $f_{,P}$ is
+$$ div(f_{r,P}) = r(P) - (rP) - (r-1)(P_\infty). $$
+Miller's algorithm computes $f_{r,P}$ in the double-and-add manner
+and uses the following relation
+$$ f_{i+j,P} = f_{i,P} f_{j,P} \frac{l_1}{l_2}, $$
+where $l_1$ is a line through $iP$ and $jP$,
+and $l_2$ is a line through $(i+j)P$ and $-(i+j)P$.
+
+Constructing the line $l_1$ can be done by substituting $x$ and $y$ coordinates of points $iP$ and $jP$
+into an equation $y = mx + b$ and solving for $m$ and $b$.
+For Weierstrass curves, the line $l_2$ is simply a vertical line through $(i+j)P$.
+Therefor, the line $l_2$ is of the form $x = c$ where $c$ is the $x$-coordinate of the point $(i+j)P$.
+Note that the point $(i+j)P$ and $-(i+j)P$ have the same $x$-coordinate.
+However, for Hessian curves, the line $l_2$ is not a vertical line
+and thus has to be constructed in a similar way as the line $l_1$,
+i.e., solving for $m$ and $b$ of $y = mx + b$ using points $(i+j)P$ and $-(i+j)P$.
+
+Let $m = (m_{\ell-1}, \dots, m_1, m_0)$ be the binary representation of $m$.
+Initialize $R = P$ and $f = 1$.
+Algorithm~\ref{algo:miller} shows Miller's algorithm.
+%\renewcommand{\algorithmicrequire}{\textbf{Initialize:}}
+%\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\begin{algorithm}
+\caption{Miller's algorithm}
+\label{algo:miller}
+\begin{algorithmic}[1]
+
+%	\Require $R = P$ and $f = 1$
+
+	\For {$i := \ell - 2$ {\bf{down to}} $0$}
+		\State $f \leftarrow f^2 \cdot f_{DBL(R)}(Q)$
+		\State $R \leftarrow 2R$
+		\If {$m_i = 1$}
+			\State $f \leftarrow f \cdot f_{ADD(R,P)}(Q)$
+			\State $R \leftarrow R+P$
+		\EndIf
+	\EndFor
+	\State $f \leftarrow f^{(q^k-1)/r}$
+
+\end{algorithmic}
+\end{algorithm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Denominator elimination}
-We follow a similar technique as in~\cite{2008/lin} and~\cite{2011/mrabet}
+We follow a similar technique as described in~\cite{2008/lin} and~\cite{2009/deg15}
 by rewriting an inversion into a fraction having denominator lies in a subfield.
-Define a finite field extension $\F{q^m}$ of a finite field $\F{q}$.
-%Define a finite field extension $F = \F{q^m}$ of a finite field $K = \F{q}$.
-%For $\alpha \in F = \F{q^m}$ and $K = \F{q}$,
-%the \emph{norm} $N_{F/K}(\alpha)$ of $\alpha$ over $K$ is defined by
-%$$ N_{F/K}(\alpha) = \alpha \cdot \alpha^q \cdot \cdots \cdot \alpha^{q^{m-1}} = \alpha^{(q^m-1)/(q-1)} $$
-%
-%one of properties
-%$N_{F/K}$ maps $F$ onto $K$ and $F^\ast$ on $K^\ast$.
-%Let $q = p^7$.
+Define a finite field extension $\F{q^k}$ of a finite field $\F{q}$
+and elements $x,y \in \F{q^k}$.
+
 Observe that
-$$ \frac{1}{a} = \frac{a^q \cdot a^{q^2}} {a \cdot a^{q} \cdot a^{q^2}} $$
-where $a \cdot a^{q} \cdot a^{q^2} = N(a)$, i.e., a $norm$ of $a$ which lies in $\F{q}$.
-Because $N(a) \in \F{q}$ which is a subfield of $\F{q^m}$,
-the final exponentiation forces $N(a)$ to become 1.
-This means that we can ignore the computation of the denominator $N(a)$.
-Therefore, instead of computing $\frac{1}{a}$,
-we compute $a^{q} \cdot a^{q^2}$ where
-$a^{q}$ and $a^{q^2}$ can be easily computed using Frobenius.
+$$ \frac{1}{x-y} = \frac{x^2 + xy + y^2}{x^3 - y^3}. $$
+Because $x^3$ and $y^3$ lie in a subfield of $\F{q^k}$ and so as $x^3 - y^3$,
+the final exponentiation forces $x^3 - y^3$ to become 1.
+This means that we can ignore the computation of the denominator $x^3 - y^3$.
+Therefore, instead of computing $\frac{1}{x-y}$,
+we compute $x^2 + xy + y^2$
+and the cost of division by $x - y$ beceomes the cost of multiplication by $x^2 + xy + y^2$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -41,13 +93,13 @@ $$ \mathcal{H}: a X^3 + Y^3 = Z^3 + d X Y Z. $$
 This subsection shows formulas to compute point doubling, point addition, and line functions associated to these operations.
 These formulas work under an assumption that the curve parameter $d = 0$.
 
-Symbols $\mul, \sqr, \add, \mulp{a}, \mulp{2}$ denote
-field multiplication, field squaring, field addition,
-field multiplication by curve constant $a$ and field multiplication by 2 over $\F{p}$,
-whereas $\mul_k$ and $\add_k$ denote
-field multiplication and field addition over $\F{p^k}$,
-and $\mul_e$ and $\add_e$ denote
-field multiplication and field addition over $\F{p^e}$ where $e = k/d$.
+Symbols $\mul, \sqr, \mulp{a}, \mulp{b}, k, d$ denote
+field multiplication,
+field squaring,
+field multiplication by curve constant $a$,
+field multiplication by curve constant $b$
+embedding degree and
+twist degree respectively.
 
 \subsubsection{Doubling.}
 %	// 5M + 2S + 3*3 + 1*2 + 1*neg + 6*add
@@ -55,20 +107,19 @@ field multiplication and field addition over $\F{p^e}$ where $e = k/d$.
 Given a point $P = (X_1,Y_1,Z_1)$ on $E/\F{p}$ and a point $Q = (X_Q,Y_Q,1)$ on $E'/\F{p^{k/d}}$,
 the following formulas compute the doubling of point $P = 2P = (X_3,Y_3,Z_3)$ and the line function $l$.
 \begin{align*}
-U &= Y_1^2;\	\qquad	A = Y_1 \cdot U;\	\qquad
-V = Z_1 ^ 2;\	\qquad	B = Z_1 \cdot V;\\
+T &= Y_1^2;\	\qquad	A = Y_1 \cdot T;\	\qquad
+S = Z_1 ^ 2;\	\qquad	B = Z_1 \cdot S;\\
 X_3 &= X_1 \cdot (A - B);\	\quad
 Y_3 = -Z_1 \cdot (2A + B);\	\quad
 Z_3 = Y_1 \cdot (A + 2B);\\
-l_1 &= -X_Q \cdot (A + B) + X_1 \cdot (Y_Q \cdot U + V);	\\
-l_2 &= X_3 \cdot (Y_Q + 1) - X_Q \cdot (Y_3 + Z_3);	\\
-l &= l_1 \cdot Frobenius(l_2,7) \cdot Frobenius(l_2,14);
+l_1 &= a X_1^2 X_Q + T \cdot Y_Q + S;\	\qquad
+l_a = X_3 \cdot Q_Y + X_3;	\\
+l_b &= X_Q \cdot (Y_3 + Z_3);\			\qquad
+l_c = (l_a^2 + l_a \cdot l_b + l_b^2);\		\qquad
+l = l_1 \cdot l_c;
 \end{align*}
 The total number of operations is
-$ 5\mul +2\sqr + 3\add + 2\mulp{2} + $
-%$ 1\neg+ $
-$ (2\mul_k + 3\mul_e + 2\add_k + 2\add_e + 2\add) + $
-$ (2\mul_k + 2Frobenius$).
+$ k(2\mul + \frac{2}{3}\sqr) + 5\mul +3\sqr + 1\mul_a$.
 
 \subsubsection{Addition.}
 Given points $P = (X_1,Y_1,1)$ and $R = (X_2,Y_2,Z_2)$ on $E/\F{p}$ and a point $Q = (X_Q,Y_Q,1)$ on $E'/\F{p^{k/d}}$,
@@ -86,11 +137,12 @@ X_3 &= G - H;\	\qquad
 Y_3 = K - J;\\
 Z_3 &= J + K - G - H - 2(B - F) \cdot (C + E);\\
 l_1 &= (Y_1 \cdot Z_2 - Y_2) \cdot (X_1 - X_Q) + (Y_Q - Y_1) \cdot (X_1 \cdot Z_2 - X_2);\\
-l_2 &= X_3 \cdot (Y_Q + 1) - X_Q \cdot (Y_3 + Z_3);\\
-l &= l_1 \cdot Frobenius(l_2,7) \cdot Frobenius(l_2,14);
+l_a &= Y_Q \cdot X_3 + X_3;\	\quad
+l_b = X_Y \cdot (Y_3 + Z_3);\	\quad
+l_c = (l_a^2 + l_a \cdot l_b + l_b^2);\\
+l &= l_1 \cdot \l_c;
 \end{align*}
 The total number of operations is
-$ 9\mul +16\add + 1\mulp{a} + 1\mulp{2} + $
-$ (2\mul_k + 2\mul_e + 2\mul + 3\add_k + 2\add_e + 3\add) + $
-$ (2\mul_k + 2Frobenius)$.
+$ k(2\mul + \frac{2}{3}\sqr) + 11\mul + 1\mul_a$.
+
 
