@@ -75,10 +75,10 @@ The cost of multiplication by curve parameters is omitted from the table.
 Let $\Mul$ and $\Sqr$ denote the cost of field multiplication and field squaring over the extension field.
 In the doubling step (line 2 in Algorithm~\ref{algo:miller},
 it has to compute $f^2 \cdot l$.
-Therefore, the extra cost of $1M + 1S$ is required.
+Therefore, the extra cost of $1\Mul + 1\Sqr$ is required.
 Similarly, in the addition step (line 5 in Algorithm~\ref{algo:miller},
 it has to compute $f \cdot l$.
-Therefore, the extra cost of $1M$ is required.
+Therefore, the extra cost of $1\Mul$ is required.
 These extra costs are the same for all curve models regardless of embedding degrees.
 Hence, we omit these costs from the table.
 
