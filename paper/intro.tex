@@ -71,14 +71,17 @@ the cost of solving DLP must be sufficiently high in all of these three groups.
 Recall that $\mathbb{G}_1$ and $\mathbb{G}_2$ are elliptic-curve groups
 while $\mathbb{G}_T$ is a multiplicative group defined over a finite field.
 In general, DLP on the elliptic-curve side is more difficult than the finite field side.
-This means that the group size of the finite field has to be larger in order to have a balance the security on both sides.
+This means that the group size of the finite field has to be larger in order to have a balance security on both sides.
 
 
 \subsection{Choice of curves and embedding degrees}
 
-As previously mentioned, one way to improve the performance of pairings is
+One way to improve the performance of pairings is
 to improve the performance of the underlying point arithmetic.
-Alternative curve models other than the conservative Weierstrass curves have been proposed,
+Since pairing computation arises naturally from a geometric representation of Weierstrass curves,
+most pairing formulas consider Weierstrass curves.
+However, arithmetic on Weierstrass curves is known to be quite slow compare to other curves,
+%Alternative curve models other than the conservative Weierstrass curves have been proposed,
 for example, Hessian curves~\cite{2001/smart}~\cite{2001/joye} and
 Edwards curves~\cite{2007/edwards}~\cite{2007/bernstein-newelliptic}.
 
@@ -94,8 +97,8 @@ this gain is outweighed by the slower computation of line functions.
 %the computation of line funcions is much slower which outweigh
 %%leands to a slowdown in the overall computation of pairing.
 
-Pairing based on Hessian curves has been considered by Gu, Gu and Xie~\cite{2010/Gu}.
-They provide a geometric interpretation of the group law on Hessian curves
+Pairings based on Hessian curves have been considered by Gu, Gu and Xie~\cite{2010/Gu}.
+They provided a geometric interpretation of the group law on Hessian curves
 along with an algorithm for computing Tate pairing on elliptic curves in Hessian form.
 However, no pairing-friendly curves in the Hessian forms were given.
 
@@ -111,7 +114,7 @@ between other curve models into Weierstrass curves.
 Regardless of the curve models, most of the previous works were considering ``even'' embedding degrees.
 One of the main advantages of even embedding degrees is the applicability of applying a denominator elimination technique.
 Originally, part of the pairing algorithms is to compute $l \leftarrow l_1/l_2$.
-In the case of even embedding degrees, $l_2$ will be mapped to one in a sequent step.
+In the case of even embedding degrees, $l_2$ will be mapped to one in a sequent step (final exponentiation).
 Therefore, a computation of $l_2$ and a division by $l_2$ can completely be ignored.
 On the other hands, $l_2$ will not be mapped to one for odd embedding degrees.
 Thus, this denominator elimination technique cannot be applied directly.
@@ -185,13 +188,13 @@ Recall that most of the previous works focused on Weierstrass curves and even em
 There were some previous works on different curve models but with even embedding degrees.
 There were also some previous works with odd embedding degrees but on Weierstrass models.
 We appear to be the first to consider pairings on curves other than Weierstrass models,
-specifically twisted Hessian curves, with odd embedding degrees.
+specifically ``twisted'' Hessian curves, with ``odd'' embedding degrees.
 
 Among the popular pairing-friendly curve families,
 BN-12 and KSS-18 have embedding degrees 12 and 18 respectively.
 We notice that jumping from embedding degree 12 to 18 is quite a huge gap.
 Therefore, we provide an alternative of embedding degree 15 aiming at a better tune of prime field and embedding degree.
-For higher security lever, our construction also allow, for example, embedding degrees 21 and 33.
+For higher security level, our constructions also allow, for example, embedding degrees 21 and 33.
 %256-bit prime field with embedding degree 12 does not seem to be adequate to provide 128-bit security.
 %In order to achieve 128-bit security, either increase the size of the prime field or the embedding degree.
 %Due to the advance in solving DLP which weakened the security of pairings,
