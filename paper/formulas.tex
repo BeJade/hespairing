@@ -6,18 +6,18 @@ We now move to the explicit computation of the line functions
 $\ell_{1} = L_{P,Q}$ and $\ell_{2} = L_{P,-P}$
 given in the formula for the reduced Tate pairing.
 Recall from \ref{?} that the denominator of the reduced Tate pairing was given by	%XXX add ref here
-\[L_{nP,-nP}(Q)^{\frac{q^{k}-1}{r}},\]
-where $P \in E(\FF_{q})$ and $Q \in E(\FF_{q^{k}})$.
+\[L_{nP,-nP}(Q)^{\frac{p^{k}-1}{r}},\]
+where $P \in E(\FF_{p})$ and $Q \in E(\FF_{p^{k}})$.
 Recall also from \ref{?} that, possibly replacing $E$ by a twist,			%XXX add ref here
-we may assume without loss of generality that $Q \in E(\FF_{q^{k/3}})$.
+we may assume without loss of generality that $Q \in E(\FF_{p^{k/3}})$.
 Write $nP = (x_{nP},y_{nP},z_{nP})$ and $Q=(x_{Q},y_{Q},z_{Q})$.
 Then applying the group law we compute the equation of $L_{nP,-nP}$ to be
-\[Y + Z + (y_{nP} + z_{nP})X = 0,\] which evaluated at $Q$ gives an element $b$ of $\FF_{q^{k/3}}$.
+\[Y + Z + (y_{nP} + z_{nP})X = 0,\] which evaluated at $Q$ gives an element $b$ of $\FF_{p^{k/3}}$.
 Now observe that
-\[(q^{k} -1) = (q^{k/3}-1)(\sum_{i=0}^{2k/3} q^{i}),\]
-and by minimality of the embedding degree that $r \not | q^{k/3}-1$,
+\[(p^{k} -1) = (p^{k/3}-1)(\sum_{i=0}^{2k/3} p^{i}),\]
+and by minimality of the embedding degree that $r \not | p^{k/3}-1$,
 hence
-\[L_{nP,-nP}(Q)^{\frac{q^{k}-1}{r}} = b^{\frac{q^{k}-1}{r}} = (b^{q^{k/3}-1})^\frac{\sum_{i=0}^{2k/3} q^{i}}{r} = 1.\]
+\[L_{nP,-nP}(Q)^{\frac{p^{k}-1}{r}} = b^{\frac{p^{k}-1}{r}} = (b^{p^{k/3}-1})^\frac{\sum_{i=0}^{2k/3} p^{i}}{r} = 1.\]
 So this does not contribute to the reduced Tate pairing.
 %%%%%%%%%%%%%%%%%%%%
 
@@ -62,7 +62,7 @@ Algorithm~\ref{algo:miller} shows Miller's algorithm.
 			\State $R \leftarrow R+P$
 		\EndIf
 	\EndFor
-	\State $f \leftarrow f^{(q^k-1)/r}$
+	\State $f \leftarrow f^{(p^k-1)/r}$
 
 \end{algorithmic}
 \end{algorithm}
@@ -72,12 +72,12 @@ Algorithm~\ref{algo:miller} shows Miller's algorithm.
 \subsection{Denominator elimination}
 We follow a similar technique as described in~\cite{2008/lin} and~\cite{2009/deg15}
 by rewriting an inversion into a fraction having denominator lies in a subfield.
-Define a finite field extension $\F{q^k}$ of a finite field $\F{q}$
-and elements $x,y \in \F{q^k}$.
+Define a finite field extension $\F{p^k}$ of a finite field $\F{p}$
+and elements $x,y \in \F{p^k}$.
 
 Observe that
 $$ \frac{1}{x-y} = \frac{x^2 + xy + y^2}{x^3 - y^3}. $$
-Because $x^3$ and $y^3$ lie in a subfield of $\F{q^k}$ and so as $x^3 - y^3$,
+Because $x^3$ and $y^3$ lie in a subfield of $\F{p^k}$ and so as $x^3 - y^3$,
 the final exponentiation forces $x^3 - y^3$ to become 1.
 This means that we can ignore the computation of the denominator $x^3 - y^3$.
 Therefore, instead of computing $\frac{1}{x-y}$,
