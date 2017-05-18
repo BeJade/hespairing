@@ -1,13 +1,22 @@
-\section{Pairing-friendly Hessian curves}
+\section{Pairing-friendly twisted Hessian curves}
 
-Recall that in Section \ref{Tate}, we define the reduced Tate pairing
-\[e_{r}:E(\FF_{p}) \times E(\FF_{p^{k}}) \longrightarrow \FF_{p^{k}}\] on an elliptic curve $E/\FF_{p}$ in the case that 
-\begin{itemize}\label{props}
-\item $p$ is prime,
-\item $r$ is the size of the largest prime order subgroup of $E(\FF_{p})$, and
-\item $k$ is the smallest integer for which $r | p^{k}-1$.
+Recall that in Section \ref{Tate}, we defined
+\begin{itemize}
+\item $p$ to be prime,
+\item $E$ to be an elliptic curve over $\FF_{p}$,
+\item $r$ to be the size of the largest prime order subgroup of $E(\FF_{p})$, and
+\item $k$ to be smallest integer for which $r | p^{k}-1$.
 \end{itemize}
-We will refer to an elliptic curve $E/\FF_{p}$ where $p,r,k$ are known and satisfy these properties as \emph{pairing-friendly}. To construct our pairing, we search for pairing-friendly elliptic curves with a point of order 3 so that it can be written in Hessian form. There are many constructions of parametric families of pairing-friendly curves listed in \cite{2010/freeman}. We recall below those families for which the curves also have a point of order 3, as shown in \cite[Section 5]{2015/hessian}.
+Under these assumptions, we also defined 
+\[\begin{array}{ccc}
+G_{1} = E[r] \cap \ker(\phi_{p} - [1]) & \text{and} & G_{2} = E[r] \cap \ker(\phi_{p} - [p]) \subseteq E(\FF_{p}^{k}),
+\end{array}\]
+and the reduced Tate pairing restricted to $G_{1} \times G_{2}$ was given by
+\[\begin{array}{rccc}
+e_{r}:& G_{1} \times G_{2} & \longrightarrow & \mu_{r} \\
+& (P,Q) & \mapsto & f_{r,P}(Q)^{\frac{p^{k}-1}{r}}.
+\end{array}\]
+We will refer to an elliptic curve $E/\FF_{p}$ where $p,r,k$ are known and satisfy the above properties as \emph{pairing-friendly}. To construct the reduced Tate pairing, we search for pairing-friendly elliptic curves with a point of order 3, as these can be written in Hessian form. There are many constructions of parametric families of pairing-friendly curves listed in \cite{2010/freeman}. We recall below those families for which the curves also have a point of order 3, as shown in \cite[Section 5]{2015/hessian}.
 
 %\subsection{Cyclotomic families}
 %~\cite{2010/freeman}
@@ -76,7 +85,7 @@ r(x) &= \Phi_k(x),	\\
 t(x) &= x+1,		\\
 q(x) &= \frac{1}{3} (x-1)^2 (x^{k/3} - x^{k/6} + 1) + x,
 \end{align*}
-where $\Phi_{2k}(x)$ denotes the cyclotomic polynomial of degree $2k$. For infinitely many $x_{0}\in \mathbb{Z}$, we can construct an elliptic curve $E/\FF_{p(x_{0})}$ such that the integers $r=r(x_{0})$, $k=k(x_{0})$, and $q=q(x_{0})$ satisfy the properties listed in \ref{props} (hence $E$ is pairing-friendly). Furthermore, for such $x_{0}$, we have that
+where $\Phi_{k}(x)$ denotes the cyclotomic polynomial of degree $k$. For infinitely many $x_{0}\in \mathbb{Z}$, we can construct an elliptic curve $E/\FF_{p(x_{0})}$ such that the integers $r=r(x_{0})$, $k=k(x_{0})$, and $p=p(x_{0})$ satisfy the properties listed in \ref{props} (hence $E$ is pairing-friendly). Furthermore, for such $x_{0}$, we have that
 $k(x_{0}) \equiv 0 \pmod{6}$, where $18 \nmid k(x_{0})$.
 %try $k = 12$
 %$x = 3*2^{63}$
@@ -96,13 +105,34 @@ $k(x_{0}) \equiv 0 \pmod{6}$, where $18 \nmid k(x_{0})$.
 \subsection{Twists of degree $3$}
 \label{twist}
 %To reduce the cost of pairing computation, we considered the concept of twists of curves.
-Let $E$ and $E'$ be elliptic curves over $\F{q}$.
-We call $E'$ a \emph{twist} of $E$ if $E$ and $E'$ are isomorphic over some field extension of $\F{q}$.
-More precisely, $E'$ is a {\emph{degree-$d$ twist}} of $E$ if they are isomorphic over a degree $d$ extension and not over any smaller field. Suppose that
-\[E: x^{3} + y^{3} + z^{3} = 0\] is an elliptic curve defined over a field $\FF_{q}$. Then if $q \equiv 1 \text{ mod } 3$, the group $\FF_{q}^{*}/(\FF_{q}^{*})^{3}$ consists of 3 elements, and hence there exist 2 degree 3 twists of $E$ defined by
-\[E_{a}: aX^{3} + Y^{3} + Z^{3} = 0,\] where $1 \neq a \in \FF_{q}^{*}/(\FF_{q}^{*})^{3}$. In particular, if $3|k$, where $k$ is the embedding degree of $E/\FF_{q}$, and $\#E(\FF_{q}) \pmod{3} \neq 0$, then by \cite[Theorem 3]{Hess, Smart, Vercauteren}, we have that
-\[E(\FF_{q^{k}}) \cong \bigoplus_{a \in \FF_{q}^{*}/(\FF_{q}^{*})^{3}} E_{a}(\FF_{q^{k/3}}).\] Hence, we can speed up the evaluation of the line function at a point $Q \in E(\FF_{q^{k}})$ in the pairing computation by instead evaluating at a point $Q' \in E_{a}(\FF_{q^{k/3}})$.
+Let $E$ and $E'$ be elliptic curves over $\F{p}$.
+We call $E'$ a \emph{twist} of $E$ if $E$ and $E'$ are isomorphic over some field extension of $\F{p}$.
+More precisely, $E'$ is a {\emph{degree-$d$ twist}} of $E$ if they are isomorphic over a degree $d$ extension and not over any smaller field. We will see below that if $E$ is an elliptic curve over $\FF_{p}$ where $p \equiv 1 \text{ mod } 3$ and can be written in the form
+\[E_{a}: aX^{3} + Y^{3} + Z^{3} = 0\]
+then $E_{a}$ has twists of degree 3. We will also see that if the embedding degree $k$ is divisible by 3, the existence of these twists allow us to assume without loss of generality that 2 of the 3 coordinates of the point $Q \in E(\FF_{q^{k}})$ are in $\FF_{q^{k/3}}$, reducing the cost of the computation.
 
+\begin{lemma}
+Suppose that
+\[E: aX^{3} + Y^{3} + Z^{3} = 0\] is an elliptic curve defined over a field $\FF_{p}$ with embedding degree $k$, that $p \equiv 1 \text{ mod } 3$, and that $3|k$. Then up to $\FF_{p^{k/3}}$-isomorphism there are exactly two degree 3 twists of $E$ defined over $\FF_{p^{k/3}}$. These twists are given by
+\[E_{a'}: a'X^{3} + Y^{3} + Z^{3} = 0,\] for $a \neq a' \in \FF_{p^{k/3}}^{*}/(\FF_{p^{k/3}}^{*})^{3}$.
+\end{lemma}
+
+\begin{proof}
+Every supersingular elliptic curve with a point of order 3 is of the form
+\[E': \alpha X^{3} + \beta Y^{3} + \gamma Z^{3} = 0,\] where $\alpha,\beta,\gamma \in \FF_{p^{k/3}}$. Furthermore, we know that $\alpha$, $\beta$, and $\gamma$ are non-zero as $E'$ is non-singular. Hence every twist of $E$ is isomorphic over $\FF_{p^{k/3}}$ to an elliptic curve $E'$ of the above form with $\alpha,\beta,\gamma \in \FF_{p^{k/3}}^{*}/(\FF_{p^{k/3}}^{*})^{3}$. Let $a'$ be a generator of the group $\FF_{p^{k/3}}^{*}/(\FF_{p^{k/3}}^{*})^{3}$, so that
+\[\FF_{p^{k/3}}^{*}/(\FF_{p^{k/3}}^{*})^{3} = \{1,a',a'^{2}\}.\] Then it is easy to see that
+\[ E_{a'} : a'X^{3} + Y^{3} + Z^{3} = 0,\] \[E_{a'^{2}} : a'^{2}X^{3} + Y^{3} + Z^{3} = 0,\] and\[ E_{1}: X^{3} + Y^{3} + Z^{3} = 0\] are the only non-$\FF_{p^{k/3}}$-isomorphic twists of $E$ such that any two of the coefficients $\alpha,\beta,\gamma$ are the same. It remains to show that the curve defined by $E'$ with $\alpha = 1$, $\beta = a'$, and $\gamma = a'^{2}$ is isomorphic over $F_{p^{k/3}}$ to \[E_{1}: X^{3} + Y^{3} + Z^{3} = 0.\]
+\end{proof}
+
+Now, if $3|k$, where $k$ is the embedding degree of $E/\FF_{p}$, and $\#E(\FF_{p}) \not\equiv 0 \text{ mod } 3$, then by \cite[Theorem 3]{Hess, Smart, Vercauteren} and the above Lemma, for any $a \in \FF_{p}^{*}$, we have that
+\[E_{a}(\FF_{p^{k}}) \cong \bigoplus_{a' \in \FF_{p^{k/3}}^{*}/(\FF_{p^{k/3}}^{*})^{3}} E_{a'}(\FF_{p^{k/3}}).\] 
+In particular, every point $Q \in E_{a}(\FF_{p^{k}})$ is the image of a point $Q_{a'} \in E_{a'}(\FF_{p^{k/3}})$, for some $a' \in \FF_{p^{k/3}}^{*}/(\FF_{p^{k/3}}^{*})^{3}$, under the morphism
+\[\begin{array}{rccc}
+\phi_{a'}:& E_{a'} & \longrightarrow & E \\
+& (x:y:z) & \mapsto & (b^{-1}x:y:z),
+\end{array}\]
+where $b \in \FF_{p^{k}}$ satisfies $b^{3} = a'/a$. Hence, writing $Q = (x_{Q}:y_{Q}:z_{Q})$, we can conclude that only $x_{Q}$ is in the full extension field $\FF_{p^{k}}$, as $y_{Q}$ and $z_{Q} \in \FF_{p^{k/3}}$. 
+\\
 %To use the twists of curves, the degree $d$ must divide $k$.
 %For the case $k \equiv 3 \pmod{18}$ and $k \equiv 9,15 \pmod{18}$,
 %the only possible twisted degree is $d = 3$.
@@ -110,28 +140,18 @@ More precisely, $E'$ is a {\emph{degree-$d$ twist}} of $E$ if they are isomorphi
 %all twisted degrees are possible, i.e., $d \in \{2,3,4,6\}$.
 
 %Recall that we focus only on curves that both the curves and theirs twists contain points of order 3.
-\textbf{is this really necessary?}
-To express twists of curves in the Hessian form,
-those twists must also contain points of order 3.
-To check whether the twisted curve $E'$ of $E$ contains points of order 3 or not,
-we use the formulas in~\cite{2006/hess} which state the number of points on twisted curves.
-The formulas for calculating the number of points on twisted curves always come in pairs.
-For example, the formulas for $d = 3$ stated in~\cite{2006/hess} are as follows:
-\begin{align*}
-\# E' (\F{q}) &= q + 1 - (3f - t) / 2 & with & \quad t^2 - 4q = -3f^2, \\
-\# E' (\F{q}) &= q + 1 - (-3f- t) / 2 & with & \quad t^2 - 4q = -3f^2.
-\end{align*}
-To determine the right twist,
-we use the fact that $\#E'(\F{q})$ must also be divisible by $r$ which is the subgroup of $E$.
-There is exactly one of those two possible twists that satisfies this condition.
 
-The only possible degree of twist for curves generated by Construction 1 and Construction 2 is of degree $3$.
-Twists of curves generated by these constructions also contain points of order 3.
-For Construction 3, even though it allows many possible degrees of twist,
-only twist of degree $3$ that contain points of order 3.
-In summary,
-for all pairing-friendly Hessian curve constructions presented in previous sections,
-the only possible degree of twist is of degree $d = 3$.
+Also, as we are currently bound to using algorithms written for curves given in Weierstrass form, when we have computed a degree 3 twist $E'$ of a given elliptic curve $E$, we have to check whether it can be written in Hessian form, that is, whether or not $E'$ contains a point of order 3. To do this, we use the formulae for the number of points on twisted curves given in~\cite{2006/hess}.
+The formulae for calculating the number of points on twisted curves always come in pairs as there are exactly two twists, as we proved above.
+For example, the formulae for $d = 3$ stated in~\cite{2006/hess} are as follows:
+\begin{align*}
+\# E' (\F{p}) &= p + 1 - (3f - t) / 2 & with & \quad t^2 - 4p = -3f^2, \\
+\# E' (\F{p}) &= p + 1 - (-3f- t) / 2 & with & \quad t^2 - 4p = -3f^2.
+\end{align*}
+To determine the unique twist containing the pre-image of our point $Q \in E(\FF_{p^{k}})$,
+we use the fact that $\#E'(\F{p})$ must also be divisible by $r$.
+\\
+Note that in Constructions 1 and 2, the only twists that occur are of degree 3, even without the restriction that the resulting curve should be in Hessian form. For Construction 3, there exist twists of degrees different from 3, but the resulting curves will not be in Hessian form.
 %we found that for all Construction 1, 2 and 3,
 %the only possible twist is $d = 3$.
 
