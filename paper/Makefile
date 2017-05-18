@@ -1,6 +1,7 @@
 main.pdf: \
 ref.bib \
 intro.tex \
+Tatepairing.tex \
 curves.tex \
 formulas.tex \
 comparison.tex \
