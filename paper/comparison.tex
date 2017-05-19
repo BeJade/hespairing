@@ -69,17 +69,17 @@ The cost of multiplication by curve parameters is omitted from the table.
 \end{table}
 
 Let $\Mul$ and $\Sqr$ denote the cost of field multiplication and field squaring over the extension field.
-In the doubling step (line 2 in Algorithm~\ref{algo:miller},
-it has to compute $f^2 \cdot l$.
+In the doubling step (line 2 in Algorithm~\ref{algo:miller}),
+we have to compute $f^2 \cdot l$.
 Therefore, the extra cost of $1\Mul + 1\Sqr$ is required.
-Similarly, in the addition step (line 5 in Algorithm~\ref{algo:miller},
-it has to compute $f \cdot l$.
+Similarly, in the addition step (line 5 in Algorithm~\ref{algo:miller}),
+we have to compute $f \cdot l$.
 Therefore, the extra cost of $1\Mul$ is required.
 These extra costs are the same for all curve models regardless of the embedding degree, hence, we omit these costs from the table.
 
 Note that there are various advantages of our constructions that cannot be justified by the cost shown in Table~\ref{tbl-cmp}.
 First of all, the costs shown in Table~\ref{tbl-cmp} do not reflect the total cost for the pairing-based protocols.
 This is because generically there are many group operations performed prior to relatively few pairing computations, and group operations on twisted Hessian curves allow faster point arithmetic operations than Weierstrass curves.
-Third, having curves represented in the same models for $\mathbb{G}_1$ and $\mathbb{G}_2$ does not induce the extra cost of conversion between curve models. (Recall that for BN, BLS, and KSS, this conversion is always necessary if one wants to take advantage of the fast point-arithmetic on Hessian or Edwards curves, as proven in~\cite{2013/bos-pairing}.)
+Secondly, having curves represented in the same models for $\mathbb{G}_1$ and $\mathbb{G}_2$ does not induce the extra cost of conversion between curve models. (Recall that for BN, BLS, and KSS, this conversion is always necessary if one wants to take advantage of the fast point-arithmetic on Hessian or Edwards curves, as proven in~\cite{2013/bos-pairing}.)
 
 
