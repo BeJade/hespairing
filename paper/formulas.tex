@@ -3,45 +3,10 @@
 
 %XXX To Chloe: is this still correct? wouldn't everything collapse to 1?
 %XXX don't forget to put reference
-We now move to the explicit computation of the line functions
-$\ell_{1} = L_{P,Q}$ and $\ell_{2} = L_{P,-P}$
-given in the formula for the reduced Tate pairing.
-Recall from \ref{?} that the denominator of the reduced Tate pairing was given by	%XXX add ref here
-\[L_{nP,-nP}(Q)^{\frac{p^{k}-1}{r}},\]
-where $P \in E(\FF_{p})$ and $Q \in E(\FF_{p^{k}})$.
-Recall also from \ref{?} that, possibly replacing $E$ by a twist,			%XXX add ref here
-we may assume without loss of generality that $Q \in E(\FF_{p^{k/3}})$.
-Write $nP = (x_{nP},y_{nP},z_{nP})$ and $Q=(x_{Q},y_{Q},z_{Q})$.
-Then applying the group law we compute the equation of $L_{nP,-nP}$ to be
-\[Y + Z + (y_{nP} + z_{nP})X = 0,\] which evaluated at $Q$ gives an element $b$ of $\FF_{p^{k/3}}$.
-Now observe that
-\[(p^{k} -1) = (p^{k/3}-1)(\sum_{i=0}^{2k/3} p^{i}),\]
-and by minimality of the embedding degree that $r \not | p^{k/3}-1$,
-hence
-\[L_{nP,-nP}(Q)^{\frac{p^{k}-1}{r}} = b^{\frac{p^{k}-1}{r}} = (b^{p^{k/3}-1})^\frac{\sum_{i=0}^{2k/3} p^{i}}{r} = 1.\]
-So this does not contribute to the reduced Tate pairing.
+Let notation be as above, and let $P \in G_{1}$. We now move to the explicit computation of the line functions
+$\ell_{1} = L_{iP,jP}$ and $\ell_{2} = L_{(i+j)P,-(i+j)P}$
+given in the formula for the reduced Tate pairing; recall from Section \ref{sec:Tate} that computing these line functions is enough to compute the reduced Tate pairing. Recall also that the line $\ell_{2}$ is in the denominator of the pairing. Inversion is expensive, so we first apply `denominator elimination' to optimize this inversion.
 %%%%%%%%%%%%%%%%%%%%
-
-The heart of pairings lies on the computation of line functions.
-A rational function $f_{r,P}$ associated to the point $P$ and some integer $r$
-is first constructed.
-Then, this function is evaluated at the point $Q$.
-The divisor associated to the function $f_{,P}$ is
-$$ div(f_{r,P}) = r(P) - (rP) - (r-1)(P_\infty). $$
-Miller's algorithm computes $f_{r,P}$ in the double-and-add manner
-and uses the following relation
-$$ f_{i+j,P} = f_{i,P} f_{j,P} \frac{l_1}{l_2}, $$
-where $l_1$ is a line through $iP$ and $jP$,
-and $l_2$ is a line through $(i+j)P$ and $-(i+j)P$.
-
-Constructing the line $l_1$ can be done by substituting $x$ and $y$ coordinates of points $iP$ and $jP$
-into an equation $y = mx + b$ and solving for $m$ and $b$.
-For Weierstrass curves, the line $l_2$ is simply a vertical line through $(i+j)P$.
-Therefor, the line $l_2$ is of the form $x = c$ where $c$ is the $x$-coordinate of the point $(i+j)P$.
-Note that the point $(i+j)P$ and $-(i+j)P$ have the same $x$-coordinate.
-However, for Hessian curves, the line $l_2$ is not a vertical line
-and thus has to be constructed in a similar way as the line $l_1$,
-i.e., solving for $m$ and $b$ of $y = mx + b$ using points $(i+j)P$ and $-(i+j)P$.
 
 %Let $m = (m_{\ell-1}, \dots, m_1, m_0)$ be the binary representation of $m$.
 %Initialize $R = P$ and $f = 1$.
@@ -72,24 +37,23 @@ i.e., solving for $m$ and $b$ of $y = mx + b$ using points $(i+j)P$ and $-(i+j)P
 
 \subsection{Denominator elimination}
 We follow a similar technique as described in~\cite{2008/lin} and~\cite{2009/deg15}
-by rewriting an inversion into a fraction having denominator lies in a subfield.
-Define a finite field extension $\F{p^k}$ of a finite field $\F{p}$
-and elements $x,y \in \F{p^k}$.
+by rewriting an inversion into a fraction for which the denominator lies in a subfield.
+Define a field extension $\F{p^k}$ of a finite field $\F{p}$ and suppose that $x,y \in \F{p^k}$.
 
 Observe that
 $$ \frac{1}{x-y} = \frac{x^2 + xy + y^2}{x^3 - y^3}. $$
-Because $x^3$ and $y^3$ lie in a subfield of $\F{p^k}$ and so as $x^3 - y^3$,
-the final exponentiation forces $x^3 - y^3$ to become 1.
-This means that we can ignore the computation of the denominator $x^3 - y^3$.
-Therefore, instead of computing $\frac{1}{x-y}$,
-we compute $x^2 + xy + y^2$
-and the cost of division by $x - y$ beceomes the cost of multiplication by $x^2 + xy + y^2$.
+As $x^3$ and $y^3$ lie in a subfield of $\F{p^k}$, we have that
+\[(x^{3} - y^{3})^{\frac{p^{k}-1}{r}} = 1,\]
+hence after the final exponentiation in the computation of the pairing, this factor does not appear.
+This means that we can ignore the computation of the denominator $x^3 - y^3$, so that instead of computing $\frac{1}{x-y}$,
+we compute $x^2 + xy + y^2$.
+The cost of division by $x - y$ then becomes the cost of multiplication by $x^2 + xy + y^2$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Explicit formulas}
 
-Recall the twsited Hessian curve equation in projective coordiates
+Recall the twisted Hessian curve equation in projective coordiates
 %$ a x^3 + y^3 = 1 + d x y, $ or
 $$ \mathcal{H}: a X^3 + Y^3 = Z^3 + d X Y Z. $$
 This subsection shows formulas to compute point doubling, point addition, and line functions associated to these operations.
