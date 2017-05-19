@@ -3,29 +3,25 @@
 
 We would like to emphasize that:
 \begin{itemize}
-\item	Most of the previous works concerned Weierstrass curves.
-\item	Most of the previous works concerned even embedding degrees.
-\item	There were some previous works on Hessian curves but with even embedding degrees.
-\item	There were also some previous works with odd embedding degrees but using Weierstrass curves.
+\item	Most of the previous work concerned Weierstrass curves.
+\item	Most of the previous work concerned even embedding degrees.
+\item	There was some previous work on Hessian curves but with even embedding degrees.
+\item	There was also some previous works with odd embedding degrees but using Weierstrass curves.
 \end{itemize}
-Therefore, it is difficult to have an appropriate comparison between this work and previous works
-since this work happens to be the first to consider the twisted Hessian curves with odd embedding degrees.
-Note that even embedding degrees have the advantage of completely ignoring the vertical line.
-However, with odd embedding degrees, we need to compute this line (which it is not vertical in the Hessian model).
+Therefore, it is difficult to have an appropriate comparison between the constructions in this article and previous work, as we are the first to consider the twisted Hessian curves with odd embedding degrees, to our knowledge.
+Note that even embedding degrees have the advantage of being able to completely eliminate denominators in the computation of the Tate pairing. However, with odd embedding degrees, we need to compute the denominator as it is non-trivial.
 %Hence, it is challenging to have the cost of odd embedding degrees being competitive with those of even embedding degrees.
 
-Table~\ref{tbl-cmp} shows cost of pairing computation from previous work and this work.
-The first column categorizes embedding degrees $k$.
-The second column lists different curve models where 
-$\mathcal{J}$, $\mathcal{P}$, $\mathcal{E}$, $\mathcal{H}$ denote
-Weierstrass model with Jacobian coordinates,
+Table~\ref{tbl-cmp} shows the costs of the computation of pairings using our constructions in comparison with previous work. The first column gives the embedding degrees $k$.
+The second column gives the curve model, where 
+$\mathcal{J}$, $\mathcal{P}$, $\mathcal{E}$, $\mathcal{H}$ denote the
+Weierstrass model with Jacobian coordinates, the
 Weierstrass model with projective coordinates,
-Edwards model and
+the Edwards model and the
 Hessian model respectively.
-Note that this work considers the generalization of Hessian which is ``twisted'' Hessian curves,
-and focuses on twisted $d = 3$.
-The third and fourth columns shows the cost of doubling (DBL) and mixed addition (mADD) including the computing of line functions for pairing computations.
-Mixed addition means $z$ coordinate equals 1.
+Note that this work considers the generalization of Hessian curves to ``twisted'' Hessian curves, and that the twists are of degree 3.
+The third and fourth columns show the cost of doubling (DBL) and mixed addition (mADD) including the computation of the line functions for pairing computations.
+By `mixed addition' we mean that the $z$ coordinate is set to be 1.
 We denote the cost of field multiplication and field squaring over the base field $\F{p}$ by $\mul$ and $\sqr$ respectively.
 The cost of multiplication by curve parameters is omitted from the table.
 
@@ -79,16 +75,11 @@ Therefore, the extra cost of $1\Mul + 1\Sqr$ is required.
 Similarly, in the addition step (line 5 in Algorithm~\ref{algo:miller},
 it has to compute $f \cdot l$.
 Therefore, the extra cost of $1\Mul$ is required.
-These extra costs are the same for all curve models regardless of embedding degrees.
-Hence, we omit these costs from the table.
+These extra costs are the same for all curve models regardless of the embedding degree, hence, we omit these costs from the table.
 
 Note that there are various advantages of our constructions that cannot be justified by the cost shown in Table~\ref{tbl-cmp}.
 First of all, the costs shown in Table~\ref{tbl-cmp} do not reflect the total cost for the pairing-based protocols.
-This is because there are usually a few pairing computation while a lot of group operations prior to pairings.
-Second, twisted Hessian curves allow faster point arithmetic operations than Weierstrass curves.
-Thus, those group operations prior to pairing can take advantage of fast arithmetic on twisted Hessian curves.
-Third, having curves represent in the same models for $\mathbb{G}_1$ and $\mathbb{G}_2$ does not acquire the extra cost of conversion between curve models.
-As proven in~\cite{2013/bos-pairing} that either $\mathbb{G}_1$ or $\mathbb{G}_2$ of BN, BLS, and KSS curves have to be represented in Weierstrass form.
-If these curve families want to take advantage of faster arithmetic on other curve shapes, this incurs an extra cost of curve shape conversion.
+This is because generically there are many group operations performed prior to relatively few pairing computations, and group operations on twisted Hessian curves allow faster point arithmetic operations than Weierstrass curves.
+Third, having curves represented in the same models for $\mathbb{G}_1$ and $\mathbb{G}_2$ does not induce the extra cost of conversion between curve models. (Recall that for BN, BLS, and KSS, this conversion is always necessary if one wants to take advantage of the fast point-arithmetic on Hessian or Edwards curves, as proven in~\cite{2013/bos-pairing}.)
 
 
