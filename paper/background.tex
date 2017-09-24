@@ -1,0 +1,74 @@
+\section{Background on Pairings}
+\label{sec:background}
+
+Let $E$ be an elliptic curve defined over a finite field $\FF_{q}$ where $q$ is a prime.
+Let $r$ be the largest prime factor of $n = \#E(\FF_{q}) = q + 1 - t$ where $t$ is a trace of Frobenius.
+The \emph{embedding degree} with respect to $r$ is defined to be the smallest positive integer $k$ such that $r | (q^k-1)$.
+Let $\mu_{r} \subseteq \FF_{q^{k}}^{*}$ be the group of $r$-th roots of unity.
+For $m \in \ZZ$ and $P \in E[r]$,
+let $f_{m,P}$ be a function with divisor 
+%be the unique normalized function with divisor
+$\text{div}(f_{m,P}) = m(P) - ([m]P) - (m-1)(\mathcal{O})$,
+where $\mathcal{O}$ denotes the point at infinity on $E$.
+The reduced Tate pairing is defined as
+\[\begin{array}{rccl}
+\tau_{r} :	& E(\FF_{q^{k}})[r] \times E(\FF_{q^{k}})/[r]E(\FF_{q^{k}})	& \longrightarrow	& \mu_{r} \\
+		& (P,Q)								& \mapsto		& f_{r,P}(Q)^{\frac{q^{k}-1}{r}}.
+\end{array}\]
+In this paper we address the computation of the reduced Tate pairing restricted to $\G{1} \times \G{2}$, where
+$$\G{1} = E[r] \cap \ker(\phi_{q}-[1]) \text{ and }
+\G{2} = E[r] \cap \ker(\phi_{q} - [q]) \subseteq E(\FF_{q^{k}}).$$
+Here $\phi_{q}$ denotes the $q$-power Frobenius morphism on $E$.
+We denote the restriction of $\tau_{r}$ to $\G{1} \times \G{2}$ by
+$$e_{r} : \G{1} \times \G{2} \longrightarrow \mu_{r}.$$
+Let $T = t-1$.
+By restricted the Tate pairing to $\G{2} \times \G{1}$, the ate pairing is defined as
+\[\begin{array}{rccl}
+a_{T} :	& \G{2} \times \G{1}	& \longrightarrow	& \mu_{r} \\
+	& (Q,P) 		& \mapsto		& f_{T,Q}(P)^{\frac{q^{k}-1}{r}}.
+\end{array}\]
+Note that in addition to the arguments $P$ and $Q$ being switched, the parameter $r$ is also changed to $T$.
+
+An elliptic curve $E'$ over $\FF_{q^{k/d}}$ is called a \emph{degree-$d$} twist of $E/\FF_{q^{k/d}}$
+if $E$ and $E'$ are isomorphic over an extension field $\FF_{q^k}$
+and this is the smallest extension of $\FF_{q^{k/d}}$ where the isomorphism is defined.
+
+For short Weierstrass curves $E: y^2 = x^3 + ax + b$,
+a twist of $E$ is of the form $E': y^2 = x^3 + a \omega^4 x + b \omega^6$
+where $\omega \in \FF_{q^k}$.
+The isomorphism $\Psi : E' \rightarrow E$ is defined by
+%between $E'$ and $E$ is given by
+$\Psi : (x',y') \rightarrow (x'/\omega^2,y'/\omega^3)$,
+%which maps elements of $E'$ to elements of $E$.
+where the inverse $\Psi^{-1} : E \rightarrow E'$ is defined by
+$\Psi^{-1} : (x,y) \rightarrow (\omega^2 x, \omega^3 y)$.
+%which reverse the role by mapping elements of $E$ to elements of $E'$.
+
+Algorithm~\ref{algo:miller} describes Miller's algorithm for computing pairings.
+We denote $\ell_{2R} = l_{2R} / v_{2R}$ where $l_{2R}$ is that tangent line at $R$
+while $v_{2R}$ is a line passing through $2R$ and its negation $-2R$.
+We denote $\ell_{R,P} = l_{R,P} / v_{R,P}$ where $l_{R,P}$ is the line passing through $R$ and $P$
+while $v_{R,P}$ is a line passing through $R+P$ and its negation $-(R+P)$.
+Note that for Weierstrass curves, a line passing through a point and its negation is simply a vertical line.
+However, this is not true for the case of (twisted) Hessian curves.
+
+\begin{algorithm}
+\caption{Miller's algorithm}
+\label{algo:miller}
+\begin{algorithmic}[1]
+
+	\Require $m = (m_{\ell-1}, \dots, m_1, m_0)_2$ and $P,Q \in E[r]$ with $P \ne Q$
+	\State Initialize $R = P$ and $f = 1$
+
+	\For {$i := \ell - 2$ {\bf{down to}} $0$}
+		\State $f \leftarrow f^2 \cdot \ell_{2R}(Q)$
+		\State $R \leftarrow 2R$
+		\If {$m_i = 1$}
+			\State $f \leftarrow f \cdot \ell_{R,P}(Q)$
+			\State $R \leftarrow R+P$
+		\EndIf
+	\EndFor
+	\State $f \leftarrow f^{(q^k-1)/r}$
+
+\end{algorithmic}
+\end{algorithm}
