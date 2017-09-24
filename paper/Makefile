@@ -14,4 +14,5 @@ main.tex
 	pdflatex main
 
 clean:
-	rm -rf *.log *.aux *.pdf *.blg *.bbl *.out
+	rm -rf *.log *.aux *.blg *.bbl *.out
+	rm -rf main.pdf
