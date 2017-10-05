@@ -1,8 +1,8 @@
 load("util.sage")
 
-def w2h(fp,a,b):
+def w2h(fq,a,b):
 
-	E = EllipticCurve(fp,[a,b])
+	E = EllipticCurve(fq,[a,b])
 	nE = E.cardinality()
 
 	h = nE
@@ -33,8 +33,8 @@ def w2h(fp,a,b):
 	a1 = 2*lampda
 	a3 = c3
 
-	td = fp(a1)
-	ta = fp(a3)
+	td = fq(a1)
+	ta = fq(a3)
 
 	##############################
 
@@ -61,5 +61,5 @@ q = 60388831224640627688578323697279079263669799534119323634669
 a = 0
 b = 144
 
-fp = GF(q)
-w2h(fp,fp(a),fp(b))
+fq = GF(q)
+w2h(fq,fq(a),fq(b))

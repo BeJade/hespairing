@@ -31,16 +31,16 @@ while num > 0 :
 				x += 1
 				continue
 
-			fp = GF(q)
+			fq = GF(q)
 
 			y = sqrt((4*q - t^2) / D)
 			a = 0
 			b = find_b(q,t/2,y/2)
 
-			fp_a = fp(a)
-			fp_b = fp(b)
+			fq_a = fq(a)
+			fq_b = fq(b)
 
-			E = EllipticCurve(fp,[fp_a,fp_b])
+			E = EllipticCurve(fq,[fq_a,fq_b])
 			nE = E.cardinality()
 
 			if nE != (q+1-t) :
