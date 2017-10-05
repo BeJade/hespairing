@@ -1,0 +1,146 @@
+\section{Computation of line functions}
+\label{sec:lines}
+
+The efficiency of pairings substantially relies on the computation of the line functions
+(as denoted by $\ell_{2R} = l_{2R}/v_{2R}$ and $\ell_{R,P} = l_{R,P}/v_{R,P}$ in Algorithm~\ref{algo:miller}).
+Recall that an equation of a line is simply $y = mx + b$.
+Therefore, constructing the line $l$ passing through points $P$ and $R$
+is done by substituting the coordiinates $x$ and $y$ of points $P$ and $R$
+then solving for $m$ and $b$.
+Once the line is constructed, it is then evaluated at another point $Q$
+
+Specifically, to compute the line $l_{R,P}$ passing through
+points $R = (x_R, y_R)$ and $P = (x_P, y_P)$ where $R \ne P$
+and evaluated at point $Q = (x_Q, y_Q)$,
+we perform the following computations.
+%let $P = (x_P, y_P)$ and  $R = (x_R, y_R)$ where $P \ne R$.
+%Let $Q = (x_Q, y_Q)$ be the point to evaluate.
+%The line $l_{R,P}$ evaluated at $Q$ is constructed as follows.
+\begin{align*}
+m_{l_{R,P}} &= (y_P - y_R)/(x_P - x_R)			\\
+b_{l_{R,P}} &= y_P - m_{l_{R,P}} \cdot x_P		\\
+l_{R,P} &= y_Q - (m_{l_{R,P}} \cdot x_Q + b_{l_{R,P}}) 
+\end{align*}
+Note that %for this case where $P \ne R$,
+the line passing thorugh points $P$ and $R$ is also passing through point $-(P+R)$.
+Using any two out of these three points would result in the same line $l$.
+
+To compute the line $l_{2R}$ tangent at point $R$,
+we use the fact that this line also intersects the curve at point $-(2R)$.
+Therefore, we construct a line passing through points $R$ and $-(2R)$.
+Recall that for curves in twisted Hessian forms,
+a negation of a point $2R = (x_{2R}, y_{2R})$ is $-2R = (x_{2R}/y_{2R}, 1/y_{2R})$.
+Let $R = (x_{R}, y_{R})$
+and $-2R = (x_{2R}/y_{2R}, 1/y_{2R})$. % = (x'_{2R},y'_{2R})$.
+The line $l$ tangent at point $R$ evaluated at point $Q$ is computed as follows.
+\begin{align*}
+m_{l_{2R}} &= \bigg( \frac{1}{y_{2R}} - x_{R} \bigg) / \bigg( \frac{x_{2R}}{y_{2R}} - x_{R} \bigg)	\\
+b_{l_{2R}} &= y_R - m_{l_{2R}} \cdot x_R		\\
+l_{2R} &= y_Q - (m_{l_{2R}} \cdot x_Q + b_{l_{2R}})
+\end{align*}
+
+To construct the line $v$ passing through points $(P+R)$ and its negation $-(P+R)$,
+recall that for Weierstrass curves,
+this line $v$ is simply a vertical line
+and thus of the form $y = c$.
+However, for the (twisted) Hessian curves, the line $v$ is not a vertical line
+and thus has to be constructed in a similar way as the line $l$,
+i.e., solving for $m$ and $b$ of $y = mx + b$ using points $P+R$ and $-(P+R)$.
+Note also that the line passing through the point and its negative also passes through
+the point $(0,-1)$, the neutral point of twisted Hessian forms.
+% (0 : -1 : 1)
+
+Let $(P+R) = (x_{RP},y_{RP})$.
+By using the neutral point $(0,-1)$
+the line $v_{R,P}$ is computed as follows.
+\begin{align*}
+m_{v_{R,P}} &= (y_{RP} + 1) / x_{RP}	\\
+b_{v_{R,P}} &= -1			\\
+v_{R,P} &= y_Q - (m_{v_{R,P}} \cdot x_Q + b_{v_{R,P}})
+\end{align*}
+The advantage of using the neutral point is that
+it saves some computations and $b_{v_{R,P}}$ becomes $-1$
+due to a multiplication by zero.
+
+For the line $v_{2R}$,
+the calculation is similar to $v_{R,P}$.
+Simply replace $(P+R)$ by $(2R) = (x_{2R}, y_{2R})$,
+and compute as above.
+
+Note that the presented calculations,
+we use points represented in affine coordinates,
+e.g., $P = (x,y)$.
+To avoid inversion, e,g, when computing $m$,
+we use projective coordinates where
+$x = X/Z$ and $y = Y/Z$,
+and thus points are represented as, e.g., $P = (X : Y : Z)$.
+The formulas given in the following section use projective coordinates.
+
+Recall that the lines $v_{R,P}$ and $v_{2R}$ appear as denorminators,
+namely, we have to compute $l_{2R}/v_{2R}$ and $l_{R,P}/v_{R,P}$.
+%Because computing inversion is expensive,
+%we apply ``denominotr elimination'' to optimize this inversion.
+Note that for even embedding degree,
+this line $v$ lies in a subfield of $\F{q^k}$
+which will be $1$ after computing the final exponentiation
+(line 8 in Algorithm~\ref{algo:miller} in Section~\ref{sec:background}).
+Therefore, for even embedding degrees, the line $v$ can be omitted.
+However, for odd embedding degrees, we cannot neglect the denorminator $v$.
+Because inversioin is expensive,
+we first apply ``denominator ellimination'' technique to optimize this inversion.
+
+
+%%XXX To Chloe: is this still correct? wouldn't everything collapse to 1?
+%%XXX don't forget to put reference
+%Let notation be as above, and let $P \in \mathbb{G}_{1}$. We now move to the explicit computation of the line functions
+%$\ell_{1} = L_{iP,jP}$ and $\ell_{2} = L_{(i+j)P,-(i+j)P}$
+%given in the formula for the reduced Tate pairing;
+%recall from Section \ref{sec:Tate} that computing these line functions is enough to compute the reduced Tate pairing.
+%Recall also that the line $\ell_{2}$ is in the denominator of the pairing. Inversion is expensive,
+%so we first apply `denominator elimination' to optimize this inversion.
+%
+%%%%%%%%%%%%%%%%%%%%%
+%
+%%Let $m = (m_{\ell-1}, \dots, m_1, m_0)$ be the binary representation of $m$.
+%%Initialize $R = P$ and $f = 1$.
+%%Algorithm~\ref{algo:miller} shows Miller's algorithm.
+%%%\renewcommand{\algorithmicrequire}{\textbf{Initialize:}}
+%%%\renewcommand{\algorithmicensure}{\textbf{Output:}}
+%%\begin{algorithm}
+%%\caption{Miller's algorithm}
+%%\label{algo:miller}
+%%\begin{algorithmic}[1]
+%%
+%%%	\Require $R = P$ and $f = 1$
+%%
+%%	\For {$i := \ell - 2$ {\bf{down to}} $0$}
+%%		\State $f \leftarrow f^2 \cdot f_{DBL(R)}(Q)$
+%%		\State $R \leftarrow 2R$
+%%		\If {$m_i = 1$}
+%%			\State $f \leftarrow f \cdot f_{ADD(R,P)}(Q)$
+%%			\State $R \leftarrow R+P$
+%%		\EndIf
+%%	\EndFor
+%%	\State $f \leftarrow f^{(p^k-1)/r}$
+%%
+%%\end{algorithmic}
+%%\end{algorithm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\subsection{Denominator elimination}
+We follow a similar technique as described in~\cite{2008/lin} and~\cite{2009/deg15}
+by rewriting an inversion into a fraction for which the denominator lies in a subfield.
+Define a field extension $\F{p^k}$ of a finite field $\F{p}$ and suppose that $x,y \in \F{p^k}$.
+
+Observe that
+$$ \frac{1}{x-y} = \frac{x^2 + xy + y^2}{x^3 - y^3}. $$
+As $x^3$ and $y^3$ lie in a subfield of $\F{p^k}$, we have that
+\[(x^{3} - y^{3})^{\frac{p^{k}-1}{r}} = 1,\]
+hence, after the final exponentiation in the computation of the pairing, this factor does not appear.
+This means that we can ignore the computation of the denominator $x^3 - y^3$
+Therefore, instead of computing $\frac{1}{x-y}$, we compute $x^2 + xy + y^2$.
+The cost of division by $x - y$ then becomes the cost of multiplication by $x^2 + xy + y^2$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
