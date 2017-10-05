@@ -6,8 +6,9 @@ curves.tex \
 lines.tex \
 formulas.tex \
 comparison.tex \
-discussion.tex \
 conclusions.tex \
+sageCode.tex \
+magmaCode.tex \
 main.tex
 	pdflatex main
 	pdflatex main
