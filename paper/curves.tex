@@ -11,14 +11,14 @@ then convert those curves into the (twisted) Hessian form.
 
 We follow the above mentioned approach.
 The succeeding subsections explain how to obtain pairing-friendly twisted Hessian curves.
-We begin by explaining the twists of curves, specifically the twists of degree $3$.
-All of our constructions allow this type of twist.
+We begin by explaining the twists of curves, specifically the twists of degree $3$
+where all of our constructions allow this type of twist.
 Then, we give concrete constructions to generate pairing friendly Weierstrass curves that guarantee to have points of order 3,
 and thus these curves can be converted into the (twisted) Hessian form.
 Finally, we show an explicit transformation from Weierstrass into twisted Hessian form by precisely stating the formulas.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\subsection{Twists of curves}
+
 \subsection{Twists of degree $3$}
 \label{twist}
 %To reduce the cost of pairing computation, we considered the concept of twists of curves.
@@ -34,7 +34,7 @@ Thus, it is desirable to use the highest degree of twist available.
 However, the only possible degrees of twist are $d \in \{2,3,4,6\}$ (see, e.g.,~\cite{2009/silverman-arithmetic}).
 
 To use the twists of curves, the degree $d$ must divide $k$.
-For the case $k \equiv 3 \pmod{18}$ and $k \equiv 9,15 \pmod{18}$,
+For the case $k \equiv 3,9,15 \pmod{18}$,
 the only possible twisted degree is $d = 3$.
 For the case $k \equiv 0 \pmod{6}$ where $18 \nmid k$,
 even though twist of degree 6 is also possible,
@@ -121,6 +121,7 @@ There is exactly one of those two possible twists that satisfies this condition.
 %%the only possible twist is $d = 3$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection{Generating curves}
 \label{subsec:gencurves}
 
@@ -135,7 +136,7 @@ of order $r(x_0)$ and an embedding degree $k$ with respect to $r(x_0)$.
 Cyclotomic families are families of curves where the underlying field $K$ is a cyclotomic field,
 the largest prime-factor subgroup $r$ is a cyclotomic polynomial,
 and the field $K$ contains $\sqrt{-D}$ for some small discriminant $D$.
-We searched through~\cite{2010/freeman} and found three cyclotomic-family constructions that satisfy our point-of-order-3 conditions.
+We searched through~\cite{2010/freeman} and found three cyclotomic-family constructions that satisfy our point-of-order-3 condition.
 These constructions are based on a cyclotomic field containing a cube root of unity,
 i.e., fields contain $\sqrt{-3}$.
 Therefore, we choose the discriminant $D = 3$.
@@ -173,10 +174,9 @@ We denote $\Phi_{n}(x)$ the cyclotomic polynomial of degree $n$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%Let $k$ be a positive integer with $k \le 1000$ and $18 \nmid k$.
 \subsubsection{Construction 1: $k \equiv 3 \pmod{18}$.}
 \label{con1}
-%$k \equiv 3 \pmod{6}$ and
+
 This construction follows {Construction 6.6} in~\cite{2010/freeman}
 under the first subcase where $k \equiv 3 \pmod{6}$.
 Pairing-friendly curves having embedding degree $k \equiv 3 \pmod{18}$
@@ -195,16 +195,11 @@ Recall that the discriminant $D = 3$ (thus, the curves are defined by the equati
 This means that the possible twists are  cubic ($d=3$) and sextic ($d=6$) twists.
 It is obvious that this construction allows only twist of degree $d = 3$ because $6 \nmid k$.
 
-%try $k = 21$ $x = 3*2^5 + 2$
-%have point of order 3, also on twist, have q prime, but not both q and r  prime
-%$D = 3 -> d = 3$ can't have d=6 because doesn't divide k
-%Because the discriminant $D = 3$ and $6 \nmid k$,
-%the only possible twist is of degree $d = 3$.
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{Construction 2: $k \equiv 9,15 \pmod{18}$.}
 \label{con2}
-%If $k \equiv 3 \pmod{6}$ and
+
 This construction follows {Construction 6.6} in~\cite{2010/freeman}
 under the second subcase where $k \equiv 3 \pmod{6}$.
 Pairing-friendly curves having embedding degree $k \equiv 9,15 \pmod{18}$
@@ -217,23 +212,16 @@ q(x) &= \frac{1}{3} (x+1)^2 (x^{2k/3} - x^{k/3} + 1) - x^{2k/3+1}.
 Note that similar remarks also apply to this construction.
 The resulting curves have point of order 3 and also on their twists.
 There is no such $x_0$ for this construction to achieve both $q(x_0)$ and $r(x_0)$ being prime.
-The parameter  $r(x_0)$ factors, and the largest prime-factor subgroup is actually smaller than $r(x_0)$.
+The parameter  $r(x_0)$ factors, and the largest prime-factor subgroup is smaller than $r(x_0)$.
 Having discriminant $D = 3$
-%(thus, the curves are defined by the equation of the form $y^2 = x^3 + b$).
 means that the possible twists are  cubic ($d=3$) and sextic ($d=6$) twists.
 However, this construction allows only twist of degree $d = 3$ since $6 \nmid k$.
 
-%try $k = 15, 33$
-%$ 15: x = 3*2^{31} + 2$
-%$ 33: 3*2^{10} + 2$
-%have point or order 3, also on twist, have q prime, but not both q and r prime
-%$D = 3 -> d = 3$ can't have d=6 because does't divide k
-%Similar to the previous construction,
-%this construction only allows twist of degree $3$.
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{Construction 3: $k \equiv 0 \pmod{6}$ and $18 \nmid k$.}
 \label{con3}
+
 This construction follows the last case of {Construction 6.6} in~\cite{2010/freeman}.
 Pairing-friendly curves having embedding degree $k \equiv 0 \pmod{6}$ where $18 \nmid k$
 can be constructed using the following polynomials:
@@ -247,21 +235,11 @@ the resulting curves have point of order 3 and also on their twists.
 There also exists $x_0$ such that both $q(x_0)$ and $r(x_0)$ are prime.
 Recall that this construction also has discriminant $D = 3$.
 This means that the possible twists are  cubic ($d=3$) and sextic ($d=6$) twists.
-Even though this construction allows curves with embedding degree $6$ (because $6 \mid k$)
+Even though this construction allows curves with embedding degree $6$ (because $6 \mid k$),
 only curves with embedding degree $3$ can be expressed in the twisted Hessian form
 for both the original curves and their twists.
 
-%try $k = 12$
-%$x = 3*2^{63}$
-%have point of order 3, also on twist, have q prime, have q and r prime
-%$D = 3 -> d = 3,6$
-%Even though this construction allows curves with embedding degree $6$,
-%only curves with embedding degree $3$ can be expressed in Hessian for both
-%the original curves and their twists.
-
-%For $k = 15, 21, 33$, the only possible twist is cubic twist.
-%For $k = 12$ even though twist of degree $2, 3, 4, 6$ are possible, 
-%only cubic twist that allow the twist of curve to also be expressible in Hessian form.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{Sage scripts.}
 We provide Sage scripts (Figure~\ref{fig:sscript})
@@ -275,7 +253,6 @@ in addition to changing the embedding degree,
 the polynomials \texttt{rx, r, t, q} also need to be replaced by the corresponding ones.
 For auxiliary functions in \texttt{util.sage}, please refer to Appendix~\ref{app:sage}.
 
-%\verbatiminput[fontsize=\scriptsize,commanchars=\\\{\}]
 \begin{figure}
 \hrule\medskip
 \setstretch{0.8}
@@ -289,7 +266,7 @@ and can be converted into twisted Hessian form that allows twist of degree 3.}
 
 Figure~\ref{fig:sout} shows the output of
 pairing-friendly Weierstrass curves generated by the Sage script in Figure~\ref{fig:sscript}.
-Note that the purpose of these scripts is to provide a concrete to generate
+Note that the purpose of these scripts is to provide a concrete method to generate
 pairing-friendly Weierstrass curves that can be converted into the twisted Hessian form,
 and not to propose a secure curve at any particular security levels.
 We will later on use the parameters output from the scripts for our toy example.
@@ -313,7 +290,7 @@ to generate pairing-friendly Weierstrass curve where
 `t' denotes a trace of Frobenius;
 `q' denotes a prime field;
 `r' denotes a subgroup of the resulting curve; and
-`a,b' denotes the parameters of the Weierstrass curves $y^2 = x^3 + ax + b$.
+`a,b' denotes the parameters of the Weierstrass curve $y^2 = x^3 + ax + b$.
 }
 \label{fig:sout}
 \end{figure}
@@ -324,15 +301,15 @@ to generate pairing-friendly Weierstrass curve where
 \subsection{Converting Weierstrass to twisted Hessian curves}
 \label{subsec:w2h}
 
-To convert pairing-friendly Weierstrass curves that guarantee to have point-of-order-3
+To convert pairing-friendly Weierstrass curves that guarantee to have points of order 3
 into the twisted Hessian form, we follow the explanation in~\cite{2015/hessian}.
-Specifically, the proofs of Theorem 5.2 and {Theorem 5.3} in the paper describe the isomophism from
+Specifically, the proofs of Theorem 5.2 and {Theorem 5.3} in~\cite{2015/hessian} describe the isomorphism from
 Weierstrass curves to twisted Hessian curves via triangular curves using series of substitutions.
 
 To be more precise, the proofs start by denoting a point-of-order 3 $P_3 = (u_3,v_3)$ and
 writing a curve (defined over $\F{q}$) in a long Weierstrass form
 $$ v^2 + e_1 uv + e_3 v = u^3 + e_2 u^2 + e_4 u + e_6. $$
-Note however that in our case, we consider curve of the form $y^2 = x^3 + ax + b$.
+Note however that in our case, we consider curves of the form $y^2 = x^3 + ax + b$.
 Thus, the curve parameters $e_1 = e_3 = e_2 = e_4 = 0$, and $e_6 = b$.
 Therefore, we start with the equation
 $$v^2 = u^3 + b.$$
@@ -365,14 +342,14 @@ $$ H: a'X^3 + Y^3 + Z^3 = d'XYZ$$
 are defined as
 $$ a' = d^3 - 27a, \qquad d' = 3d. $$
 
-We homogenize the above form of the triangular curve $y^2 + dxy + ay = x^3$ to
-$$ VW(V + dU + aW) = U^3 $$
-by making the substitution $x = U/W$ and $y = V/W$.
+By making the substitution $x = U/W$ and $y = V/W$,
+we homogenize the above form of the triangular curve $y^2 + dxy + ay = x^3$ to
+$$ VW(V + dU + aW) = U^3. $$
 
 Once we obtained the parameters $a'$ and $d'$ for twisted Hessian curve,
 the remaining is to map the coordinates $(U : V : W)$ of the triangular curve
-to coordinates $(X : Y : Z)$ of twisted Hessian curve.
-This map $\phi(U:V:W) = (X:Y:Z)$ is defined by
+to coordinates $(X : Y : Z)$ of the twisted Hessian curve.
+This map $\phi(U:V:W) = (X:Y:Z)$ is defined as:
 \begin{align*}
 X &= U, \\
 Y &= \omega(V + dU + AW) - \omega^2 V - aW, \\
@@ -381,7 +358,7 @@ Z &= \omega^2 (V + dU + aW) - \omega V - aW,
 where $\omega \in \F{q}$, $\omega^3 = 1$ and $\omega \ne 1$.
 
 To summarize, to compute related parameters (before the map $\phi$)
-we need to perform the following computation
+we need to perform the following computation:
 \begin{align*}
 c_3 &= 2 v_3,	&	c_4 &= 3 u_3^2,		&	\lambda &= c_3 / c_4.	\\
 d &= 2 \lambda,	&	a &= c_3.		&	\\
@@ -400,7 +377,7 @@ A = \omega(V + dU + aW),	\qquad
 B = \omega V,	\qquad
 C = aW.
 \end{gather*}
-Then the map $\phi$ is computed as
+Then the map $\phi$ is computed as:
 \begin{align*}
 X &= U,	\\
 Y &= \omega(V + dU + aW) - \omega^2V - aW = A - \omega B - C,	\\
@@ -438,12 +415,12 @@ namely, \texttt{c3}, \texttt{c4}, \texttt{lambda}, \texttt{a1}, \texttt{a3}, \te
 which correspond to the above mentioned $c_3, c_4, \lambda, d, a, d'$ and $a'$ respectively.
 Then, it computes parameters for converting curves in triangular form to twisted Hessian form,
 namely, \texttt{ha} and \texttt{hd} which correspond to the above mentioned $a'$ and $d'$.
-Finally, it computes \texttt{omega} which is a cube root of $q$.
+Finally, it computes \texttt{omega} which is a cube root element in $\F{q}$.
 The function then outputs:
 the coordinates of a point-of-order-3 $P_3 = (u_3,v_3)$;
 parameters $d$ and $a$ for the conversion;
 twisted Hessian curve parameter $a'$ and $d'$;
-and $\omega$ a cube root of $q$.
+and a cube root element $\omega$.
 
 
 \begin{figure}
@@ -458,7 +435,7 @@ into twisted Hessian form $a'X^3 + Y^3 + Z^3 = d'XYZ$.}
 \end{figure}
 
 Figure~\ref{fig:conout} shows an example of the output of the function \texttt{w2h} of Sage scripts shown in Figure~\ref{fig:scon}
-which uses the output of the previous Sage scripts in Figure~\ref{fig:sscript} for input $r,q,a,b$
+which uses the output of the previous Sage scripts in Figure~\ref{fig:sscript} for input $r,q,a,b$,
 i.e., a pairing-friendly Weierstrass curve $E/\F{q}: y^2 = x^3 + ax + b$ having prime-factor subgroup $r$.
 Note that we use \texttt{p3 = E.random\_element()} in our scripts.
 This means that it is possible that the scripts give different output when run multiple times.
@@ -482,7 +459,7 @@ to convert Weierstrass curve into twisted Hessian form where
 `u3,v3' denotes point-of-order-3 $P_3 = (u_3,v_3)$;
 `d' and `a' denote parameters $d$ and $a$ which are used for the conversion;
 `a$'$' and `d$'$' denote parameters for twisted Hessian curve $a'X^3 + Y^3 + Z^3 = d'XYZ$; and
-`w' denotes $\omega$ a cube root of $q$.
+`w' denotes a cube root element $\omega$.
 }
 \label{fig:conout}
 \end{figure}
