@@ -5,14 +5,17 @@ We would like to emphasize that:
 \begin{itemize}
 \item	Most of the previous work concerned Weierstrass curves.
 \item	Most of the previous work concerned even embedding degrees.
-\item	There was some previous work on Hessian curves but with even embedding degrees.
-\item	There was also some previous works with odd embedding degrees but using Weierstrass curves.
+\item	There were some previous works on Hessian curves but with even embedding degrees.
+\item	There were also some previous works with odd embedding degrees but using Weierstrass curves.
 \end{itemize}
-Therefore, it is difficult to have an appropriate comparison between the constructions in this article and previous work, as we are the first to consider the twisted Hessian curves with odd embedding degrees, to our knowledge.
-Note that even embedding degrees have the advantage of being able to completely eliminate denominators in the computation of the Tate pairing. However, with odd embedding degrees, we need to compute the denominator as it is non-trivial.
+Therefore, it is difficult to have an appropriate comparison between the constructions in this paper and previous works,
+as we are the first, to our knowledge, to consider the twisted Hessian curves with odd embedding degrees.
+Note that even embedding degrees have the advantage of being able to completely eliminate denominators in the computation of the pairing.
+However, with odd embedding degrees, we need to compute the denominator as it is non-trivial.
 %Hence, it is challenging to have the cost of odd embedding degrees being competitive with those of even embedding degrees.
 
-Table~\ref{tbl-cmp} shows the costs of the computation of pairings using our constructions in comparison with previous work. The first column gives the embedding degrees $k$.
+Table~\ref{tbl-cmp} shows the costs of the computation of pairings using our constructions in comparison with previous work.
+The first column gives the embedding degrees $k$.
 The second column gives the curve model, where 
 $\mathcal{J}$, $\mathcal{P}$, $\mathcal{E}$, $\mathcal{H}$ denote the
 Weierstrass model with Jacobian coordinates, the
@@ -70,16 +73,54 @@ The cost of multiplication by curve parameters is omitted from the table.
 
 Let $\Mul$ and $\Sqr$ denote the cost of field multiplication and field squaring over the extension field.
 In the doubling step (line 2 in Algorithm~\ref{algo:miller}),
-we have to compute $f^2 \cdot l$.
+we have to compute $f^2 \cdot \ell_{2R}$.
 Therefore, the extra cost of $1\Mul + 1\Sqr$ is required.
 Similarly, in the addition step (line 5 in Algorithm~\ref{algo:miller}),
-we have to compute $f \cdot l$.
+we have to compute $f \cdot \ell_{R,P}$.
 Therefore, the extra cost of $1\Mul$ is required.
 These extra costs are the same for all curve models regardless of the embedding degree, hence, we omit these costs from the table.
 
 Note that there are various advantages of our constructions that cannot be justified by the cost shown in Table~\ref{tbl-cmp}.
 First of all, the costs shown in Table~\ref{tbl-cmp} do not reflect the total cost for the pairing-based protocols.
-This is because generically there are many group operations performed prior to relatively few pairing computations, and group operations on twisted Hessian curves allow faster point arithmetic operations than Weierstrass curves.
-Secondly, having curves represented in the same models for $\mathbb{G}_1$ and $\mathbb{G}_2$ does not induce the extra cost of conversion between curve models. (Recall that for BN, BLS, and KSS, this conversion is always necessary if one wants to take advantage of the fast point-arithmetic on Hessian or Edwards curves, as proven in~\cite{2013/bos-pairing}.)
+This is because generically there are many group operations performed prior to relatively few pairing computations,
+and group operations on twisted Hessian curves allow faster point arithmetic operations than Weierstrass curves.
+Secondly, having curves represented in the same models for $\mathbb{G}_1$ and $\mathbb{G}_2$ does not induce the extra cost of conversion between curve models.
+(Recall that for BN, BLS, and KSS, this conversion is always necessary if one wants to take advantage of
+the fast point-arithmetic on Hessian or Edwards curves, as proven in~\cite{2013/bos-pairing}.)
+As explained in Section~\ref{subsec:w2h}, 
+this conversion costs $9\Mul + 2\Sqr + 5\mul$ plus one inversion and one cube root computation.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\subsection{Numerical comparison}
+%Since we would like to focus on a better balance of field size and embedding degree,
+%we would like to focus on odd embedding degrees with allow, for example, $k = 15, 21$.
+%Therefore, we think it is the best to compare our result of odd embedding degree twist Hessian curves,
+%with odd embedding degree Weierstrass curve~\cite{2010/CLN}.
+%
+%In many protocols based on pairings, there are usually only a few pairing computation but many operations in $\G{1}$ and less in $\G{2}$, and $\G{T}$.
+%In this simple comparison analysis, we would like to focus only on exponentiation $\G{1}$ because there are more of these compared to $\G{2}$ and $\G{T}$.
+%We would like to show how much we save for one exponentiation in $\G{1}$.
+%
+%Consider embedding degree $k = 15$.
+%Let $q = 384$.
+%According to~\cite{EFD} and~\cite{2013/bos-pairing}, for Weierstrass curves of a form $y^2 = x^3 + b$,
+%point doubling costs $2\Mul + 5\Sqr$ and point addition costs $11\Mul + 5\Sqr$.
+%For our twisted Hessian curves of a form $ax^3 + y^3 + 1 = 0$,
+%point doubling costs $5\Mul + 2\Sqr$ and point additio costs $11\Mul$.
+%Let consider $S = 0.8M$.
+%This means that on Weierstrass curve, point doubling and point addition cost $6\Mul$ and $15\Mul$ respectively,
+%while on twisted Hessian curves point doubling and point addition cost $6.6\Mul$ and $11\Mul$ respectively.
+%Let consider double-and-add algorithm with window with 5.
+%This means that one exponentiation costs
+%$384(6\Mul) + 76(15\Mul) = 3444\Mul$ on Weierstrass curves, and
+%$384(6.6\Mul) + 76(11\Mul) = 3370.4$ on twisted Hessian curves.
+%One pairing on Weierstrass curves cost $15\Mul + 6\Mul + 7\Sqr = 26.6\Mul$.
+%One pairing on twisted Hessian curves cost $15\Mul + 6\Mul + 7\Sqr = 26.6\Mul$.
+%
+%Even though pairing on odd embedding degree twisted Hessian curves might cost more than that on Weierstrass curves,
+%but if we consider as a whole pairing protocols, we save more on the group operations.
+%The example of numerial comarison above show this.
+
 
 

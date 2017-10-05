@@ -1,0 +1,360 @@
+// x := 5054
+k := 21;
+a := 0;
+b := 144;
+q := 60388831224640627688578323697279079263669799534119323634669;
+r := 277784988873145112452421916846435035271854071;
+t := 425678681440265235217560699137;
+
+Fq := GF(q);
+R<z> := PolynomialRing(Fq);
+Fq7<u> := ExtensionField<Fq,z|z^7+z+3>;
+R2<zz> := PolynomialRing(Fq7);
+
+//foundW := false;
+//w6 := Random(Fq7);
+//while not foundW do
+//	w6 := Random(Fq7);
+//	if (not IsEmpty(AllRoots(w6,2))) and (IsEmpty(AllRoots(w6,3))) \
+//	and (IsIrreducible(zz^3-w6)) then
+//		E := EllipticCurve([Fq|a,b]);
+//	Et := EllipticCurve([Fq7|0,b*w6]);
+//		print "...";	
+//		nE := #E;
+//		nEt := #Et;
+//		if (nEt mod r) eq 0 then
+//			foundW := true;
+//		end if;
+//		print "---";
+//	end if;
+//end while;
+
+w6 := \
+57327896545860869939569421708064196397217398714607354604704*u^6 + \
+50986040610875279356252570686193553716895204798098554771604*u^5 + \
+43871050826682444875451708002421272596755943286945193496584*u^4 + \
+22766017041775026306799509924447588889635103042232066416055*u^3 + \
+51760805733609279039861243386668212054854423610065435586430*u^2 + \
+4690724760515227756159945663835675755075373694738478453676*u + \
+14502111465743264925650475912918367509695304934056683652593;
+
+Fq21<v> := ExtensionField<Fq7,zz|zz^3-w6>;
+
+E := EllipticCurve([Fq|a,b]);
+Et := EllipticCurve([Fq7|0,b*w6]);
+E21 := EllipticCurve([Fq21|a,b]);
+
+nE := \
+60388831224640627688578323696853400582229534298901762935533;
+
+nEt := \
+29288448743846579171046459943425857899139686514258819477624479870198098443711615\
+14858088350678666011478128779229213681785672849471870467193040443795216964269264\
+83723203667917570364108098665239247869405326780135877864148241048758896075195589\
+87506573653005034418234778765416515251915855991750885449439774412257674502275405\
+64419069187805563811115651467208948533612200755004604765692711853548172572362114\
+173800034881;
+
+nE21 := \
+25124018813403743264709406900748618635355336999124354076058797248134552366238855\
+46500233836328890808048433747391376396655653539325116180125573543075069424987990\
+46085168514769377764179342661664446783417252384175533420157270434611013184571806\
+52079731692843055001454033044767406333117303304397564039231422780674238658329551\
+73869257448798859003394290924529857658134195975978149775338907342075251807168437\
+92740469523736701690016936282060596804063888652627544202343924021143130894851966\
+26665615997921018362766422941488482571945412297022883036038972828654036458749148\
+42518689129736947338379837741622366048789105140575266100523432087297954541476952\
+33078233038867303826187849133017873867644945530014587207829950248815202129720148\
+44547634663383373176809162060934458631093797081497959799942974176590536410637075\
+45367650831299985961236095750353214887264496625489052060326737746308694482422365\
+05210757340068135353812853686234464049595684081248084352854497220677142137436983\
+76529515119902739623915410933440940614984162170496708473221755803233450245838462\
+18686661470467670143473133865586043065212122589178755560918750181538296199608734\
+04738908185161783546423955426391691617452080833059753552526796723329059352823384\
+98541636424288823658118445428231244;
+
+//------------------------------------------------------------//
+
+function findCubeRoot(p);
+	a := PrimitiveElement(Fq);
+	return a^((p-1) div 3);
+end function;
+
+function w2h_param(a,b,Fq,E,nE,e);
+	h := nE;
+	while (h mod 3) eq 0 do
+		h := h div 3;
+	end while;
+
+	P3 := E![0,Integers()!(Sqrt(b)),1];
+	P3 := h*P3;
+
+	u3 := P3[1];
+	v3 := P3[2];
+
+	c3 := Fq!(2*v3);
+	c4 := Fq!(3*u3^2);
+
+	lambda := Fq!(c4 / c3);
+
+	a1 := Fq!(2*lambda);
+	a3 := Fq!(c3);
+
+	td := Fq!(a1);
+	ta := Fq!(a3);
+
+	ha := Fq!(td^3 - 27*ta);
+	hd := Fq!(3*td);
+
+	omega := findCubeRoot(q^e);
+
+	return ta,td,ha,omega,lambda,u3,v3;
+end function;
+
+function w2h(ta,td,omega,lambda,u3,v3,W,Fq);
+	u := W[1];
+	v := W[2];
+	w := W[3];
+
+	T := u - u3;
+
+	U := Fq!(T);
+	V := Fq!(v - v3 - lambda*T);
+	W := Fq!(w);
+
+	A := omega*(V + td*U + ta*W);
+	B := omega*V;
+	C := ta*W;
+
+	X := Fq!(U);
+	Y := Fq!(A - omega*B - C);
+	Z := Fq!(omega*A - B - C);
+
+	return [X,Y,Z];
+end function;
+
+//----------------------------------------//
+
+function Tr (E,k,P);
+	Q := E![P[1],P[2]];
+	for i := 1 to k - 1 do
+		Q +:= E![P[1]^(q^i),P[2]^(q^i)];
+	end for;
+	return Q;
+end function;
+
+function aTr(E,k,P);
+	kP := k*P;
+	trP := Tr(E,k,P);
+	N := kP - trP;
+	return N;
+end function;
+
+function point_hesADD(P,Q,a);
+	A := P[1] * Q[3];
+	B := P[3] * Q[3];
+	C := P[2] * Q[1];
+	D := P[2] * Q[2];
+	E := P[3] * Q[2];
+	F := P[1] * Q[1] * a;
+	G := (D + B) * (A - C);
+	H := (D - B) * (A + C);
+	J := (D + F) * (A - E);
+	K := (D - F) * (A + E);
+	X3 := G - H;
+	Y3 := K - J;
+	Z3 := J + K - G - H - 2*(B - F) * (C + E);
+	return [X3,Y3,Z3];
+end function;
+
+function point_hesDBL(P,a);
+	T := P[2]^2;
+	A := P[2] * T;
+	S := P[3]^2;
+	B := P[3] * S;
+	X3 := P[1] * (A - B);
+	Y3 := -P[3] * (2*A + B);
+	Z3 := P[2] * (A + 2*B);
+	return [X3,Y3,Z3];
+end function;
+
+function hes_smult(n,P,a);
+	R := P;
+	seq := Reverse(IntegerToSequence(n,2));
+	for i := 2 to #seq do
+		R := point_hesDBL(R,a);
+		if seq[i] eq 1 then
+			R := point_hesADD(R,P,a);
+		end if;
+	end for;
+	return R;
+end function;	
+
+//----------------------------------------------//
+// combined point operations and line functions //
+//----------------------------------------------//
+
+function hesDBL(R,Q,a);
+	T := R[2]^2;
+	A := R[2] * T;
+	S := R[3]^2;
+	B := R[3] * S;
+
+	X3 := R[1] * (A - B);
+	Y3 := -R[3] * (2*A + B);
+	Z3 := R[2] * (A + 2*B);
+
+	R2 := [X3,Y3,Z3];
+
+	l1 := a * R[1]^2 * Q[1] + T * Q[2] + S;
+	la := X3 * Q[2] + X3;
+	lb := Q[1] * (Y3 + Z3);
+	lc := la^2 + lb * (la + lb);
+	l := l1 * lc;
+
+	return l,R2;
+end function;
+
+function hesADD(R,P,Q,a);
+	A := P[1] * R[3];
+	C := P[2] * R[1];
+	D := P[2] * R[2];
+	F := P[1] * R[1] * a;
+	G := (D + R[3]) * (A - C);
+	H := (D - R[3]) * (A + C);
+	J := (D + F) * (A - R[2]);
+	K := (D - F) * (A + R[2]);
+	X3 := G - H;
+	Y3 := K - J;
+	Z3 := J + K - G - H - 2*(R[3] - F) * (C + R[2]);
+
+	RP := [X3,Y3,Z3];
+
+	l1 := (P[2] * R[3] - R[2]) * (P[1] - Q[1]) + \
+		(Q[2] - P[2]) * (P[1] * R[3] - R[1]);
+	la := Q[2] * X3 + X3;
+	lb := Q[1] * (Y3 + Z3);
+	lc := la^2 + lb * (la + lb);
+	l := l1 * lc;
+
+	return l,RP;
+end function;
+
+//----------------------------------------//
+
+//---------------//
+// Hessian: Tate //
+//---------------//
+
+function hes_Tate(P,Q,s,ha);
+	R := P;
+	f := 1;
+	for i:= 2 to #s-1 do
+		l,R := hesDBL(R,Q,ha);
+		f := f^2 * l;
+		if s[i] eq 1 then
+			l,R := hesADD(R,P,Q,ha);
+			f := f * l;
+		end if;
+	end for;
+
+	l,R := hesDBL(R,Q,ha);
+	f := f^2 * l;
+
+	l := Q[2]*P[1] - Q[1]*(P[2] + 1) + P[1];
+	f := f*l;
+
+	f := f^(Integers()!((q^k-1)/r));
+
+	return f;
+end function;
+
+//---------------//
+// Hessian: Ate //
+//---------------//
+
+function hes_Ate(P,Q,s,ha);
+	R := Q;
+	f := 1;
+	for i:= 2 to #s do
+		l,R := hesDBL(R,P,ha);
+		f := f^2 * l;
+		if s[i] eq 1 then
+			l,R := hesADD(R,Q,P,ha);
+			f := f * l;
+		end if;
+	end for;
+
+	f := f^(Integers()!((q^k-1)/r));
+
+	return f;
+end function;
+
+//------------------------------------------------------------//
+
+ta ,td ,ha ,omega ,lambda ,u3 ,v3  := w2h_param(a,b,Fq,E,nE,1);
+ta3,td3,ha3,omega3,lambda3,u33,v33 := w2h_param(a,b,Fq21,E21,nE21,1);
+
+P := PointsAtInfinity(E)[1];
+while P eq PointsAtInfinity(E)[1] do
+	P := Random(E);
+	P := (Order(P) div r)*P;
+end while;
+
+Qt := PointsAtInfinity(Et)[1];
+while Qt eq PointsAtInfinity(Et)[1] do
+	Qt := Random(Et);
+	Qt := (nE21 div r^2) * Qt;
+end while;
+w2list := AllRoots(Fq21!(w6),3);
+w3list := AllRoots(w6,2);
+Q := E21![Qt[1]/(w2list[2]),Qt[2]/(w3list[1])];
+Q := aTr(E21,k,Q);
+
+s:=Reverse(IntegerToSequence(r,2));
+s2:=Reverse(IntegerToSequence(t-1,2));
+
+//----------//
+
+H := w2h(ta,td,omega,lambda,u3,v3,P,Fq);
+H := [H[1]/H[3],H[2]/H[3],1];
+
+K := w2h(ta3,td3,omega3,lambda3,u33,v33,Q,Fq21);
+K := [K[1]/K[3],K[2]/K[3],1];
+
+c1 := Random(2,5);
+c2 := Random(6,10);
+
+H_c1 := hes_smult(c1,H,ha);
+H_c1 := [H_c1[1]/H_c1[3], H_c1[2]/H_c1[3], 1];
+
+H_c2 := hes_smult(c2,H,ha);
+H_c2 := [H_c2[1]/H_c2[3], H_c2[2]/H_c2[3], 1];
+
+K_c1 := hes_smult(c1,K,ha3);
+K_c1 := [K_c1[1]/K_c1[3], K_c1[2]/K_c1[3], 1];
+
+K_c2 := hes_smult(c2,K,ha3);
+K_c2 := [K_c2[1]/K_c2[3], K_c2[2]/K_c2[3], 1];
+
+// Hessian Tate //
+ansH11 := hes_Tate(H_c1,K_c2,s,ha);
+ansH12 := hes_Tate(H_c1,K,s,ha);
+ansH12 := ansH12^c2;
+ansH13 := hes_Tate(H,K_c2,s,ha);
+ansH13 := ansH13^c1;
+ansH14 := hes_Tate(H_c2,K_c1,s,ha);
+print ansH11 eq ansH12, ansH12 eq ansH13, ansH13 eq ansH14, ansH14 ne 1;
+print ansH11^r eq 1, ansH12^r eq 1, ansH13^r eq 1, ansH14^r eq 1;
+
+// Hessian Ate //
+ansH21 := hes_Ate(H_c1,K_c2,s2,ha3);
+ansH22 := hes_Ate(H_c1,K,s2,ha3);
+ansH22 := ansH22^c2;
+ansH23 := hes_Ate(H,K_c2,s2,ha3);
+ansH23 := ansH23^c1;
+ansH24 := hes_Ate(H_c2,K_c1,s2,ha3);
+print ansH21 eq ansH22, ansH22 eq ansH23, ansH23 eq ansH24, ansH24 ne 1;
+print ansH21^r eq 1, ansH22^r eq 1, ansH23^r eq 1, ansH24^r eq 1;
+
+

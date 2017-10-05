@@ -3,6 +3,7 @@ ref.bib \
 intro.tex \
 background.tex \
 curves.tex \
+lines.tex \
 formulas.tex \
 comparison.tex \
 discussion.tex \

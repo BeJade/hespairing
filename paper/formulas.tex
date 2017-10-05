@@ -1,101 +1,81 @@
-\section{Computation of line functions}
+\section{Explicit formulas}
 \label{sec:formulas}
 
-%XXX To Chloe: is this still correct? wouldn't everything collapse to 1?
-%XXX don't forget to put reference
-Let notation be as above, and let $P \in \mathbb{G}_{1}$. We now move to the explicit computation of the line functions
-$\ell_{1} = L_{iP,jP}$ and $\ell_{2} = L_{(i+j)P,-(i+j)P}$
-given in the formula for the reduced Tate pairing; recall from Section \ref{sec:Tate} that computing these line functions is enough to compute the reduced Tate pairing. Recall also that the line $\ell_{2}$ is in the denominator of the pairing. Inversion is expensive, so we first apply `denominator elimination' to optimize this inversion.
-%%%%%%%%%%%%%%%%%%%%
-
-%Let $m = (m_{\ell-1}, \dots, m_1, m_0)$ be the binary representation of $m$.
-%Initialize $R = P$ and $f = 1$.
-%Algorithm~\ref{algo:miller} shows Miller's algorithm.
-%%\renewcommand{\algorithmicrequire}{\textbf{Initialize:}}
-%%\renewcommand{\algorithmicensure}{\textbf{Output:}}
-%\begin{algorithm}
-%\caption{Miller's algorithm}
-%\label{algo:miller}
-%\begin{algorithmic}[1]
-%
-%%	\Require $R = P$ and $f = 1$
-%
-%	\For {$i := \ell - 2$ {\bf{down to}} $0$}
-%		\State $f \leftarrow f^2 \cdot f_{DBL(R)}(Q)$
-%		\State $R \leftarrow 2R$
-%		\If {$m_i = 1$}
-%			\State $f \leftarrow f \cdot f_{ADD(R,P)}(Q)$
-%			\State $R \leftarrow R+P$
-%		\EndIf
-%	\EndFor
-%	\State $f \leftarrow f^{(p^k-1)/r}$
-%
-%\end{algorithmic}
-%\end{algorithm}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Denominator elimination}
-We follow a similar technique as described in~\cite{2008/lin} and~\cite{2009/deg15}
-by rewriting an inversion into a fraction for which the denominator lies in a subfield.
-Define a field extension $\F{p^k}$ of a finite field $\F{p}$ and suppose that $x,y \in \F{p^k}$.
-
-Observe that
-$$ \frac{1}{x-y} = \frac{x^2 + xy + y^2}{x^3 - y^3}. $$
-As $x^3$ and $y^3$ lie in a subfield of $\F{p^k}$, we have that
-\[(x^{3} - y^{3})^{\frac{p^{k}-1}{r}} = 1,\]
-hence after the final exponentiation in the computation of the pairing, this factor does not appear.
-This means that we can ignore the computation of the denominator $x^3 - y^3$, so that instead of computing $\frac{1}{x-y}$,
-we compute $x^2 + xy + y^2$.
-The cost of division by $x - y$ then becomes the cost of multiplication by $x^2 + xy + y^2$.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Explicit formulas}
-
-Recall the twisted Hessian curve equation in projective coordiates
+Recall the twisted Hessian curve equation in projective coordinates
 %$ a x^3 + y^3 = 1 + d x y, $ or
-$$ \mathcal{H}: a X^3 + Y^3 = Z^3 + d X Y Z. $$
-This subsection shows formulas to compute point doubling, point addition, and line functions associated to these operations.
+$$ \mathcal{H}: a X^3 + Y^3 + Z^3 = d X Y Z. $$
+This section shows formulas for computing point doubling, point addition, and line functions associated to these operations.
 These formulas work under an assumption that the curve parameter $d = 0$.
 
-Symbols $\mul, \sqr, \mulp{a}, k, d$ denote
-field multiplication,
-field squaring,
-field multiplication by curve constant $a$,
-embedding degree and
-twist degree respectively.
+We denote operations in the base field, namely, 
+field multiplication, field squaring and field multiplication by curve constant $a$
+by $\mul, \sqr, \mulp{a}$ respectively.
+We denote embedding degree and twist degree by $k$ and $d$.
 
-\subsubsection{Doubling.}
-%	// 5M + 2S + 3*3 + 1*2 + 1*neg + 6*add
-%	// assume d = 0
-Given a point $P = (X_1,Y_1,Z_1)$ on $E/\F{p}$ and a point $Q = (X_Q,Y_Q,1)$ on $E/\F{p^{k}}$
-where $X_Q \in \F{p^{k}}$ and $Y_Q \in \F{p^{k/d}}$,
-the following formulas compute the doubling of point $P = 2P = (X_3,Y_3,Z_3)$ and the line function $l$.
+The following formulas work for both Tate and ate pairings.
+We denote
+$P = (X_1,Y_1,1)$ and $R = (X_2,Y_2,Z_2)$ on $E/\F{p}$ and a point $Q = (X_Q,Y_Q,1)$ on $E/\F{p^{k}}$
+Note the points $P$ and $Q$ do not change throughout the pairing computation and thus can be preprocessed,
+namely, we assume that the $P_Z = Q_Z = 1$.
+
+%We also follow~\cite{2010/CLN} to assume that pairings can be computed entirely on twisted curves.
+%Therefore, we denote by $k/3$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Doubling}
+First, we show formulas for compute point doubling.
+These formulas work under the condition that the curve parameter $d=0$,
+which is the case for pairing-friendly twisted Hessian given by our constructions.
+%Given a point $P = (X_1,Y_1,Z_1)$ on $E/\F{p}$,
+%and a point $Q = (X_Q,Y_Q,1)$ on $E/\F{p^{k}}$
+%where $X_Q \in \F{p^{k}}$ and $Y_Q \in \F{p^{k/d}}$,
+Let $R = (X_1, Y_1, Z_1)$.
+The following formulas compute the doubling of point $R = 2R = (X_3,Y_3,Z_3)$.
+%and the line function $l$.
 \begin{align*}
 T &= Y_1^2;\	\qquad	A = Y_1 \cdot T;\	\qquad
 S = Z_1 ^ 2;\	\qquad	B = Z_1 \cdot S;\\
 X_3 &= X_1 \cdot (A - B);\	\quad
 Y_3 = -Z_1 \cdot (2A + B);\	\quad
-Z_3 = Y_1 \cdot (A + 2B);\\
+Z_3 = Y_1 \cdot (A + 2B).
+\end{align*}
+To compute point doubling using these formulas,
+it costs $5\mul + 2\sqr + 2\mulp{2} + 3\add$ plus one negation.
+
+Let $Q = (X_Q, Y_Q, 1)$ be the point to evaluate.
+Let $R$ and $2R$ be as defined above for point doubling.
+The associated line function for doubling
+to compute $l_{2R}(Q)$ is as follows:
+\begin{align*}
 l_1 &= a X_1^2 X_Q + T \cdot Y_Q + S;\	\qquad
 l_a = X_3 \cdot Y_Q + X_3;	\\
 l_b &= X_Q \cdot (Y_3 + Z_3);\			\qquad
 %l_c = (l_a^2 + l_a \cdot l_b + l_b^2);\		\qquad
 l_c = l_a^2 + l_b \cdot (l_a + l_b);\		\qquad
-l = l_1 \cdot l_c;
+l = l_1 \cdot l_c.
 \end{align*}
-The total number of operations is
-%$ k(2\mul + \frac{2}{3}\sqr) + 5\mul +3\sqr + 1\mul_a$ for {\it{odd}} embedding degrees.
-$ k(\frac{14}{3}\mul + \frac{1}{3}\sqr) + 5\mul +3\sqr + 1\mul_a$.
-%Note that curves generated by our Construction 1 have even embedding degrees.
-%The total number of operations for {\it{even}} embedding degrees is
-%$ \frac{4}{3}k\mul + 5\mul +3\sqr + 1\mul_a$.
+To compute the line function for doubling,
+it costs 
+$k(\frac{14}{3}\mul + \frac{1}{3}\sqr) + \sqr + 1\mulp{a}$
+Therefore, the total number of operations for computing ``doubling step'' in the pairing computation is
+$k(\frac{14}{3}\mul + \frac{1}{3}\sqr) + 5\mul +3\sqr + 1\mulp{a} + 2\mulp{2} + 3\add$.
 
-\subsubsection{Addition.}
-Given points $P = (X_1,Y_1,1)$ and $R = (X_2,Y_2,Z_2)$ on $E/\F{p}$ and a point $Q = (X_Q,Y_Q,1)$ on $E/\F{p^{k}}$
-where $X_Q \in \F{p^{k}}$ and $Y_Q \in \F{p^{k/d}}$,
-the following formulas compute the addition of points $P + R = (X_1,Y_1,1) + (X_2,Y_2,Z_2) = (X_3,Y_3,Z_3)$ and the line function $l$.
+%%$ k(2\mul + \frac{2}{3}\sqr) + 5\mul +3\sqr + 1\mul_a$ for {\it{odd}} embedding degrees.
+%$ k(\frac{14}{3}\mul + \frac{1}{3}\sqr) + 5\mul +3\sqr + 1\mul_a$.
+%%Note that curves generated by our Construction 1 have even embedding degrees.
+%%The total number of operations for {\it{even}} embedding degrees is
+%%$ \frac{4}{3}k\mul + 5\mul +3\sqr + 1\mul_a$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Addition}
+Let $P = (X_1,Y_1,1)$ and $R = (X_2,Y_2,Z_2)$.
+The following formulas compute the addition of points
+$P + R = (X_1,Y_1,1) + (X_2,Y_2,Z_2) = (X_3,Y_3,Z_3)$.
+%Given points $P = (X_1,Y_1,1)$ and $R = (X_2,Y_2,Z_2)$ on $E/\F{p}$ and a point $Q = (X_Q,Y_Q,1)$ on $E/\F{p^{k}}$
+%where $X_Q \in \F{p^{k}}$ and $Y_Q \in \F{p^{k/d}}$,
+%the following formulas compute the addition of points $P + R = (X_1,Y_1,1) + (X_2,Y_2,Z_2) = (X_3,Y_3,Z_3)$ and the line function $l$.
 \begin{align*}
 A &= X_1 \cdot Z_2;\	\qquad
 C = Y_1 \cdot X_2;\	\qquad
@@ -107,16 +87,31 @@ J &= (D + F) \cdot (A - Y_2);\	\quad
 K = (D - F) \cdot (A + Y_2);\\
 X_3 &= G - H;\	\qquad
 Y_3 = K - J;\\
-Z_3 &= J + K - G - H - 2(B - F) \cdot (C + E);\\
+Z_3 &= J + K - G - H - 2(Z_2 - F) \cdot (C + Y_2).
+\end{align*}
+To compute point addition using these formulas,
+it costs $9\mul + \mulp{a} + \mulp{2} + 16\add$.
+
+Let $Q = (X_Q,Y_Q,1)$ be the point to evaluate.
+Let $P,R,(P+R)$ be as defined above for point addition.
+The associated line function for addition
+to compute $l_{R,P}$ is as follows:
+\begin{align*}
 l_1 &= (Y_1 \cdot Z_2 - Y_2) \cdot (X_1 - X_Q) + (Y_Q - Y_1) \cdot (X_1 \cdot Z_2 - X_2);\\
 l_a &= Y_Q \cdot X_3 + X_3;\	\quad
 l_b = X_Q \cdot (Y_3 + Z_3);\	\quad
 %l_c = (l_a^2 + l_a \cdot l_b + l_b^2);\\
 l_c = l_a^2 + l_a \cdot (l_b + l_b);\\
-l &= l_1 \cdot \l_c;
+l &= l_1 \cdot \l_c.
 \end{align*}
-The total number of operations is
-$ k(\frac{14}{3}\mul + \frac{1}{3}\sqr) + 11\mul + 1\mul_a$.
-%$ \frac{4}{3}k\mul + 11\mul + 1\mul_a$ for {\it{even}} embedding degrees.
+To compute the line function for addition,
+it costs
+$k(\frac{14}{3}\mul + \frac{1}{3}\sqr) + 2\mul + 9\add$.
+Therefore, the total number of operations to compute ``addition step'' in the pairing computation is
+$k(\frac{14}{3}\mul + \frac{1}{3}\sqr) + 11\mul + \mulp{a} + \mulp{2} + 25\add$.
+
+
+%$ k(\frac{14}{3}\mul + \frac{1}{3}\sqr) + 11\mul + 1\mul_a$.
+%%$ \frac{4}{3}k\mul + 11\mul + 1\mul_a$ for {\it{even}} embedding degrees.
 
 

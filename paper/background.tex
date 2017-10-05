@@ -15,7 +15,7 @@ The reduced Tate pairing is defined as
 \tau_{r} :	& E(\FF_{q^{k}})[r] \times E(\FF_{q^{k}})/[r]E(\FF_{q^{k}})	& \longrightarrow	& \mu_{r} \\
 		& (P,Q)								& \mapsto		& f_{r,P}(Q)^{\frac{q^{k}-1}{r}}.
 \end{array}\]
-In this paper we address the computation of the reduced Tate pairing restricted to $\G{1} \times \G{2}$, where
+We address the computation of the reduced Tate pairing restricted to $\G{1} \times \G{2}$, where
 $$\G{1} = E[r] \cap \ker(\phi_{q}-[1]) \text{ and }
 \G{2} = E[r] \cap \ker(\phi_{q} - [q]) \subseteq E(\FF_{q^{k}}).$$
 Here $\phi_{q}$ denotes the $q$-power Frobenius morphism on $E$.
@@ -29,28 +29,50 @@ a_{T} :	& \G{2} \times \G{1}	& \longrightarrow	& \mu_{r} \\
 \end{array}\]
 Note that in addition to the arguments $P$ and $Q$ being switched, the parameter $r$ is also changed to $T$.
 
-An elliptic curve $E'$ over $\FF_{q^{k/d}}$ is called a \emph{degree-$d$} twist of $E/\FF_{q^{k/d}}$
-if $E$ and $E'$ are isomorphic over an extension field $\FF_{q^k}$
-and this is the smallest extension of $\FF_{q^{k/d}}$ where the isomorphism is defined.
+%An elliptic curve $E'$ over $\FF_{q^{k/d}}$ is called a \emph{degree-$d$} twist of $E/\FF_{q^{k/d}}$
+%if $E$ and $E'$ are isomorphic over an extension field $\FF_{q^k}$
+%and this is the smallest extension of $\FF_{q^{k/d}}$ where the isomorphism is defined.
+%
+%For short Weierstrass curves $E: y^2 = x^3 + ax + b$,
+%a twist of $E$ is of the form $E': y^2 = x^3 + a \omega^4 x + b \omega^6$
+%where $\omega \in \FF_{q^k}$.
+%The isomorphism $\Psi : E' \rightarrow E$ is defined by
+%%between $E'$ and $E$ is given by
+%$\Psi : (x',y') \rightarrow (x'/\omega^2,y'/\omega^3)$,
+%%which maps elements of $E'$ to elements of $E$.
+%where the inverse $\Psi^{-1} : E \rightarrow E'$ is defined by
+%$\Psi^{-1} : (x,y) \rightarrow (\omega^2 x, \omega^3 y)$.
+%%which reverse the role by mapping elements of $E$ to elements of $E'$.
 
-For short Weierstrass curves $E: y^2 = x^3 + ax + b$,
-a twist of $E$ is of the form $E': y^2 = x^3 + a \omega^4 x + b \omega^6$
-where $\omega \in \FF_{q^k}$.
-The isomorphism $\Psi : E' \rightarrow E$ is defined by
-%between $E'$ and $E$ is given by
-$\Psi : (x',y') \rightarrow (x'/\omega^2,y'/\omega^3)$,
-%which maps elements of $E'$ to elements of $E$.
-where the inverse $\Psi^{-1} : E \rightarrow E'$ is defined by
-$\Psi^{-1} : (x,y) \rightarrow (\omega^2 x, \omega^3 y)$.
-%which reverse the role by mapping elements of $E$ to elements of $E'$.
+Miller's algorithm for computing pairings works as follows.
+Let an integer $m$ expresses in a binary format as $(m_{\ell-1},\dots,m_1,m_0)_2$.
+%Let points $P,Q \in E[r]$ where $P \ne Q$.
+First, a rational function $f_{m,P}$ associated to the point $P$ and $m$ is constructed.
+Then, this function is evaluated at the point $Q$.
+%The divisor associated to the function $f_{m,P}$ is
+%$$\text{div}(f_{m,P}) = m(P) - ([m]P) - (m-1)(\mathcal{O}), $$
+%where $\mathcal{O}$ denotes the point at infinity on $E$.
+%$$ div(f_{m,P}) = m(P) - (mP) - (m-1)(\mathcal{O}). $$
+Miller's algorithm computes $f_{m,P}$ in the double-and-add manner
+and uses the following relation
+$$ f_{i+j,P} = f_{i,P} f_{j,P} \frac{l}{v}, $$
+where $l$ is a line through $iP$ and $jP$,
+and $v$ is a line through $(i+j)P$ and $-(i+j)P$.
 
-Algorithm~\ref{algo:miller} describes Miller's algorithm for computing pairings.
-We denote $\ell_{2R} = l_{2R} / v_{2R}$ where $l_{2R}$ is that tangent line at $R$
-while $v_{2R}$ is a line passing through $2R$ and its negation $-2R$.
-We denote $\ell_{R,P} = l_{R,P} / v_{R,P}$ where $l_{R,P}$ is the line passing through $R$ and $P$
-while $v_{R,P}$ is a line passing through $R+P$ and its negation $-(R+P)$.
-Note that for Weierstrass curves, a line passing through a point and its negation is simply a vertical line.
-However, this is not true for the case of (twisted) Hessian curves.
+Constructing the line $l$ can be done by substituting $x$ and $y$ coordinates of points $iP$ and $jP$
+into the equation $y = mx + b$ and solving for $m$ and $b$.
+For Weierstrass curves, the line $v$ is simply a vertical line through $(i+j)P$.
+Therefor, the line $v$ is of the form $x = c$ where $c$ is the $x$-coordinate of the point $(i+j)P$.
+Note that the point $(i+j)P$ and $-(i+j)P$ have the same $x$-coordinate.
+For (twisted) Hessian curves, however, the line $v$ is not a vertical line
+and thus has to be constructed in a similar way as the line $l$,
+i.e., solving for $m$ and $b$ of $y = mx + b$ using points $(i+j)P$ and $-(i+j)P$.
+
+Algorithm~\ref{algo:miller} shows the Miller's algorithm.
+We denote $\ell_{2R} = l_{2R} / v_{2R}$ where $l_{2R}$ is that tangent line at point $R$
+while $v_{2R}$ is a line passing through points $2R$ and its negation $-2R$.
+We denote $\ell_{R,P} = l_{R,P} / v_{R,P}$ where $l_{R,P}$ is the line passing through points $R$ and $P$
+while $v_{R,P}$ is a line passing through points $R+P$ and its negation $-(R+P)$.
 
 \begin{algorithm}
 \caption{Miller's algorithm}
@@ -72,3 +94,4 @@ However, this is not true for the case of (twisted) Hessian curves.
 
 \end{algorithmic}
 \end{algorithm}
+
