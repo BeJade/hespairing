@@ -3,8 +3,8 @@
 
 We would like to emphasize that:
 \begin{itemize}
-\item	Most of the previous work concerned Weierstrass curves.
-\item	Most of the previous work concerned even embedding degrees.
+\item	Most of the previous works concerned Weierstrass curves.
+\item	Most of the previous works concerned even embedding degrees.
 \item	There were some previous works on Hessian curves but with even embedding degrees.
 \item	There were also some previous works with odd embedding degrees but using Weierstrass curves.
 \end{itemize}
@@ -14,7 +14,7 @@ Note that even embedding degrees have the advantage of being able to completely 
 However, with odd embedding degrees, we need to compute the denominator as it is non-trivial.
 %Hence, it is challenging to have the cost of odd embedding degrees being competitive with those of even embedding degrees.
 
-Table~\ref{tbl-cmp} shows the costs of the computation of pairings using our constructions in comparison with previous work.
+Table~\ref{tbl-cmp} shows the costs of the computation of pairings using our constructions in comparison with previous works.
 The first column gives the embedding degrees $k$.
 The second column gives the curve model, where 
 $\mathcal{J}$, $\mathcal{P}$, $\mathcal{E}$, $\mathcal{H}$ denote the
@@ -25,7 +25,7 @@ Hessian model respectively.
 Note that this work considers the generalization of Hessian curves to ``twisted'' Hessian curves, and that the twists are of degree 3.
 The third and fourth columns show the cost of doubling (DBL) and mixed addition (mADD) including the computation of the line functions for pairing computations.
 By `mixed addition' we mean that the $z$ coordinate is set to be 1.
-We denote the cost of field multiplication and field squaring over the base field $\F{p}$ by $\mul$ and $\sqr$ respectively.
+We denote the cost of field multiplication and field squaring over the base field $\F{q}$ by $\mul$ and $\sqr$ respectively.
 The cost of multiplication by curve parameters is omitted from the table.
 
 \begin{table}[h]
@@ -39,28 +39,24 @@ The cost of multiplication by curve parameters is omitted from the table.
 \hline
 \multicolumn{1}{c|}{\multirow{6}{*}{even}}
 &$\mathcal{J}$, \cite{2008/IonicaJoux08} \cite{2009/fastertate}
-%				&$k\mul + 1\mul + 11\sqr + 1\mulp{a}$	&$k\mul + 6\mul + 6\sqr$	\\
 				&$k\mul + 1\mul + 11\sqr	$	&$k\mul + 6\mul + 6\sqr$	\\
 &$\mathcal{J},a = -3$, \cite{2009/fastertate}
 				&$k\mul + 6\mul + 5\sqr$		&$k\mul + 6\mul + 6\sqr$	\\
 &$\mathcal{J},a = 0$, \cite{2009/fastertate}		
 				&$k\mul + 3\mul + 8\sqr$		&$k\mul + 6\mul + 6\sqr$	\\
 &$\mathcal{P},a = 0, b = c^2$, \cite{2009/craig}
-%				&$k\mul + 3\mul + 5\sqr$		&$k\mul + 10\mul + 2\sqr + 1\mulp{b}$	\\
 				&$k\mul + 3\mul + 5\sqr$		&$k\mul + 10\mul + 2\sqr$	\\
 &$\mathcal{E}$, \cite{2009/fastertate}			
 				&$k\mul + 6\mul + 5\sqr$		&$k\mul + 12\mul$	\\
 &$\mathcal{H}$, \cite{2010/Gu}	&$k\mul + 3\mul + 6\sqr$		&$k\mul + 10\mul$	\\
 \hline
-%\multirow{2}{*}{\rotatebox{90}{$k{=}3$}}
 \multicolumn{1}{c|}{\multirow{2}{*}{odd}}
-%&$\mathcal{P}$, \cite{2010/CLN}	&$k\mul + 6\mul + 7\sqr + 1\mul_b$	&$k\mul + 13\mul + 3\sqr$	\\
 &$\mathcal{P}$, \cite{2010/CLN}	&$k\mul + 6\mul + 7\sqr$		&$k\mul + 13\mul + 3\sqr$	\\
 &$\mathcal{H},d=3$, this paper
-%				&$k(\frac{14}{3}\mul + \frac{1}{3}\sqr) + 5\mul + 3\sqr + 1\mul_a$
-				&$k(\frac{14}{3}\mul {+} \frac{1}{3}\sqr) {+} 5\mul {+} 3\sqr$
-%									&$k(\frac{14}{3}\mul + \frac{1}{3}\sqr) + 11\mul + 1\mul_a$	\\
-									&$k(\frac{14}{3}\mul {+} \frac{1}{3}\sqr) {+} 11\mul$	\\
+%				&$\frac{k}{3}(6\mul {+} \sqr) {+} 5\mul {+} 3\sqr$
+				&$2k\mul {+} \frac{k}{3}\sqr {+} 5\mul {+} 3\sqr$
+%									&$\frac{k}{3}(6\mul {+} \sqr) {+} 11\mul$	\\
+									&$2k\mul {+} \frac{k}{3}\sqr {+} 11\mul$	\\
 \hline
 \end{tabular}
 \label{tbl-cmp}
@@ -72,10 +68,10 @@ The cost of multiplication by curve parameters is omitted from the table.
 \end{table}
 
 Let $\Mul$ and $\Sqr$ denote the cost of field multiplication and field squaring over the extension field.
-In the doubling step (line 2 in Algorithm~\ref{algo:miller}),
+In the doubling step,
 we have to compute $f^2 \cdot \ell_{2R}$.
 Therefore, the extra cost of $1\Mul + 1\Sqr$ is required.
-Similarly, in the addition step (line 5 in Algorithm~\ref{algo:miller}),
+Similarly, in the addition step,
 we have to compute $f \cdot \ell_{R,P}$.
 Therefore, the extra cost of $1\Mul$ is required.
 These extra costs are the same for all curve models regardless of the embedding degree, hence, we omit these costs from the table.
