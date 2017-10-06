@@ -13,7 +13,7 @@ We follow the above mentioned approach.
 The succeeding subsections explain how to obtain pairing-friendly twisted Hessian curves.
 We begin by explaining the twists of curves, specifically the twists of degree $3$
 where all of our constructions allow this type of twist.
-Then, we give concrete constructions to generate pairing friendly Weierstrass curves that guarantee to have points of order 3,
+Then, we give concrete constructions to generate pairing-friendly Weierstrass curves that guarantee to have points of order 3,
 and thus these curves can be converted into the (twisted) Hessian form.
 Finally, we show an explicit transformation from Weierstrass into twisted Hessian form by precisely stating the formulas.
 
@@ -147,7 +147,7 @@ Note that twists of these curves (see Section~\ref{twist}) are also expressible 
 We categorized these constructions by embedding degrees.
 Note that $q(x)$ is a prime field,
 $r(x)$ is a subgroup of $E(\F{q(x)})$ which may not be prime,
-and $t(x)$ is a trace of $E/\F{q(x)}$ defined as $t(x) = q(x) + 1 - \#E(\F{q(x)})$
+and $t(x)$ is a trace of Frobenius defined as $t(x) = q(x) + 1 - \#E(\F{q(x)})$
 where $\#E(\F{q(x)})$ denotes the number of points on $E(\F{q(x)})$.
 We denote $\Phi_{n}(x)$ the cyclotomic polynomial of degree $n$.
 
@@ -187,7 +187,7 @@ t(x) &= x^{k/3+1} + 1,	\\
 q(x) &= \frac{1}{3} (x^2 - x + 1) (x^{2k/3} - x^{k/3} + 1) + x^{k/3+1}.
 \end{align*}
 Note that for this construction,
-the resulting curves have point of order 3 and also on their twists.
+the resulting curves have points of order 3 and also on their twists.
 However, there is no such $x_0$ for this construction to achieve
 both $q(x_0)$ and $r(x_0)$ being prime.
 This means that $r(x_0)$ factors, and the largest prime-factor subgroup is actually smaller than $r(x_0)$.
@@ -210,7 +210,7 @@ t(x) &= -x^{k/3+1} + x + 1,	\\
 q(x) &= \frac{1}{3} (x+1)^2 (x^{2k/3} - x^{k/3} + 1) - x^{2k/3+1}.
 \end{align*}
 Note that similar remarks also apply to this construction.
-The resulting curves have point of order 3 and also on their twists.
+The resulting curves have points of order 3 and also on their twists.
 There is no such $x_0$ for this construction to achieve both $q(x_0)$ and $r(x_0)$ being prime.
 The parameter  $r(x_0)$ factors, and the largest prime-factor subgroup is smaller than $r(x_0)$.
 Having discriminant $D = 3$
@@ -231,7 +231,7 @@ t(x) &= x+1,		\\
 q(x) &= \frac{1}{3} (x-1)^2 (x^{k/3} - x^{k/6} + 1) + x.
 \end{align*}
 Note that for this construction,
-the resulting curves have point of order 3 and also on their twists.
+the resulting curves have points of order 3 and also on their twists.
 There also exists $x_0$ such that both $q(x_0)$ and $r(x_0)$ are prime.
 Recall that this construction also has discriminant $D = 3$.
 This means that the possible twists are  cubic ($d=3$) and sextic ($d=6$) twists.
@@ -247,7 +247,7 @@ for constructing pairing-friendly Weierstrass curves with embedding degree $k = 
 (see Construction 1 above)
 which can be converted to twisted Hessian curves.
 Note that the scripts also work for different embedding degree $k \equiv 3 \pmod{18}$ 
-by changing \texttt{k = 21} to the desired embedding degree.
+by changing \texttt{k = 21} to the desired embedding degrees.
 For other constructions,
 in addition to changing the embedding degree,
 the polynomials \texttt{rx, r, t, q} also need to be replaced by the corresponding ones.
@@ -260,7 +260,7 @@ For auxiliary functions in \texttt{util.sage}, please refer to Appendix~\ref{app
 \setstretch{1}
 \hrule
 \caption{Sage scripts to generate pairing-friendly Weierstrass curves having embedding degree $k = 21$
-and can be converted into twisted Hessian form that allows twist of degree 3.}
+that can be converted into twisted Hessian form and allow twist of degree 3.}
 \label{fig:sscript}
 \end{figure}
 
@@ -306,7 +306,7 @@ into the twisted Hessian form, we follow the explanation in~\cite{2015/hessian}.
 Specifically, the proofs of Theorem 5.2 and {Theorem 5.3} in~\cite{2015/hessian} describe the isomorphism from
 Weierstrass curves to twisted Hessian curves via triangular curves using series of substitutions.
 
-To be more precise, the proofs start by denoting a point-of-order 3 $P_3 = (u_3,v_3)$ and
+To be more precise, the proofs start by denoting a point of order 3 $P_3 = (u_3,v_3)$ and
 writing a curve (defined over $\F{q}$) in a long Weierstrass form
 $$ v^2 + e_1 uv + e_3 v = u^3 + e_2 u^2 + e_4 u + e_6. $$
 Note however that in our case, we consider curves of the form $y^2 = x^3 + ax + b$.
@@ -377,7 +377,7 @@ A = \omega(V + dU + aW),	\qquad
 B = \omega V,	\qquad
 C = aW.
 \end{gather*}
-Then the map $\phi$ is computed as:
+Then, the map $\phi$ is computed as:
 \begin{align*}
 X &= U,	\\
 Y &= \omega(V + dU + aW) - \omega^2V - aW = A - \omega B - C,	\\
@@ -387,18 +387,20 @@ Z &= \omega^2(V + dU + aW) - \omega V - aW = \omega A - B - C.
 Note that in our case, parameter $d'$ is zero.
 For coordinates conversion, we also need to computer $\omega \in \F{q}$
 where $\omega^3 = 1$ and $\omega \ne 1$.
+Let $\mul, \sqr$ and $\mulp{c}$ denote
+field multiplication, field squaring and field multiplication by a small constant respectively.
 Therefore, to compute related parameters (before the map $\phi$)
-this step costs $1\Mul + 2\Sqr + 5\mul$
+this step costs $\mul + 2\sqr + 5\mulp{c}$
 plus one inversion for $\lambda = c_4 / c_3$
 and one cube root computation for computing $\omega$.
-The cost for computing the map $\phi$ is $8\Mul$.
-Thus, the total cost for the whole conversion is $9\Mul + 2\Sqr + 5\mul$
+The cost for computing the map $\phi$ is $8\mul$.
+Thus, the total cost for the whole conversion is $9\mul + 2\sqr + 5\mulp{c}$
 plus one inversion and one cube root computation.
 
 
 \subsubsection{Sage scripts.}
 We provide Sage scripts (Figure~\ref{fig:scon})
-for converting Weierstrass curves into twisted Hessian curves.
+for converting Weierstrass curves into twisted Hessian form.
 The function \texttt{w2h} in the scripts takes as inputs
 the prime field \texttt{fq} and
 Weierstrass curve parameters \texttt{a} and \texttt{b}.
@@ -406,7 +408,7 @@ It computes the necessary parameters for converting the Weierstrass curve
 with the given input to the corresponding twisted Hessian curve.
 Note that for auxiliary functions in \texttt{util.sage}, please refer to Appendix~\ref{app:sage}.
 
-Specifically, the function first computes a point-of-order-3 $P_3 = (u_3,v_3)$.
+Specifically, the function first computes a point of order 3 $P_3 = (u_3,v_3)$.
 This is done by randomly choosing a point on the curve,
 checking that it is not the neutral element,
 and multiplying by a correct cofactor.
@@ -417,9 +419,9 @@ Then, it computes parameters for converting curves in triangular form to twisted
 namely, \texttt{ha} and \texttt{hd} which correspond to the above mentioned $a'$ and $d'$.
 Finally, it computes \texttt{omega} which is a cube root element in $\F{q}$.
 The function then outputs:
-the coordinates of a point-of-order-3 $P_3 = (u_3,v_3)$;
+the coordinates of a point of order 3 $P_3 = (u_3,v_3)$;
 parameters $d$ and $a$ for the conversion;
-twisted Hessian curve parameter $a'$ and $d'$;
+twisted Hessian curve parameters $a'$ and $d'$;
 and a cube root element $\omega$.
 
 

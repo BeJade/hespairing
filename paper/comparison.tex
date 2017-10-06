@@ -16,7 +16,7 @@ However, with odd embedding degrees, we need to compute the denominator as it is
 
 Table~\ref{tbl-cmp} shows the costs of the computation of pairings using our constructions in comparison with previous works.
 The first column gives the embedding degrees $k$.
-The second column gives the curve model, where 
+The second column gives the curve models, where 
 $\mathcal{J}$, $\mathcal{P}$, $\mathcal{E}$, $\mathcal{H}$ denote the
 Weierstrass model with Jacobian coordinates, the
 Weierstrass model with projective coordinates,
@@ -30,7 +30,7 @@ The cost of multiplication by curve parameters is omitted from the table.
 
 \begin{table}[h]
 \centering
-\caption{Cost of pairing computation}
+\caption{Comparison of the cost for computing pairings on different curve models and embedding degrees}
 
 \begin{tabular}{ l | l | l | l}
 \hline
@@ -74,7 +74,8 @@ Therefore, the extra cost of $1\Mul + 1\Sqr$ is required.
 Similarly, in the addition step,
 we have to compute $f \cdot \ell_{R,P}$.
 Therefore, the extra cost of $1\Mul$ is required.
-These extra costs are the same for all curve models regardless of the embedding degree, hence, we omit these costs from the table.
+These extra costs are the same for all curve models regardless of the embedding degree.
+Hence, we omit these costs from the table.
 
 Note that there are various advantages of our constructions that cannot be justified by the cost shown in Table~\ref{tbl-cmp}.
 First of all, the costs shown in Table~\ref{tbl-cmp} do not reflect the total cost for the pairing-based protocols.
@@ -83,8 +84,8 @@ and group operations on twisted Hessian curves allow faster point arithmetic ope
 Secondly, having curves represented in the same models for $\mathbb{G}_1$ and $\mathbb{G}_2$ does not induce the extra cost of conversion between curve models.
 (Recall that for BN, BLS, and KSS, this conversion is always necessary if one wants to take advantage of
 the fast point-arithmetic on Hessian or Edwards curves, as proven in~\cite{2013/bos-pairing}.)
-As explained in Section~\ref{subsec:w2h}, 
-this conversion costs $9\Mul + 2\Sqr + 5\mul$ plus one inversion and one cube root computation.
+%As explained in Section~\ref{subsec:w2h}, 
+%this conversion costs $9\Mul + 2\Sqr + 5\mul$ plus one inversion and one cube root computation.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

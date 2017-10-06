@@ -29,14 +29,14 @@ a_{T} :	& \G{2} \times \G{1}	& \longrightarrow	& \mu_{r} \\
 Note that in addition to the arguments $P$ and $Q$ being switched, the parameter $r$ is also changed to $T$.
 
 Miller's algorithm for computing pairings works as follows.
-Let an integer $m$ expresses in a binary format as $(m_{\ell-1},\dots,m_1,m_0)_2$.
-First, a rational function $f_{m,P}$ associated to the point $P$ and $m$ is constructed.
-Then, this function is evaluated at the point $Q$.
+Let $m$ be an integer expressed in a binary format as $(m_{\ell-1},\dots,m_1,m_0)_2$.
+First, a rational function $f_{m,P}$ associated to a point $P$ and $m$ is constructed.
+Then, this function is evaluated at a point $Q$.
 Miller's algorithm computes $f_{m,P}$ in the double-and-add manner
 and uses the following relation
 $$ f_{i+j,P} = f_{i,P} f_{j,P} \frac{l}{v}, $$
-where $l$ is a line through $iP$ and $jP$,
-and $v$ is a line through $(i+j)P$ and $-(i+j)P$.
+where $l$ is a line through points $iP$ and $jP$,
+and $v$ is a line through points $(i+j)P$ and $-(i+j)P$.
 
 Constructing the line $l$ can be done by substituting $x$ and $y$ coordinates of points $iP$ and $jP$
 into the equation $y = mx + b$ and solving for $m$ and $b$.
