@@ -45,7 +45,7 @@ this line $v$ is simply a vertical line
 and thus of the form $y = c$.
 However, for the (twisted) Hessian curves, the line $v$ is not a vertical line
 and thus has to be constructed in a similar way as the line $l$,
-i.e., solving for $m$ and $b$ of $y = mx + b$ using points $P+R$ and $-(P+R)$.
+i.e., solving for the $m$ and $b$ of $y = mx + b$ using points $P+R$ and $-(P+R)$.
 Note also that the line passing through the point and its negation also passes through
 the point $(0,-1)$, the neutral point of twisted Hessian forms.
 % (0 : -1 : 1)
@@ -78,7 +78,7 @@ which becomes $1$ after computing the final exponentiation
 Therefore, for even embedding degrees, the line $v$ can be omitted.
 However, for odd embedding degrees, we cannot neglect the denominator $v$.
 Because computing the inversion is expensive,
-we first apply ``denominator elimination'' technique to optimize this inversion.
+we first apply the ``denominator elimination'' technique to optimize this inversion.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -92,14 +92,14 @@ $$ \frac{1}{x-y} = \frac{x^2 + xy + y^2}{x^3 - y^3}. $$
 As $x^3$ and $y^3$ lie in a subfield of $\F{q^k}$, we have that
 \[(x^{3} - y^{3})^{\frac{q^{k}-1}{r}} = 1.\]
 Hence, after the final exponentiation in the computation of the pairing, this factor does not appear.
-This means that we can ignore the computation of the denominator $x^3 - y^3$
+This means that we can ignore the computation of the denominator $x^3 - y^3$.
 Therefore, instead of computing $\frac{1}{x-y}$, we compute $x^2 + xy + y^2$.
 The cost of division by $x - y$ then becomes the cost of multiplication by $x^2 + xy + y^2$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Note that in the previously presented formulas and explanations,
-we use points represented in affine coordinates,
+we used points represented in affine coordinates,
 e.g., $P = (x,y)$.
 However, to avoid inversion,
 we use points represented in projective coordinates,
