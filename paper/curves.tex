@@ -5,7 +5,7 @@ Even though every elliptic curve can be written in a Weierstrass form,
 only those that contain points of order 3 can be written in a (twisted) Hessian form.
 Almost all methods to generate pairing-friendly curves are for generating
 pairing-friendly Weierstrass curves.
-Therefore, we will generate pairing-friendly (twisted) Hessian curves is to
+Therefore, we will generate pairing-friendly (twisted) Hessian curves to
 search through constructions of pairing-friendly Weierstrass curves for curves that have points of order 3,
 then convert those curves into the (twisted) Hessian form.
 
@@ -38,7 +38,7 @@ the only possible twist degree is $d = 3$.
 For the case $k \equiv 0 \pmod{6}$ where $18 \nmid k$,
 even though a twist of degree 6 is also possible, we are only interested in degree 3 twists as our curves must have a point of order 3.
 
-Recall that we focus only on curves that both the curves and their_{•} twists contain points of order 3.
+Recall that we focus only on curves for which both the curves and their twists contain points of order 3.
 To express twists of curves in the Hessian form,
 those twists must also contain points of order 3.
 To check whether the twisted curve $E'$ of $E$ contains points of order 3 or not,
@@ -187,7 +187,7 @@ Note that for this construction,
 the resulting curves and their twists all have points of order 3.
 However, there is no such $x_0$ for which
 both $q(x_0)$ and $r(x_0)$ are prime.
-This means that $r(x_0)$ factors, and the largest prime-order subgroup of $E(\FF_{q})$ is actually has less than $r(x_0)$ elements.
+This means that $r(x_0)$ factors, and the largest prime-order subgroup of $E(\FF_{q})$ actually has less than $r(x_0)$ elements.
 Recall that the discriminant $D = 3$, so that in particular the curves are defined by an equation of the form $y^2 = x^3 + b$).
 This means that the possible twists are  cubic ($d=3$) and sextic ($d=6$) twists.
 It is obvious that this construction allows only twist of degree $d = 3$ because $6 \nmid k$.
