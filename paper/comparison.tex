@@ -15,7 +15,7 @@ However, with odd embedding degrees, we need to compute the denominator as it is
 %Hence, it is challenging to have the cost of odd embedding degrees being competitive with those of even embedding degrees.
 
 Table~\ref{tbl-cmp} shows the costs of the computation of pairings using our constructions in comparison with previous works.
-The first column gives the embedding degrees $k$.
+The first column gives the parity of the embedding degree $k$.
 The second column gives the curve models, where 
 $\mathcal{J}$, $\mathcal{P}$, $\mathcal{E}$, $\mathcal{H}$ denote the
 Weierstrass model with Jacobian coordinates, the
@@ -53,12 +53,10 @@ The cost of multiplication by curve parameters is omitted from the table.
 \multicolumn{1}{c|}{\multirow{2}{*}{odd}}
 &$\mathcal{P}$, \cite{2010/CLN}	&$k\mul + 6\mul + 7\sqr$		&$k\mul + 13\mul + 3\sqr$	\\
 &$\mathcal{H},d=3$, this paper
-				&$k(\frac{14}{3}\mul {+} \frac{1}{3}\sqr) {+} 5\mul {+} 3\sqr$
 %				&$\frac{k}{3}(6\mul {+} \sqr) {+} 5\mul {+} 3\sqr$
-%				&$2k\mul {+} \frac{k}{3}\sqr {+} 5\mul {+} 3\sqr$
-									&$k(\frac{14}{3}\mul {+} \frac{1}{3}\sqr) {+} 11\mul$	\\
+				&$2k\mul {+} \frac{k}{3}\sqr {+} 5\mul {+} 3\sqr$
 %									&$\frac{k}{3}(6\mul {+} \sqr) {+} 11\mul$	\\
-%									&$2k\mul {+} \frac{k}{3}\sqr {+} 11\mul$	\\
+									&$2k\mul {+} \frac{k}{3}\sqr {+} 11\mul$	\\
 \hline
 \end{tabular}
 \label{tbl-cmp}
