@@ -11,7 +11,7 @@ Once the line is constructed, it is then evaluated at another point $Q$
 
 Specifically, to compute the line $l_{R,P}$ passing through
 points $R = (x_R, y_R)$ and $P = (x_P, y_P)$ where $R \ne P$
-and evaluated at point $Q = (x_Q, y_Q)$,
+and evaluated at a point $Q = (x_Q, y_Q)$,
 we perform the following computations:
 %let $P = (x_P, y_P)$ and  $R = (x_R, y_R)$ where $P \ne R$.
 %Let $Q = (x_Q, y_Q)$ be the point to evaluate.
@@ -25,14 +25,14 @@ Note that %for this case where $P \ne R$,
 the line passing through points $P$ and $R$ is also passing through point $-(P+R)$.
 Using any two out of these three points would result in the same line $l$.
 
-To compute the line $l_{2R}$ tangent at point $R$,
-we use the fact that this line also intersects the curve at point $-(2R)$.
-Therefore, we construct a line passing through points $R$ and $-(2R)$.
+To compute the line $l_{2R}$ tangent at the point $R$,
+we use the fact that this line also intersects the curve at the point $-(2R)$.
+Therefore, we construct a line passing through the points $R$ and $-(2R)$.
 Recall that for curves in twisted Hessian forms,
 a negation of a point $2R = (x_{2R}, y_{2R})$ is $-2R = (x_{2R}/y_{2R}, 1/y_{2R})$.
 Let $R = (x_{R}, y_{R})$
 and $-2R = (x_{2R}/y_{2R}, 1/y_{2R})$. % = (x'_{2R},y'_{2R})$.
-The line $l$ tangent at point $R$ evaluated at point $Q$ is computed as follows:
+The line $l$ tangent at the point $R$ evaluated at the point $Q$ is computed as follows:
 \begin{align*}
 m_{l_{2R}} &= \bigg( \frac{1}{y_{2R}} - x_{R} \bigg) / \bigg( \frac{x_{2R}}{y_{2R}} - x_{R} \bigg),	\\
 b_{l_{2R}} &= y_R - m_{l_{2R}} \cdot x_R,		\\
@@ -51,7 +51,7 @@ the point $(0,-1)$, the neutral point of twisted Hessian forms.
 % (0 : -1 : 1)
 
 Let $(P+R) = (x_{RP},y_{RP})$.
-By using the neutral point $(0,-1)$
+By using the neutral point $(0,-1)$,
 the line $v_{R,P}$ is computed as follows:
 \begin{align*}
 m_{v_{R,P}} &= (y_{RP} + 1) / x_{RP},	\\
@@ -63,14 +63,15 @@ it saves some computations and $b_{v_{R,P}}$ becomes $-1$
 due to a multiplication by zero.
 
 For the line $v_{2R}$,
-the calculation is similar to $v_{R,P}$.
-Simply replace $(P+R)$ by $(2R) = (x_{2R}, y_{2R})$,
+the calculation is similar to the line $v_{R,P}$,
+namely,
+simply replace $(P+R)$ by $(2R) = (x_{2R}, y_{2R})$
 and compute as above.
 
-Note that the presented calculations,
+Note that the previously presented formulas,
 we use points represented in affine coordinates,
 e.g., $P = (x,y)$.
-To avoid inversion, e,g, when computing $m$,
+However, to avoid inversion, e.g., when computing $m$,
 we use projective coordinates where
 $x = X/Z$ and $y = Y/Z$,
 and thus points are represented as, e.g., $P = (X : Y : Z)$.
@@ -86,7 +87,7 @@ which becomes $1$ after computing the final exponentiation
 ({line 8} in Algorithm~\ref{algo:miller} in Section~\ref{sec:background}).
 Therefore, for even embedding degrees, the line $v$ can be omitted.
 However, for odd embedding degrees, we cannot neglect the denominator $v$.
-Because inversion is expensive,
+Because computing the inversion is expensive,
 we first apply ``denominator elimination'' technique to optimize this inversion.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -99,8 +100,8 @@ Define a field extension $\F{q^k}$ of a finite field $\F{q}$ and suppose that $x
 Observe that
 $$ \frac{1}{x-y} = \frac{x^2 + xy + y^2}{x^3 - y^3}. $$
 As $x^3$ and $y^3$ lie in a subfield of $\F{q^k}$, we have that
-\[(x^{3} - y^{3})^{\frac{q^{k}-1}{r}} = 1,\]
-hence, after the final exponentiation in the computation of the pairing, this factor does not appear.
+\[(x^{3} - y^{3})^{\frac{q^{k}-1}{r}} = 1.\]
+Hence, after the final exponentiation in the computation of the pairing, this factor does not appear.
 This means that we can ignore the computation of the denominator $x^3 - y^3$
 Therefore, instead of computing $\frac{1}{x-y}$, we compute $x^2 + xy + y^2$.
 The cost of division by $x - y$ then becomes the cost of multiplication by $x^2 + xy + y^2$.
