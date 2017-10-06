@@ -14,12 +14,11 @@ We denote the embedding degree and the twist degree by $k$ and $d=3$.
 
 The following formulas work for both Tate and ate pairings.
 We denote a point $P = (X_1,Y_1,1)$ and a point $R = (X_2,Y_2,Z_2)$ on $E/\F{q}$
-and a point $Q' = (X_{Q'},Y_{Q'},1)$ on $E/\F{q^{k/d}}$.
-Note the points $P$ and $Q'$ do not change throughout the pairing computation and thus can be preprocessed,
-namely, we assume that the $X_1 = Z_{Q'} = 1$.
-
-%We also follow~\cite{2010/CLN} to assume that pairings can be computed entirely on twisted curves.
-%Therefore, we denote by $k/3$.
+and a point $Q = (X_{Q},Y_{Q},1)$ on $E/\F{q^{k}}$.
+Note the points $P$ and $Q$ do not change throughout the pairing computation and thus can be preprocessed,
+namely, we assume that the $X_1 = Z_{Q} = 1$.
+Note also that we compute pairings entirely on twisted curve.
+Therefore, the factor $k/3$ appears in the operation counts of the line function computations.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -36,17 +35,17 @@ X_3 &= X_1 \cdot (A - B);\	\quad
 Y_3 = -Z_1 \cdot (2A + B);\	\quad
 Z_3 = Y_1 \cdot (A + 2B).
 \end{align*}
-To compute point doubling using these formulas,
-it costs $5\mul + 2\sqr$. % + 2\mulp{2} + 3\add$ plus one negation.
+The above formulas for computing point doubling
+cost $5\mul + 2\sqr$. % + 2\mulp{2} + 3\add$ plus one negation.
 
-Let $Q' = (X_{Q'}, Y_{Q'}, 1)$ be the point to evaluate.
+Let $Q = (X_{Q}, Y_{Q}, 1)$ be the point to evaluate.
 Let $R$ and $2R$ be as defined above for point doubling.
 The associated line function for doubling
-to compute $l_{2R}(Q')$ is as follows
+to compute $l'_{2R}(Q)$ is as follows
 \begin{align*}
-l_1 &= a X_1^2 X_{Q'} + T \cdot Y_{Q'} + S;\		\qquad
-l_a = X_3 \cdot Y_{Q'} + X_3;			\\
-l_b &= X_{Q'} \cdot (Y_3 + Z_3);\			\qquad
+l_1 &= a X_1^2 X_{Q} + T \cdot Y_{Q} + S;\		\qquad
+l_a = X_3 \cdot Y_{Q} + X_3;			\\
+l_b &= X_{Q} \cdot (Y_3 + Z_3);\			\qquad
 l_c = l_a^2 + l_b \cdot (l_a + l_b);\		\qquad
 l = l_1 \cdot l_c.
 \end{align*}
@@ -78,17 +77,17 @@ X_3 &= G - H;\	\qquad
 Y_3 = K - J;\\
 Z_3 &= J + K - G - H - 2(Z_2 - F) \cdot (C + Y_2).
 \end{align*}
-To compute point addition using these formulas,
-it costs $9\mul + \mulp{a}$. % + \mulp{2} + 16\add$.
+The above formulas for computing point addition
+cost $9\mul + \mulp{a}$. % + \mulp{2} + 16\add$.
 
-Let $Q' = (X_{Q'},Y_{Q'},1)$ be the point to evaluate.
+Let $Q = (X_{Q},Y_{Q},1)$ be the point to evaluate.
 Let $P,R,(P+R)$ be as defined above for point addition.
 The associated line function for addition
-to compute $l_{R,P}$ is as follows
+to compute $l'_{R,P}$ is as follows
 \begin{align*}
-l_1 &= (Y_1 \cdot Z_2 - Y_2) \cdot (X_1 - X_{Q'}) + (Y_{Q'} - Y_1) \cdot (X_1 \cdot Z_2 - X_2);\\
-l_a &= Y_{Q'} \cdot X_3 + X_3;\	\quad
-l_b = X_{Q'} \cdot (Y_3 + Z_3);\	\quad
+l_1 &= (Y_1 \cdot Z_2 - Y_2) \cdot (X_1 - X_{Q}) + (Y_{Q} - Y_1) \cdot (X_1 \cdot Z_2 - X_2);\\
+l_a &= Y_{Q} \cdot X_3 + X_3;\	\quad
+l_b = X_{Q} \cdot (Y_3 + Z_3);\	\quad
 l_c = l_a^2 + l_a \cdot (l_b + l_b);\\
 l &= l_1 \cdot \l_c.
 \end{align*}
