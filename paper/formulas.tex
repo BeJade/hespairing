@@ -8,17 +8,15 @@ and line functions associated to these operations.
 These formulas work under an assumption that the curve parameter $d' = 0$.
 
 We denote operations in the base field, namely, 
-field multiplication, field squaring and field multiplication by curve constant $a$
+field multiplication, field squaring and field multiplication by the curve parameter $a'$
 by $\mul, \sqr, \mulp{a}$ respectively.
 We denote the embedding degree and the twist degree by $k$ and $d=3$.
 
 The following formulas work for both Tate and ate pairings.
 We denote a point $P = (X_1,Y_1,1)$ and a point $R = (X_2,Y_2,Z_2)$ on $E/\F{q}$
-and a point $Q = (X_{Q},Y_{Q},1)$ on $E/\F{q^{k}}$.
+and a point $Q = (X_{Q},Y_{Q},1)$ on $E/\F{q^{k}}$ where $Y_Q \in \F{q^{k/d}}$.
 Note the points $P$ and $Q$ do not change throughout the pairing computation and thus can be preprocessed,
 namely, we assume that the $X_1 = Z_{Q} = 1$.
-Note also that we compute pairings entirely on twisted curve.
-Therefore, the factor $k/3$ appears in the operation counts of the line function computations.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -41,7 +39,7 @@ cost $5\mul + 2\sqr$. % + 2\mulp{2} + 3\add$ plus one negation.
 Let $Q = (X_{Q}, Y_{Q}, 1)$ be the point to evaluate.
 Let $R$ and $2R$ be as defined above for point doubling.
 The associated line function for doubling
-to compute $l'_{2R}(Q)$ is as follows
+to compute $l_{2R}(Q)$ is as follows
 \begin{align*}
 l_1 &= a X_1^2 X_{Q} + T \cdot Y_{Q} + S;\		\qquad
 l_a = X_3 \cdot Y_{Q} + X_3;			\\
@@ -51,12 +49,12 @@ l = l_1 \cdot l_c.
 \end{align*}
 To compute the line function for doubling,
 it costs 
-$\frac{k}{3}(6\mul + \sqr) + \sqr + \mulp{a}$. % + 6\add$
+%$\frac{k}{3}(6\mul + \sqr) + \sqr + \mulp{a}$.
+$k(\frac{14}{3}\mul + \frac{1}{3}\sqr) + \sqr + \mul_a$.
 Therefore, the total number of operations for computing ``doubling step''
 ({line 3} in Algorithm~\ref{algo:miller}) in the pairing computation is
-$\frac{k}{3}(6\mul + \sqr) + 5\mul +3\sqr + \mulp{a}$. % + 2\mulp{2} + 9\add$.
-
-%$ k(\frac{14}{3}\mul + \frac{1}{3}\sqr) + 5\mul +3\sqr + 1\mul_a$.
+%$\frac{k}{3}(6\mul + \sqr) + 5\mul +3\sqr + \mulp{a}$.
+$k(\frac{14}{3}\mul + \frac{1}{3}\sqr) + 5\mul +3\sqr + \mul_a$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -78,12 +76,12 @@ Y_3 = K - J;\\
 Z_3 &= J + K - G - H - 2(Z_2 - F) \cdot (C + Y_2).
 \end{align*}
 The above formulas for computing point addition
-cost $9\mul + \mulp{a}$. % + \mulp{2} + 16\add$.
+cost $9\mul + \mulp{a}$.
 
 Let $Q = (X_{Q},Y_{Q},1)$ be the point to evaluate.
 Let $P,R,(P+R)$ be as defined above for point addition.
 The associated line function for addition
-to compute $l'_{R,P}$ is as follows
+to compute $l_{R,P}$ is as follows
 \begin{align*}
 l_1 &= (Y_1 \cdot Z_2 - Y_2) \cdot (X_1 - X_{Q}) + (Y_{Q} - Y_1) \cdot (X_1 \cdot Z_2 - X_2);\\
 l_a &= Y_{Q} \cdot X_3 + X_3;\	\quad
@@ -93,11 +91,11 @@ l &= l_1 \cdot \l_c.
 \end{align*}
 To compute the line function for addition,
 it costs
-$\frac{k}{3}(6\mul + \sqr) + 2\mul$. % + 9\add$.
+%$\frac{k}{3}(6\mul + \sqr) + 2\mul$.
+$k(\frac{14}{3}\mul + \frac{1}{3}\sqr) + 2\mul$.
 Therefore, the total number of operations to compute ``addition step''
 ({line 6} in Algorithm~\ref{algo:miller}) in the pairing computation is
-$\frac{k}{3}(6\mul + \sqr) + 11\mul + \mulp{a}$. % + \mulp{2} + 25\add$.
-
-%$ k(\frac{14}{3}\mul + \frac{1}{3}\sqr) + 11\mul + 1\mul_a$.
+%$\frac{k}{3}(6\mul + \sqr) + 11\mul + \mulp{a}$.
+$k(\frac{14}{3}\mul + \frac{1}{3}\sqr) + 11\mul + \mul_a$.
 
 
