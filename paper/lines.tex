@@ -67,15 +67,6 @@ namely,
 simply replace $(P+R)$ by $(2R) = (x_{2R}, y_{2R})$
 and compute as above.
 
-Note that the previously presented formulas,
-we use points represented in affine coordinates,
-e.g., $P = (x,y)$.
-However, to avoid inversion, e.g., when computing $m$,
-we use projective coordinates where
-$x = X/Z$ and $y = Y/Z$,
-and thus points are represented as, e.g., $P = (X : Y : Z)$.
-The formulas given in the following section use projective coordinates.
-
 Recall that the lines $v_{R,P}$ and $v_{2R}$ appear as denominators,
 namely, we have to compute $l_{2R}/v_{2R}$ and $l_{R,P}/v_{R,P}$.
 %Because computing inversion is expensive,
@@ -107,3 +98,10 @@ The cost of division by $x - y$ then becomes the cost of multiplication by $x^2 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+Note that in the previously presented formulas and explanations,
+we use points represented in affine coordinates,
+e.g., $P = (x,y)$.
+However, to avoid inversion,
+we use points represented in projective coordinates,
+e.g., $P = (X : Y : Z)$ where $x = X/Z$ and $y = Y/Z$.
+The formulas given in the following section use projective coordinates.
