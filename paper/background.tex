@@ -21,16 +21,16 @@ Here $\phi_{q}$ denotes the $q$-power Frobenius morphism on $E$.
 We denote the restriction of $\tau_{r}$ to $\G{1} \times \G{2}$ by
 $$e_{r} : \G{1} \times \G{2} \longrightarrow \mu_{r}.$$
 Let $T = t-1$.
-By restricted the Tate pairing to $\G{2} \times \G{1}$, the ate pairing is defined as
+We define the \emph{ate pairing} $a_{T}$ by restricting the Tate pairing to $\G{2} \times \G{1}$ so that
 \[\begin{array}{rccl}
 a_{T} :	& \G{2} \times \G{1}	& \longrightarrow	& \mu_{r} \\
 	& (Q,P) 		& \mapsto		& f_{T,Q}(P)^{\frac{q^{k}-1}{r}}.
 \end{array}\]
-Note that in addition to the arguments $P$ and $Q$ being switched, the parameter $r$ is also changed to $T$.
+Note that in addition to the arguments $P$ and $Q$ being switched, the subscript $r$ (i.e. the number of loops) is also changed to $T$.
 
 Miller's algorithm for computing pairings works as follows.
 Let $m$ be an integer expressed in a binary format as $(m_{\ell-1},\dots,m_1,m_0)_2$.
-First, a rational function $f_{m,P}$ associated to a point $P$ and $m$ is constructed.
+First, a rational function $f_{m,P}$ associated to a point $P$ and to $m$ is constructed.
 Then, this function is evaluated at a point $Q$.
 Miller's algorithm computes $f_{m,P}$ in the double-and-add manner
 and uses the following relation
@@ -41,13 +41,13 @@ and $v$ is a line through points $(i+j)P$ and $-(i+j)P$.
 Constructing the line $l$ can be done by substituting $x$ and $y$ coordinates of points $iP$ and $jP$
 into the equation $y = mx + b$ and solving for $m$ and $b$.
 For Weierstrass curves, the line $v$ is simply a vertical line through $(i+j)P$.
-Therefor, the line $v$ is of the form $x = c$ where $c$ is the $x$-coordinate of the point $(i+j)P$.
+Therefore, the line $v$ is of the form $x = c$ where $c$ is the $x$-coordinate of the point $(i+j)P$.
 Note that the points $(i+j)P$ and $-(i+j)P$ have the same $x$-coordinate.
 For (twisted) Hessian curves, however, the line $v$ is not a vertical line
 and thus has to be constructed in a similar way as the line $l$,
 i.e., solving for $m$ and $b$ of $y = mx + b$ using points $(i+j)P$ and $-(i+j)P$.
 
-Algorithm~\ref{algo:miller} shows the Miller's algorithm.
+Algorithm~\ref{algo:miller} shows Miller's algorithm.
 We denote $\ell_{2R} = l_{2R} / v_{2R}$ where $l_{2R}$ is the tangent line at point $R$
 while $v_{2R}$ is the line passing through points $2R$ and its negation $-2R$.
 We denote $\ell_{R,P} = l_{R,P} / v_{R,P}$ where $l_{R,P}$ is the line passing through points $R$ and $P$
