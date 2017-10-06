@@ -23,7 +23,7 @@ The pairing-friendly families of BN, BLS, and KSS curves use primarily embedding
 Due to recent advances in the discrete logarithm problem, it has become necessary to increase the size of the finite field,
 which can be done either by increasing the size of the prime or by increasing the embedding degree.
 Our constructions address this problem by generating pairing-friendly twisted Hessian curves with embedding degrees 15 and 21,
-which allow a better tuning instead of having to jump from embedding degree 12 to 18, or from 18 to 24.
+which allows for an increase in security without having to jump from embedding degree 12 to 18, or from 18 to 24.
 
 We also would like to emphasize that embedding degrees such as 12, 18, 24 can split into many subfields.
 Recall that recent advances in number field sieve attacks on solving DLP~\cite{2016/conjugate}~\cite{2016/SS}~\cite{2016/KB}~\cite{2017/KJ},
@@ -48,5 +48,5 @@ In this paper, we do not propose any concrete parameters for our pairing-friendl
 This is due to the fact that the complexity of the new attacks have neither been completely understood nor reached the stable stage yet.
 Moreover, there is no analysis of how those attacks would apply to embedding degree 15 or 21.
 We plan to study how the attacks apply to our constructions in order to be able to
-evaluate the security level and propose concrete parameters
+evaluate the security level and propose concrete parameters.
 We also consider the optimized implementation as future work.
