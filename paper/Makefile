@@ -4,11 +4,9 @@ intro.tex \
 background.tex \
 curves.tex \
 lines.tex \
-formulas.tex \
-comparison.tex \
+even.tex \
+odd.tex \
 conclusions.tex \
-sageCode.tex \
-magmaCode.tex \
 main.tex
 	pdflatex main
 	pdflatex main
