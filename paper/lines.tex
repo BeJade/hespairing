@@ -34,7 +34,7 @@ Let $R = (x_{R}, y_{R})$
 and $-2R = (x_{2R}/y_{2R}, 1/y_{2R})$. % = (x'_{2R},y'_{2R})$.
 The line $l$ tangent at the point $R$ evaluated at the point $Q$ is computed as follows:
 \begin{align*}
-m_{l_{2R}} &= \bigg( \frac{1}{y_{2R}} - x_{R} \bigg) / \bigg( \frac{x_{2R}}{y_{2R}} - x_{R} \bigg),	\\
+m_{l_{2R}} &= \bigg( \frac{1}{y_{2R}} - y_{R} \bigg) / \bigg( \frac{x_{2R}}{y_{2R}} - x_{R} \bigg),	\\
 b_{l_{2R}} &= y_R - m_{l_{2R}} \cdot x_R,		\\
 l_{2R} &= y_Q - (m_{l_{2R}} \cdot x_Q + b_{l_{2R}}).
 \end{align*}
@@ -70,7 +70,7 @@ and compute as above.
 Recall that the lines $v_{R,P}$ and $v_{2R}$ appear as denominators,
 namely, we have to compute $l_{2R}/v_{2R}$ and $l_{R,P}/v_{R,P}$.
 %Because computing inversion is expensive,
-%we apply ``denominotr elimination'' to optimize this inversion.
+%we apply ``denominator elimination'' to optimize this inversion.
 Note that for even embedding degrees,
 this line $v$ lies in a subfield of $\F{q^k}$
 which becomes $1$ after computing the final exponentiation
