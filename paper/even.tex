@@ -4,15 +4,15 @@
 This section provides formulas for computing point doubling, point addition,
 and line functions for pairing on twisted Hessian curves with even embedding degrees.
 Recall the twisted Hessian curve equation in projective coordinates
-$$ \mathcal{H}: a' X^3 + Y^3 + Z^3 = d' X Y Z. $$
-Formulas presented in this section work under an assumption that the curve parameter $d' = 0$.
+$$ \mathcal{H}: a' X^3 + Y^3 + Z^3 = 0. $$
+%Formulas presented in this section work under an assumption that the curve parameter $d' = 0$.
 
 We denote operations in the base field, namely, 
 field multiplication, field squaring and field multiplication by the curve parameter $a'$
 by $\mul, \sqr, \mulp{a}$ respectively.
 We denote the embedding degree by $k$ and the twist degree by $d=3$.
 
-The following formulas work for both Tate and ate pairings.
+%The following formulas work for both Tate and ate pairings.
 We denote a point $P = (X_1,Y_1,1)$ and a point $R = (X_2,Y_2,Z_2)$ on $E/\F{q}$
 and a point $Q = (X_{Q},Y_{Q},1)$ on $E/\F{q^{k/d}}$. % where $Y_Q \in \F{q^{k/d}}$.
 Note that the points $P$ and $Q$ do not change throughout the pairing computation.
@@ -107,6 +107,56 @@ Therefore, the total number of operations for the ``addition step''
 %$\frac{k}{3}(6\mul + \sqr) + 11\mul + \mulp{a}$.
 %$k(\frac{14}{3}\mul + \frac{1}{3}\sqr) + 11\mul + \mul_a$.
 $\frac{2}{3}k\mul + 10\mul + \mul_a$.
+
+\subsection{Line functions for pairings on $\G{1} \times \G{2}$}
+
+Recall that Miller's algorithm computes the line function 
+$\ell_{P_1,P_2}(Q) = l_{P_1,P_2}(Q)/v_{P_1 + P_2}(Q)$;
+for pairings on $\G{1} \times \G{2}$ we have that $P_1, P_2 \in \G{1}$ and $Q \in \G{2}$.
+
+To avoid the field inversion we apply the denominator elimination technique of \cite{GGX10},
+described briefly below. 
+It is shown in \cite[Section 4]{GGX10} that if
+$\alpha \in \F{q^k} \setminus \F{q^{k/2}}$, then
+without loss of generality we may assume that a point
+$Q \in E(\F{q^k})$ is of the form
+$Q = (c+d\alpha, c-d\alpha )$, where
+$c, d \in \F{q^{k/2}}$.
+In particular, the line $v_R$ passing through $R = (x,y) \in E(\F{q})$ 
+and $-R = (x/y, 1/y)$ evaluated at $Q$ is given by
+$2c(y-x) + x^2-y^2 \in \F{q^{k/2}}$.
+Hence in the final exponentiation step of Miller's algorithm the denominator will become 1,
+therefore can be ignored.
+
+So, we replace the line funtion $\ell_{P_1,P_2}(Q)$ by just $l_{P_1,P_2}(Q)$, which is of the form
+
+$$ (Y_1 \cdot Z_2 - Y_2) \cdot (X_1 - X_{Q}) + (Y_{Q} - Y_1) \cdot (X_1 \cdot Z_2 - X_2) $$,
+
+where $P_1 = [X_1:Y_1:Z_1]$, $P_2 = [X_2:Y_2:Z_2]$, and $Q = [X_Q:Y_Q:Z_Q]$;
+here the multiplications in $\F{q}$ were performed during the point addition process.
+
+Let
+$$ \mathcal{H}_{\omega}: a' \omega^3 X^3 + Y^3 + Z^3 = 0, $$
+where $\omega \in \F{q^k} \setminus \F{q^{k/3}}$ and $\omega^3 \in \F{q^{k/3}}$.
+Then $\mathcal{H}_{\omega}$ is a degree 3 twist of $\mathcal{H}$; the two curves are isomorphic via
+\[\begin{array}{rccc}
+\varphi: & \mathcal{H}_{\omega} & \rightarrow & \mathcal{H} \\
+& [X:Y:Z] & \mapsto & [\omega X:Y:Z].
+\end{array}\]
+In particular, if $Q' \in \mathcal{H}_{\omega}(\F{q^{k/3}})$, then
+$\varphi(Q') \in \mathcal{H}(\F{q^k}) \setminus \mathcal{H}(\F{q^{k/3}})$.
+Analogously to \cite{??}, choosing $Q = \varphi(Q')$ gives no loss of security.
+So set $Q' = [X_Q':Y_Q':Z_Q']$ and $Q = \varphi(Q')$. 
+Then $l_{P_1,P_2}(Q)$ can be computed as
+
+\textbf{Chloe: this is just copied from above; need to check/rewrite taking twists into account}
+
+$$ (Y_1 \cdot Z_2 - Y_2) \cdot X_1 + (Y_{Q'} - Y_1) \cdot (X_1 \cdot Z_2 - X_2) - (Y_1 \cdot Z_2 - Y_2) \cdot X_{Q'}\omega  $$,
+which amounts to two multiplications of an element of $\F{q}$ with an element of $\F{q^{k/3}}$,
+costing $2\cdot \frac{k}{3} \mul$ with schoolbook multiplication.
+Furthermore, multiplying a general element of $\F{q^k}$ with $l_{P_1,P_2}(Q)$ will cost only
+$6 \left(\frac{k}{3}\right)^2 \mul = \frac{2}{3}M$ as the coefficient of $\omega^2$ in $l_{P_1,P_2}(Q)$ is zero.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
