@@ -135,7 +135,7 @@ for both $\mathbb{G}_1$ and $\mathbb{G}_2$,
 
 Twisted Hessian curves with faster point arithmetic have recently been proposed by
 Bernstein, Chuengsatiansup, Kohel and Lange~\cite{2015/hessian}.
-This leads to questions whether the newer point arithmetic would also lead to fast formulas for computing line functions,
+This leads to questions whether the newer point arithmetic would also lead to faster formulas for computing line functions,
 and whether these formulas would be applicable to computing pairings on twisted Hessian curves.
 
 We present concrete constructions of a pairing on curves in twisted Hessian form starting
@@ -154,18 +154,20 @@ The setup of this paper is as follows:
 in Section~\ref{sec:background}, we recall Miller's algorithm to compute the optimal ate pairing on elliptic curves in twisted Hessian form.
 In Section~\ref{sec:curves}, we state constructions of families of pairing-friendly elliptic curves given in~\cite{2010/freeman}
 that can be written in twisted Hessian form and show the conversion.
-In Section~\ref{sec:lines}, we observe that the efficiency of computing line functions on curves in twisted Hessian form is similar to the Weierstrass case
-and explain how to compute them.
-In Section~\ref{sec:even}, we state explicit formulas for the computation of the optimal ate pairing
-on twisted Hessian curves having even embedding degrees based on the state-of-the-art point arithmetic formulas.
-We also provide comparisons to previous works.
-In Section~\ref{sec:odd}, we give explicit formulas for the odd embedding degree case
-and a comparison.
-In Section~\ref{sec:conclude}, we conclude our results and
-remark on some advantages that do not obviously appear in the comparison tables.
+%In Section~\ref{sec:lines}, we observe that the efficiency of computing line functions on curves in twisted Hessian form is similar to the Weierstrass case
+%and explain how to compute them.
+In Section~\ref{sec:lines}, we provide explicit formulas for the computation of the optimal Tate and ate pairing on twisted Hessian curves
+based on the state-of-the-art point arithmetic formulas.
+%In Section~\ref{sec:even}, we state explicit formulas for the computation of the optimal ate pairing
+%on twisted Hessian curves having even embedding degrees based on the state-of-the-art point arithmetic formulas.
+%We also provide comparisons to previous works.
+%In Section~\ref{sec:odd}, we give explicit formulas for the odd embedding degree case
+%and a comparison.
+In Section~\ref{sec:cmp}, we compare our results to previous works.
+In Section~\ref{sec:conclude}, we conclude our results.
+%and remark on some advantages that do not obviously appear in the comparison tables.
 %In Section~\ref{sec:formulas}, we state explicit formulas for the computation of the optimal ate pairing
 %on twisted Hessian curves based on the state-of-the-art point arithmetic formulas.
-%In Section~\ref{sec:cmp}, we compare our results to previous works.
 %In Appendix~\ref{app:magma}, we provide full Magma codes for a toy example of pairing-friendly twisted Hessian curves with embedding degree $k = 21$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
