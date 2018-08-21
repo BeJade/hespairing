@@ -1,0 +1,220 @@
+\begin{thebibliography}{10}
+
+\bibitem{2009/fastertate}
+Christophe Arene, Tanja Lange, Michael Naehrig, and Christophe Ritzenthaler.
+\newblock {Faster Computation of the Tate Pairing}.
+\newblock {\em {IACR} Cryptology ePrint Archive}, 2009:155, 2009.
+\newblock \url{http://eprint.iacr.org/2009/155}.
+
+\bibitem{2017/keysize}
+Razvan Barbulescu and Sylvain Duquesne.
+\newblock {Updating key size estimations for pairings}.
+\newblock {\em IACR Cryptology ePrint Archive}, page 334, 2017.
+\newblock \url{http://eprint.iacr.org/2017/334}.
+
+\bibitem{2015/BGGM}
+Razvan Barbulescu, Pierrick Gaudry, Aurore Guillevic, and Fran{\c{c}}ois
+  Morain.
+\newblock Improving {NFS} for the discrete logarithm problem in non-prime
+  finite fields.
+\newblock In {\em Eurocrypt 2015~\cite{2015/eurocrypt2015p1}}, pages 129--155,
+  2015.
+
+\bibitem{2015/BGK}
+Razvan Barbulescu, Pierrick Gaudry, and Thorsten Kleinjung.
+\newblock The tower number field sieve.
+\newblock In {\em Asiacrypt 2015~\cite{2015/asiacrypt2015p2}}, pages 31--55,
+  2015.
+
+\bibitem{2003/bls}
+Paulo S. L.~M. Barreto, Ben Lynn, and Michael Scott.
+\newblock {On the Selection of Pairing-Friendly Groups}.
+\newblock In {\em SAC 2003~\cite{2003/sac2003}}, pages 17--25, 2003.
+
+\bibitem{2006/barreto}
+Paulo~S.L.M. Barreto and Michael Naehrig.
+\newblock {Pairing-Friendly Elliptic Curves of Prime Order}.
+\newblock In {\em SAC 2005~\cite{2006/preneel-sac2005}}, pages 319--331, 2006.
+\newblock \url{http://cryptosith.org/papers/pfcpo.pdf}.
+
+\bibitem{2015/hessian}
+Daniel~J. Bernstein, Chitchanok Chuengsatiansup, David Kohel, and Tanja Lange.
+\newblock {Twisted Hessian Curves}.
+\newblock In {\em {LATINCRYPT} 2015 \cite{2015/latin}}, pages 269--294, 2015.
+\newblock \url{http://cr.yp.to/papers.html\#hessian}.
+
+\bibitem{2007/bernstein-newelliptic}
+Daniel~J. Bernstein and Tanja Lange.
+\newblock {Faster addition and doubling on elliptic curves}.
+\newblock In {\em Asiacrypt 2007 \cite{2007/asia2007}}, pages 29--50, 2007.
+\newblock \url{http://cr.yp.to/newelliptic/newelliptic-20070906.pdf}.
+
+\bibitem{2001/boneh}
+Dan Boneh and Matthew~K. Franklin.
+\newblock {Identity-Based Encryption from the {W}eil Pairing}.
+\newblock In {\em CRYPTO 2001~\cite{2001/kilian-crypto2001}}, pages 213--229,
+  2001.
+\newblock \url{http://www.iacr.org/archive/crypto2001/21390212.pdf}.
+
+\bibitem{2004/boneh}
+Dan Boneh, Ben Lynn, and Hovav Shacham.
+\newblock {Short signatures from the {Weil} pairing}.
+\newblock {\em Journal of Cryptology}, 17(4):297--319, 2004.
+\newblock \url{http://crypto.stanford.edu/~dabo/pubs/papers/weilsigs.ps}.
+
+\bibitem{2013/bos-pairing}
+Joppe~W. Bos, Craig Costello, and Michael Naehrig.
+\newblock {Exponentiating in Pairing Groups}.
+\newblock In {\em SAC 2013~\cite{2014/lange-sac2013}}, 2013.
+\newblock \url{https://eprint.iacr.org/2013/458.pdf}.
+
+\bibitem{2009/craig}
+Craig Costello, H{\"{u}}seyin Hisil, Colin Boyd, Juan Manuel~Gonz{\'{a}}lez
+  Nieto, and Kenneth~Koon{-}Ho Wong.
+\newblock Faster pairings on special weierstrass curves.
+\newblock In {\em Pairing 2009~\cite{2009/shacham-pairing}}, pages 89--101,
+  2009.
+
+\bibitem{2010/CLN}
+Craig Costello, Tanja Lange, and Michael Naehrig.
+\newblock Faster pairing computations on curves with high-degree twists.
+\newblock In {\em PKC 2010~\cite{2010/pkc2010}}, pages 224--242, 2010.
+
+\bibitem{2007/edwards}
+Harold~M. Edwards.
+\newblock {A normal form for elliptic curves}.
+\newblock {\em Bulletin of the American Mathematical Society}, 44:393--422,
+  2007.
+\newblock
+  \url{http://www.ams.org/bull/2007-44-03/S0273-0979-07-01153-6/home.html}.
+
+\bibitem{2016/degodd}
+Emmanuel Fouotsa, Nadia~El Mrabet, and Aminatou Pecha.
+\newblock Optimal ate pairing on elliptic curves with embedding degree 9, 15
+  and 27.
+\newblock {\em {IACR} Cryptology ePrint Archive}, 2016:1187, 2016.
+\newblock \url{http://eprint.iacr.org/2016/1187}.
+
+\bibitem{2010/freeman}
+David Freeman, Michael Scott, and Edlyn Teske.
+\newblock {A Taxonomy of Pairing-Friendly Elliptic Curves}.
+\newblock {\em Journal of Cryptology}, 23(2):224--280, 2010.
+\newblock \url{http://eprint.iacr.org/2006/372/}.
+
+\bibitem{2002/gentry}
+Craig Gentry and Alice Silverberg.
+\newblock {Hierarchical ID-Based Cryptography}.
+\newblock In {\em Asiacrypt 2002 \cite{2002/zheng}}, pages 548--566, 2002.
+\newblock
+  \url{http://www.cs.ucdavis.edu/~franklin/ecs228/pubs/extra_pubs/hibe.pdf}.
+
+\bibitem{2010/Gu}
+Haihua Gu, Dawu Gu, and WenLu Xie.
+\newblock Efficient pairing computation on elliptic curves in hessian form.
+\newblock In {\em {ICISC} 2010}, pages 169--176, 2010.
+
+\bibitem{2006/hess}
+Florian Hess, Nigel~P. Smart, and Frederik Vercauteren.
+\newblock {The Eta Pairing Revisited}.
+\newblock {\em IEEE Transactions on Information Theory}, 52(10):4595--4602,
+  2006.
+\newblock \url{http://eprint.iacr.org/2006/110}.
+
+\bibitem{2002/horwitz}
+Jeremy Horwitz and Ben Lynn.
+\newblock {Toward Hierarchical Identity-Based Encryption}.
+\newblock In {\em Eurocrypt 2002 \cite{2002/knudsen-eurocrypt}}, pages
+  466--481, 2002.
+\newblock \url{http://theory.stanford.edu/~horwitz/pubs/hibe.pdf}.
+
+\bibitem{2008/IonicaJoux08}
+Sorina Ionica and Antoine Joux.
+\newblock Another approach to pairing computation in edwards coordinates.
+\newblock In {\em {INDOCRYPT} 2008 \cite{2008/indo2008}}, pages 400--413, 2008.
+
+\bibitem{2000/joux-ants}
+Antoine Joux.
+\newblock {A One Round Protocol for Tripartite {D}iffie-{H}ellman}.
+\newblock In {\em ANTS-IV~\cite{2000/bosma-ants}}, pages 385--393, 2000.
+\newblock
+  \url{http://cgi.di.uoa.gr/~aggelos/crypto/page4/assets/joux-tripartite.pdf}.
+
+\bibitem{2004/joux-tripartite}
+Antoine Joux.
+\newblock {A One Round Protocol for Tripartite {D}iffie-{H}ellman}.
+\newblock {\em Journal of Cryptology}, 17(4):263--276, 2004.
+
+\bibitem{2013/jouxP}
+Antoine Joux and C{\'{e}}cile Pierrot.
+\newblock The special number field sieve in - application to pairing-friendly
+  constructions.
+\newblock In {\em Pairing 2013~\cite{2013/pairing2013}}, pages 45--61, 2013.
+
+\bibitem{2001/joye}
+Marc Joye and Jean-Jacques Quisquater.
+\newblock {Hessian elliptic curves and side-channel attacks}.
+\newblock In {\em CHES 2001 \cite{2001/koc-ches2001}}, pages 402--410, 2001.
+\newblock \url{http://joye.site88.net/}.
+
+\bibitem{2008/kss}
+Ezekiel~J. Kachisa, Edward~F. Schaefer, and Michael Scott.
+\newblock {Constructing Brezing-Weng Pairing-Friendly Elliptic Curves Using
+  Elements in the Cyclotomic Field}.
+\newblock In {\em Pairing 2008~\cite{2008/pairing2008}}, pages 126--135, 2008.
+
+\bibitem{2016/KB}
+Taechan Kim and Razvan Barbulescu.
+\newblock Extended tower number field sieve: {A} new complexity for the medium
+  prime case.
+\newblock In {\em CRYPTO 2016~\cite{2016/crypto2016p1}}, pages 543--571, 2016.
+
+\bibitem{2012/LWZ}
+Liangze Li, Hongfeng Wu, and Fan Zhang.
+\newblock Pairing computation on Edwards curves with high-degree twists.
+\newblock \url{https://eprint.iacr.org/2012/532.pdf}, 2012.
+
+\bibitem{2012/Li}
+Liangze Li and Fan Zhang.
+\newblock Tate pairing computation on generalized hessian curves.
+\newblock In {\em {WISA} 2012}, pages 111--123, 2012.
+
+\bibitem{2008/lin}
+Xibin Lin, Changan Zhao, Fangguo Zhang, and Yanming Wang.
+\newblock {Computing the Ate Pairing on Elliptic Curves with Embedding Degree
+  \emph{k} = 9}.
+\newblock {\em {IEICE} Transactions}, 91-A(9):2387--2393, 2008.
+
+\bibitem{2016/MSS}
+Alfred Menezes, Palash Sarkar, and Shashank Singh.
+\newblock Challenges with assessing the impact of {NFS} advances on the
+  security of pairing-based cryptography.
+\newblock In {\em Paradigms in Cryptology --- Mycrypt 2016. Malicious and
+  Exploratory Cryptology --- Second International Conference, Mycrypt 2016,
+  Kuala Lumpur, Malaysia, December 1-2, 2016, Revised Selected Papers}, pages
+  83--108, 2016.
+
+\bibitem{2009/deg15}
+Nadia~El Mrabet, Nicolas Guillermin, and Sorina Ionica.
+\newblock A study of pairing computation for elliptic curves with embedding
+  degree 15.
+\newblock {\em {IACR} Cryptology ePrint Archive}, 2009:370, 2009.
+\newblock \url{http://eprint.iacr.org/2009/370}.
+
+\bibitem{2005/sahai}
+Amit Sahai and Brent Waters.
+\newblock {Fuzzy Identity-Based Encryption}.
+\newblock In {\em Eurocrypt 2005~\cite{2005/cramer}}, pages 457--473, 2005.
+\newblock \url{http://eprint.iacr.org/2004/086/}.
+
+\bibitem{2009/silverman-arithmetic}
+Joseph~H. Silverman.
+\newblock {\em The Arithmetic of Elliptic Curves}, volume 106 of {\em Graduate
+  Texts in Mathematics}.
+\newblock Springer, 2009.
+
+\bibitem{2001/smart}
+Nigel~P. Smart.
+\newblock {The Hessian form of an elliptic curve}.
+\newblock In {\em CHES 2001 \cite{2001/koc-ches2001}}, pages 118--125, 2001.
+
+\end{thebibliography}
