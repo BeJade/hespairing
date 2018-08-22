@@ -169,9 +169,10 @@ we compare the number of iterations for $\G{1} \times \G{2}$ and $\G{2} \times \
 In all the pairing-friendly families given in this paper, the polynomial $r(x)$ is the $k^{\text{th}}$ or $2k^{\text{th}}$ cyclotomic polynomial, both of which have degree given by the Euler function $\phi(k)$. 
 That is, where the twisted Ate pairing (on $\G{1} \times \G{2}$) requires $\log(r-1)$ iterations of Miller's loop,
 the optimal Ate pairing (on $\G{2} \times \G{1}$) requires only $\log(r)/\phi(k)$ iterations of Miller's loop. 
-So, if we wish to deduce from Tables~\ref{tbl-cmp1}, \ref{tbl-cmp1a}, and~\ref{tbl-cmp2} which pairing should be used, as a rough guide we could divide the operation counts of Table~\ref{tbl-cmp2} by $\phi(k)$.
+So, if we wish to deduce from Tables~\ref{tbl-cmp1}, \ref{tbl-cmp1a}, and~\ref{tbl-cmp2} which pairing should be used, as a rough guide we could divide the operation counts of Table~\ref{tbl-cmp2} by $\phi(k)$. We give a comparison in the two aforementioned cases $k=15$ and $k=21$ with the TNFS attacks in mind.
 
-As an example, suppose that $\sqr = \mul$ and set $k = 15$.
+\begin{example}
+Suppose that $\sqr = \mul$ and set $k = 15$.
 The best operation count for one iteration of the Miller loop to compute the twisted Ate pairing (on $\G{1} \times \G{2}$) is given by projective coordinates at 
 $478\mul$ for doubling and $256\mul$ for addition.
 The (only) operation count for one iteration of the Miller loop to compute the optimal Ate pairing (on $\G{2} \times \G{1}$) is given by Hessian coordinates at
@@ -179,6 +180,18 @@ $895\mul$ for doubling and $740\mul$ for addition.
 However, if optimal parameters can be found, the computation of the twisted Ate pairing 
 will require $8 = \phi(15)$ times as many iterations of the Miller loop as the computation of the optimal Ate, so we expect the optimal Ate pairing with Hessian coordinates to outperform the twisted Ate pairing with projective coordinates by a factor of between 3 and 4
 (exactly how much better the performance is depends on the Hamming weights of $x$ and $T_3$).
+\end{example}
+
+\begin{example}
+Suppose that $\sqr = \mul$ and set $k = 21$.
+The best choices for each pairing type are as in the previous example: 
+for $\G{1} \times \G{2}$ projective coordinates uses $916\mul$ for doubling and $478\mul$ for addition per iteration loop,
+and for $\G{2} \times \G{1}$ Hessian coorindates uses $1743\mul$ for doubling and $1442\mul$ for addition per iteration loop.
+The twisted Ate pairing ($\G{1} \times \G{2}$) requires $12 = \phi(21)$ times
+as many iterations of the Miller loop as the optimal Ate pairing ($\G{2} \times \G{1}$), 
+so for a rough comparison of the performance of the two pairings we divide the operation counts for optimal Ate by 12. 
+Given the above, we expect the optimal Ate pairing with Hessian coorinates to be the most efficient choice for $k=21$ as it should outperform the twisted Ate pairing with projective Weierstrass coordinates by a factor of approximately 4.
+\end{example}
 
 Not included in Tables~\ref{tbl-cmp1}, \ref{tbl-cmp1a}, and \ref{tbl-cmp2} are the 
 precomputation costs (which are relatively low for our constructions) and the final exponentiation costs (which are roughly uniform across all curve shapes).
