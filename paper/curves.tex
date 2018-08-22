@@ -2,56 +2,55 @@
 \label{sec:curves}
 
 Even though every elliptic curve can be written in a Weierstrass form,
-only those that contain points of order 3 can be written in a (twisted) Hessian form.
+only those that contain points of order 3 can be written in (twisted) Hessian form.
 Almost all methods to generate pairing-friendly curves are for generating
-pairing-friendly Weierstrass curves.
-Therefore, we will generate pairing-friendly (twisted) Hessian curves by
+pairing-friendly Weierstrass curves, 
+so we find pairing-friendly Hessian curves by
 searching through constructions of pairing-friendly Weierstrass curves for curves that have points of order 3,
-then convert those curves into the (twisted) Hessian form.
+and converting those curves into Hessian form.
+The families that we present below are guaranteed to have points of order 3.
 
-The succeeding subsections explain how to obtain pairing-friendly twisted Hessian curves.
-We begin by explaining the twists of curves, specifically the twists of degree $3$
-as all of our constructions allow this type of twist.
-Then, we give concrete constructions to generate pairing-friendly Weierstrass curves that are guaranteed to have points of order 3
-so that these curves can be converted into the (twisted) Hessian form.
-Finally, we show an explicit transformation from Weierstrass into twisted Hessian form.
-% by explicitly stating the formulas.
+In order to give fast formulas for curve arithmetic, it is desirable for the pairing-friendly curves that we consider to have \emph{twists}. Recall that a \emph{degree $d$ twist} of an elliptic curve $E/\F{q}$ is an elliptic curve $E'/\F{q^e}$ that is
+isomorphic to $E$ over a degree-$d$ extension of $\F{q^e}$ but not over any smaller field.
+Recall also (e.g. \cite{2009/silver-arithmetic}) that the only degrees of twists that occur for elliptic curves are $d \in \{2,3,4,6\}$ such that $d|k$, and that degree 3 and 6 twists occur only for elliptic curves with $j$-invariant 0.
+We concentrate in this article on twists of degree 3, as motivated by our aforementioned interest in embedding degrees $k = 15$ and 21.
+Hessian curves with $j$-invariant zero are of the form
+\[\mathcak{H}: aX^3 + Y^3 + Z^3 = 0.\]
+This motivates our interest in Hessian curves in particular:
+Let
+$$ \mathcal{H}_{\omega}: a \omega^3 X^3 + Y^3 + Z^3 = 0, $$
+where $\omega \in \F{q^k} $ generates $\F{q^k}$ as a $\F{q^{k/3}}$-vector space.
+Then $\mathcal{H}_{\omega}$ is a degree-3 twist of $\mathcal{H}$; the two curves are isomorphic via
+\begin{equation}\label{twistiso}
+\begin{array}{rccc}
+\varphi: & \mathcal{H}_{\omega} & \rightarrow & \mathcal{H} \\
+& (X:Y:Z) & \mapsto & (\omega X:Y:Z).
+\end{array}
+\end{equation}
+In particular, if $R' \in \mathcal{H}_{\omega}(\F{q^{k/3}})$, then
+$\varphi(R') \in \G{2}$.
+Analogously to \cite{??}, we choose the $\G{2}$ input point for the pairing
+from $\varphi(\mathcal{H}_{\omega}(\F{q^{k/3}}))$.
+The simplicity of the twist isomorphism 
+allows us to do many calculations in $\F{q^{k/3}}$ instead of $\F{q^k}$,
+as explained in detail on a case-by-case basis in Section \ref{sec:lines}.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Checking for points of order 3}
 
-\subsection{Twists of degree $3$}
-\label{twist}
-%To reduce the cost of pairing computation, we considered the concept of twists of curves.
-Let $E$ and $E'$ be elliptic curves over $\F{q}$.
-We call $E'$ a \emph{twist} of $E$ if $E$ and $E'$ are isomorphic over some field extension of $\F{q}$.
-More precisely, $E'$ is a {\emph{degree-$d$ twist}} of $E$ if they are isomorphic over a degree $d$ extension and not over any smaller field.
-
-Twists of curves speed up pairing computations by allowing arithmetic to take place in a subfield instead of the full extension field.
-That is, instead of working over the full extension field $\F{q^k}$, a degree-$d$ twist makes it possible to work over a subfield $\F{q^{k/d}}$
-(given that $d$ divides $k$).
-The larger the degree of twist, the smaller the subfield can be.
-Thus, it is desirable to use the highest degree of twist available.
-However, the only possible degrees of twist are $d \in \{2,3,4,6\}$ (see, e.g.,~\cite{2009/silverman-arithmetic}).
-
-To use a degree-$d$ twist of a curve over $\FF_{q^{k}}$, the degree $d$ must divide $k$.
-For the case $k \equiv 3,9,15 \pmod{18}$,
-the only possible twist degree is $d = 3$.
-For the case $k \equiv 0 \pmod{6}$ where $18 \nmid k$,
-even though a twist of degree 6 is also possible, we are only interested in degree 3 twists as our curves must have a point of order 3.
-
-Recall that we focus only on curves for which both the curves and their twists contain points of order 3.
-To express twists of curves in the Hessian form,
-those twists must also contain points of order 3.
-To check whether the twisted curve $E'$ of $E$ contains points of order 3 or not,
-we use the formulas in~\cite{2006/hess} which state the number of points on twisted curves.
-The formulas for calculating the number of points on twisted curves always come in pairs.
-For example, the formulas for $d = 3$ stated in~\cite{2006/hess} are as follows:
+Let $E/\F{q}$ be an elliptic curve. There is a Hessian model of $E$ if and only if $E(\F{q})$ contains a point of order 3. 
+To apply the formulas in the following sections we required both $E$ and the 
+degree-3 twist of $E$ that we consider to have order 3.
+Recall that
+\[\#E(\F{q}) = q+1-t,\]
+where $t$ is the trace of Frobenius; 
+by~\cite{2006/hess} the two non-trivial degree 3 twists $E'$ satisfy are as follows:
 \begin{align*}
-\# E' (\F{q}) &= q + 1 - (3f - t) / 2 & with & \quad t^2 - 4q = -3f^2, \\
-\# E' (\F{q}) &= q + 1 - (-3f- t) / 2 & with & \quad t^2 - 4q = -3f^2.
+\# E' (\F{q}) &= q + 1 - (3f - t) / 2 & \text{with} & \quad t^2 - 4q = -3f^2, \\
+\# E' (\F{q}) &= q + 1 - (-3f- t) / 2 & \text{with} & \quad t^2 - 4q = -3f^2.
 \end{align*}
-To determine the right twist,
-we use the fact that $\#E'(\F{q})$ must also be divisible by $r$ (recall that $r$ was the largest prime factor of $\# E(\F{q})$); exactly one of the two possible twists satisfies this condition.
+It is also necessary that doe the twist $E'$ that we use $\#E'(\F{q})$ is divisible by $r$ (recall that $r$ was the largest prime factor of $\# E(\F{q})$) and exactly one of the two possible twists satisfies this condition.
+
+So to choose a family for which the elliptic curve $E$ can be rewritten in Hessian form together with a degree 3 twist, it suffices to check that 3 divides $q+1-t$ and that $3r$ divides $q + 1 - (\pm 3f - t) / 2$ (for one choice of sign).
 
 %------------------------
 
@@ -134,7 +133,7 @@ of order $r(x_0)$ and embedding degree $k$ with respect to $r(x_0)$.
 Cyclotomic families are families of curves where the underlying field $K$ is a cyclotomic field,
 the size $r$ of the largest prime-order subgroup of the group of $\F{q}$-points is a cyclotomic polynomial,
 and the field $K$ contains $\sqrt{-D}$ for some small discriminant $D$.
-We searched through~\cite{2010/freeman} and found three cyclotomic-family constructions that satisfy our point-of-order-3 condition.
+We searched through~\cite{2010/freeman} and found three cyclotomic-family constructions that satisfy the conditions outlined in the previous section.
 These constructions are based on a cyclotomic field containing a cube root of unity,
 i.e., fields contain $\sqrt{-3}$.
 Therefore, we choose the discriminant $D = 3$.
@@ -143,11 +142,10 @@ The following constructions are for generating pairing-friendly Weierstrass curv
 which can be converted into twisted Hessian curves (see~\cite{2015/hessian} Section 5).
 Note that twists of these curves (see Section~\ref{twist}) are also expressible in the twisted Hessian form.
 We categorized these constructions by embedding degrees.
-Note that $q(x)$ is a prime field,
-$r(x)$ is a subgroup of $E(\F{q(x)})$ which may not have prime order,
-and $t(x)$ is a trace of Frobenius defined as $t(x) = q(x) + 1 - \#E(\F{q(x)})$
-where $\#E(\F{q(x)})$ denotes the number of points on $E(\F{q(x)})$.
-We denote $\Phi_{n}(x)$ the cyclotomic polynomial of degree $n$.
+Note that $q(x)$ is a prime,
+$r(x)$ is the size of a subgroup of $E(\F{q(x)})$ (which may not have prime order),
+and $t(x)$ is a trace of Frobenius of $E/\F{q(x)}$.
+We denote the cyclotomic polynomial of degree $n$ by $\Phi_{n}(x)$ .
 
 %Recall that in Section~\ref{sec:Tate}, we defined
 %\begin{itemize}
