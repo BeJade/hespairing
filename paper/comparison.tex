@@ -3,64 +3,57 @@
 
 We would like to emphasize that:
 \begin{itemize}
-\item	Most of the previous works concerned Weierstrass curves.
-\item	Most of the previous works concerned even embedding degrees.
-\item	There were some previous works on Hessian curves but with even embedding degrees.
-\item	There were also some previous works with odd embedding degrees but using Weierstrass curves.
+\item	Most of the previous work on this topic concentrated on even embedding degrees.
+\item   Most of the previous work on this topic concentrated on pairings for $\G{1} \times \G{2}$.
+\item   To the best of our knowledge, previous research on Hessian curves for pairings did not utilize cubic twists and was only applicable for even embedding degrees and pairings on $\G{1} \times \G{2}$.
+\item   To the best of our knowledge, the only previous research on pairings for curves with odd embedding degrees used curves in Weierstrass form and was only analyzed for pairings on $\G{1} \times \G{2}$.
 \end{itemize}
-Therefore, it is difficult to have an appropriate comparison between the constructions in this paper and previous works,
-as we are the first, to our knowledge, to consider the twisted Hessian curves with odd embedding degrees.
-Note that even embedding degrees have the advantage of being able to completely eliminate denominators in the computation of the pairing.
-However, with odd embedding degrees, we need to compute the denominator as it is non-trivial.
-%Hence, it is challenging to have the cost of odd embedding degrees being competitive with those of even embedding degrees.
 
-Table~\ref{tbl-cmp1} shows the costs of the computation of pairings using our constructions in comparison with previous works.
-The first column gives the parity of the embedding degree $k$.
+Table~\ref{tbl-cmp1} shows the costs of the computation of the Miller doubling step (DBL) and of the Miller adding step (mADD) using mixed addition.
+The first column gives the conditions on the embedding degree $k$.
+Note that as this paper particularly concerns cubic twists, we include only embedding degrees that are divisble by 3.
 The second column gives the curve models, where 
 $\mathcal{J}$, $\mathcal{P}$, $\mathcal{E}$, $\mathcal{H}$ denote the
 Weierstrass model with Jacobian coordinates, the
 Weierstrass model with projective coordinates,
 the Edwards model and the
 Hessian model respectively.
-Note that this work considers the generalization of Hessian curves to ``twisted'' Hessian curves, and that the twists are of degree 3.
-The third and fourth columns show the cost of doubling (DBL) and mixed addition (mADD) including the computation of the line functions for pairing computations.
-By `mixed addition' we mean that the $z$ coordinate is set to be 1.
 We denote the cost of field multiplication and field squaring over the base field $\F{q}$ by $\mul$ and $\sqr$ respectively and $\Mul$ and $\Sqr$ denote the cost of field multiplication and field squaring over the extension field $\F{q^k}$ respectively.
 The cost of multiplication by curve parameters is omitted from the table.
 
 \begin{table}[h]
 \centering
-\caption{Comparison of the cost for computing pairings on $\G{1} \times \G{2}$ for different curve models and embedding degrees}
+\caption{Comparison of DBL for $\G{1} \times \G{2}$ with different curve models and embedding degrees}
 
-\begin{tabular}{ l | l | l | l}
+\begin{tabular}{| l | l | l | l}
 \hline
-\multicolumn{1}{c|}{$k$}
-&\multicolumn{1}{c|}{Curve models}	&\multicolumn{1}{c|}{DBL}	&\multicolumn{1}{c}{mADD}	\\
+\multicolumn{1}{|c|}{$k$}
+&\multicolumn{1}{|c|}{Curve models}	&\multicolumn{1}{c|}{DBL}		\\
 \hline
-\multicolumn{1}{c|}{\multirow{6}{*}{even}}
+\multicolumn{1}{|c|}{\multirow{6}{*}{
+$\begin{array}{c} \text{even,} \\ 6|k \end{array}$}}
 &$\mathcal{J}$, \cite{2008/IonicaJoux08} \cite{2009/fastertate}
-				&$k\mul + 1\mul + 11\sqr + \Mul + \Sqr$	&$k\mul + 6\mul + 6\sqr + \Mul $	\\
+				&$(k + 1)\mul + 11\sqr + \Mul + \Sqr$		\\
 &$\mathcal{J},a_4 = -3$, \cite{2009/fastertate}
-				&$k\mul + 6\mul + 5\sqr + \Mul + \Sqr$		&$k\mul + 6\mul + 6\sqr + \Mul$	\\
+				&$(k + 6)\mul + 5\sqr + \Mul + \Sqr$	\\
 &$\mathcal{J},a_4 = 0$, \cite{2009/fastertate}		
-				&$k\mul + 3\mul + 8\sqr + \Mul + \Sqr$		&$k\mul + 6\mul + 6\sqr + \Mul$	\\
-&$\mathcal{P},a_4 = 0, a_6 = b^2$, \cite{2009/craig}
-				&$k\mul + 3\mul + 5\sqr + \Mul + \Sqr$		&$k\mul + 10\mul + 2\sqr + \Mul$	\\
+				&$(k + 3)\mul + 8\sqr + \Mul + \Sqr$		\\
+&$\mathcal{P},(a_4,a_6) = (0, b^2)$, \cite{2009/craig}
+				&$(k + 3)\mul + 5\sqr + \Mul + \Sqr$		\\
 &$\mathcal{E}$, \cite{2009/fastertate}			
-				&$k\mul + 6\mul + 5\sqr + \Mul + \Sqr$		&$k\mul + 12\mul + \Mul$	\\
+				&$(k + 6)\mul + 5\sqr + \Mul + \Sqr$			\\
 &$\mathcal{E},j=0$, \cite{2012/LWZ}
-				&$\frac{4k}{3}\mul + 4\mul + 7\sqr  + \frac{1}{3}\Mul + \Sqr$
-				&$\frac{4k}{3}\mul + 12\mul  + \frac{1}{3}\Mul$ \\
-&$\mathcal{H}$, \cite{2010/Gu}	&$k\mul + 3\mul + 6\sqr + \Mul + \Sqr$ &$k\mul + 10\mul + \Mul$	\\
+				&$\left(\frac{4k}{3}+ 4\right)\mul + 7\sqr  + \frac{1}{3}\Mul + \Sqr$\\
+&$\mathcal{H}$, \cite{2010/Gu}	&$(k + 3)\mul + 6\sqr + \Mul + \Sqr$ 	\\
 &$\mathcal{H},j=0$, this paper 	&
-$ \frac{2k}{3}\mul + 5\mul + 3\sqr + \frac{2}{3}\Mul + \Sqr$		&
-$ \frac{2k}{3}\mul + 11\mul + \frac{2}{3}\Mul$	\\
+$ \left(\frac{2k}{3} + 5\right)\mul + 3\sqr + \frac{2}{3}\Mul + \Sqr$			\\
 \hline
-\multicolumn{1}{c|}{\multirow{2}{*}{odd}}
-&$\mathcal{P}$, \cite{2010/CLN}	&$k\mul + 6\mul + 7\sqr + \Mul + \Sqr$		&$k\mul + 13\mul + 3\sqr + \Mul$	\\
+\multicolumn{1}{|c|}{\multirow{2}{*}{
+$\begin{array}{c} \text{odd,} \\ 3|k \end{array}$}}
+&$\mathcal{P}$, \cite{2010/CLN}	&$(k + 6)\mul + 7\sqr + \Mul + \Sqr$		\\
 &$\mathcal{H},j=0$, this paper
-&$ \frac{4k}{3}\mul + 5\mul + 3\sqr + \frac{16}{9}\Mul + \frac{11}{9}\Sqr$
-&$\frac{4k}{3}\mul + 11\mul + \frac{16}{9}\Mul + \frac{2}{9}\Sqr $	\\
+&$ \left(\frac{4k}{3} + 5\right)\mul + 3\sqr + \frac{16}{9}\Mul + \frac{11}{9}\Sqr$
+\\
 \hline
 \end{tabular}
 \label{tbl-cmp1}
@@ -73,16 +66,74 @@ $ \frac{2k}{3}\mul + 11\mul + \frac{2}{3}\Mul$	\\
 
 \begin{table}[h]
 \centering
-\caption{Comparison of the cost for computing pairings on $\G{2} \times \G{1}$ for different curve models and embedding degrees}
+\caption{Comparison of mADD for $\G{1} \times \G{2}$ with different curve models and embedding degrees}
+
+\begin{tabular}{| l | l | l | l}
+\hline
+\multicolumn{1}{|c|}{$k$}
+&\multicolumn{1}{|c|}{Curve models}	&\multicolumn{1}{c}{mADD}	\\
+\hline
+\multicolumn{1}{|c|}{\multirow{6}{*}{
+$\begin{array}{c} \text{even,} \\ 6|k \end{array}$}}
+&$\mathcal{J}$, \cite{2008/IonicaJoux08} \cite{2009/fastertate}
+		&$(k+ 6)\mul + 6\sqr + \Mul $	\\
+&$\mathcal{J},a_4 = -3$, \cite{2009/fastertate}
+	&$(k+ 6)\mul + 6\sqr + \Mul$	\\
+&$\mathcal{J},a_4 = 0$, \cite{2009/fastertate}		
+	&$(k + 6)\mul + 6\sqr + \Mul$	\\
+&$\mathcal{P},(a_4,a_6) = (0, b^2)$, \cite{2009/craig}
+		&$(k + 10)\mul + 2\sqr + \Mul$	\\
+&$\mathcal{E}$, \cite{2009/fastertate}			
+		&$(k+ 12)\mul + \Mul$	\\
+&$\mathcal{E},j=0$, \cite{2012/LWZ}
+				&$\left(\frac{4k}{3} + 12\right)\mul  + \frac{1}{3}\Mul$ \\
+&$\mathcal{H}$, \cite{2010/Gu}	&$(k + 10)\mul + \Mul$	\\
+&$\mathcal{H},j=0$, this paper 	&
+$ \left(\frac{2k}{3} + 11\right)\mul + \frac{2}{3}\Mul$	\\
+\hline
+\multicolumn{1}{|c|}{\multirow{2}{*}{
+$\begin{array}{c} \text{odd,} \\ 3|k \end{array}$}}
+&$\mathcal{P}$, \cite{2010/CLN}		&$(k + 13)\mul + 3\sqr + \Mul$	\\
+&$\mathcal{H},j=0$, this paper
+&$\left(\frac{4k}{3} + 11\right)\mul + \frac{16}{9}\Mul + \frac{2}{9}\Sqr $	\\
+\hline
+\end{tabular}
+\label{tbl-cmp1a}
+
+%\justify
+%Note: ``Pre cost'' denotes the precomputation cost.
+%This cost is already included in the first column.
+
+\end{table}
+
+\begin{table}[h]
+\centering
+\caption{Comparison of the costs of DBL and mADD for $\G{2} \times \G{1}$ with different curve models and embedding degrees}
 
 \begin{tabular}{ l | l | l | l}
 \hline
 \multicolumn{1}{c|}{$k$}
-&\multicolumn{1}{c|}{Curve models}	&\multicolumn{1}{c|}{DBL}	&\multicolumn{1}{c}{mADD}	\\
+&\multicolumn{1}{c|}{Curve models}	&\multicolumn{1}{c|}{DBL}	&\multicolumn{1}{c}{mADD}	
+\\
 \hline
+\multicolumn{1}{c|}{\multirow{2}{*}{
+$\begin{array}{c} \text{even,} \\ 6|k \end{array}$}}
+& $\mathcal{P},j=0$, \cite{2009/fastertate}
+& $\frac{41}{36}\Mul + \frac{41}{36}\Sqr$
+& $\frac{4}{3}\Mul + \frac{1}{18}\Sqr$ \\
 & $\mathcal{H},j=0$, this paper
 & $\frac{4k}{3}\mul + \frac{7}{3}\Mul + \frac{14}{9}\Sqr $
 & $k\mul + 3\Mul + \frac{2}{9}\Sqr$ \\
+\hline
+\multicolumn{1}{c|}{\multirow{2}{*}{
+$\begin{array}{c} \text{odd,} \\ 3|k \end{array}$}}
+%& $\mathcal{P},j=0$, \cite{2009/fastertate}
+%& $3k\mul + \frac{5}{3}\Mul + \frac{16}{9}\Sqr$
+%& $3k\mul + \frac{22}{9}\Mul + \frac{5}{9}\Sqr$ \\
+& $\mathcal{H},j=0$, this paper
+& $\frac{4k}{3}\mul + \frac{7}{3}\Mul + \frac{14}{9}\Sqr $
+& $k\mul + 3\Mul + \frac{2}{9}\Sqr$ \\
+&&& \\
 \hline
 \end{tabular}
 \label{tbl-cmp2}
@@ -93,11 +144,47 @@ $ \frac{2k}{3}\mul + 11\mul + \frac{2}{3}\Mul$	\\
 
 \end{table}
 
-Note that there are various advantages of our constructions that cannot be justified by the cost shown in Table~\ref{tbl-cmp1}.
-First of all, the costs shown in Table~\ref{tbl-cmp1} do not reflect the total cost for the pairing-based protocols.
-This is because generically there are many group operations performed prior to relatively few pairing computations.
+As is probably clear from Table \ref{tbl-cmp2}, to our knowledge there is very little research on the optimization of curve arithmetic with regards the computation of the Miller function 
+that utilizes twists. 
+In particular we believe that this is the first paper that studies the use of cubic twists for the efficient computation of the Miller line function for a pairing on $\G{2} \times \G{1}$
+for curves with odd embedding degree.
+Curve arithmetic in this context is discussed to some extent in \cite{2009/fastertate}, 
+but the formulas given in Section 6 for the line function correspond to pairings on $\G{1} \times \G{2}$, so it appears that the authors chose to concentrate of pairings for $\G{1} \times \G{2}$ for odd embedding degree.
+
+Comparing Tables \ref{tbl-cmp1}, \ref{tbl-cmp1a}, and \ref{tbl-cmp2}, it is clear that one iteration of Miller's loop is faster for a $\G{1} \times \G{2}$ pairing tha on a $\G{2} \times \G{1}$ pairing.
+However, there has been much research on minimizing the number of iterations of Miller's loop for both types of pairing which affects our analysis considerably.
+
+For pairings on $\G{1} \times \G{2}$, the lowest number of iterations occurs for the twisted Ate pairing when twists are available, or the reduced Tate pairing when twists are not available.
+In this paper we are explictly addressing the first case, so the twisted Ate pairing gives the minimal number of iterations. 
+Let $t$ be the trace of Frobenius, let $T = t-1$, and let $d$ be the degree of the twist. The number of iterations of Miller's loop for the twisted Ate pairing is given by $T_e$, where
+$T_e \equiv T^e \pmod{r}$ and $1 < e | d$. 
+Also $T$ is a $d^{\text{th}}$-root of unity in $\F{r}$, so when $d = 6$ the smallest value of
+$T_e$ is $T_2$ where $T_2^3= r-1$, and when $d = 3$ the smallest value of $T_e$ is
+$T_3 = r-1$. For more details on the twisted Ate pairing see \cite{}.
+
+For pairings on $\G{2} \times \G{1}$, the lowest number of iterations occurs for the optimal Ate pairing. The best-case-scenario (which can in principle occur for any embedding degree) is $x$ iterations of Miller's loop. For more details on the optimal Ate pairing see \cite{}. 
+
+To motivate the study of pairings of $\G{2} \times \G{1}$, 
+we compare the number of iterations for $\G{1} \times \G{2}$ and $\G{2} \times \G{1}$ when $k$ is odd and divisible by 3. 
+In all the pairing-friendly families given in this paper, the polynomial $r(x)$ is the $k^{\text{th}}$ or $2k^{\text{th}}$ cyclotomic polynomial, both of which have degree given by the Euler function $\phi(k)$. 
+That is, where the twisted Ate pairing (on $\G{1} \times \G{2}$) requires $\log(r-1)$ iterations of Miller's loop,
+the optimal Ate pairing (on $\G{2} \times \G{1}$) requires only $\log(r)/\phi(k)$ iterations of Miller's loop. 
+So, if we wish to deduce from Tables~\ref{tbl-cmp1}, \ref{tbl-cmp1a}, and~\ref{tbl-cmp2} which pairing should be used, as a rough guide we could divide the operation counts of Table~\ref{tbl-cmp2} by $\phi(k)$.
+
+As an example, suppose that $\sqr = \mul$ and set $k = 15$.
+The best operation count for one iteration of the Miller loop to compute the twisted Ate pairing (on $\G{1} \times \G{2}$) is given by projective coordinates at 
+$478\mul$ for doubling and $256\mul$ for addition.
+The (only) operation count for one iteration of the Miller loop to compute the optimal Ate pairing (on $\G{2} \times \G{1}$) is given by Hessian coordinates at
+$895\mul$ for doubling and $740\mul$ for addition. 
+However, if optimal parameters can be found, the computation of the twisted Ate pairing 
+will require $8 = \phi(15)$ times as many iterations of the Miller loop as the computation of the optimal Ate, so we expect the optimal Ate pairing with Hessian coordinates to outperform the twisted Ate pairing with projective coordinates by a factor of between 3 and 4
+(exactly how much better the performance is depends on the Hamming weights of $x$ and $T_3$).
+
+Not included in Tables~\ref{tbl-cmp1}, \ref{tbl-cmp1a}, and \ref{tbl-cmp2} are the 
+precomputation costs (which are relatively low for our constructions) and the final exponentiation costs (which are roughly uniform across all curve shapes).
 %and group operations on twisted Hessian curves allow faster point arithmetic operations than Weierstrass curves. -- this *is* accounted for in the table!
-Secondly, having curves represented in the same models for $\mathbb{G}_1$ and $\mathbb{G}_2$ does not induce the extra cost of conversion between curve models.
+A significant part of the precomputation cost for many models in the conversion
+between curve models, which is not necessary for our constructions.
 (Recall that for BN, BLS, and KSS, this conversion is always necessary if one wants to take advantage of
 the fast point-arithmetic on Hessian or Edwards curves, as proven in~\cite{2013/bos-pairing}.)
 %As explained in Section~\ref{subsec:w2h}, 
