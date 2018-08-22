@@ -4,8 +4,7 @@ intro.tex \
 background.tex \
 curves.tex \
 lines.tex \
-even.tex \
-odd.tex \
+comparison.tex \
 conclusions.tex \
 main.tex
 	pdflatex main
