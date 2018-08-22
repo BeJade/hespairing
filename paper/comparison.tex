@@ -14,7 +14,7 @@ Note that even embedding degrees have the advantage of being able to completely 
 However, with odd embedding degrees, we need to compute the denominator as it is non-trivial.
 %Hence, it is challenging to have the cost of odd embedding degrees being competitive with those of even embedding degrees.
 
-Table~\ref{tbl-cmp} shows the costs of the computation of pairings using our constructions in comparison with previous works.
+Table~\ref{tbl-cmp1} shows the costs of the computation of pairings using our constructions in comparison with previous works.
 The first column gives the parity of the embedding degree $k$.
 The second column gives the curve models, where 
 $\mathcal{J}$, $\mathcal{P}$, $\mathcal{E}$, $\mathcal{H}$ denote the
@@ -63,7 +63,7 @@ $ \frac{2k}{3}\mul + 11\mul + \frac{2}{3}\Mul$	\\
 &$\frac{4k}{3}\mul + 11\mul + \frac{16}{9}\Mul + \frac{2}{9}\Sqr $	\\
 \hline
 \end{tabular}
-\label{tbl-cmp}
+\label{tbl-cmp1}
 
 %\justify
 %Note: ``Pre cost'' denotes the precomputation cost.
@@ -85,7 +85,7 @@ $ \frac{2k}{3}\mul + 11\mul + \frac{2}{3}\Mul$	\\
 & $k\mul + 3\Mul + \frac{2}{9}\Sqr$ \\
 \hline
 \end{tabular}
-\label{tbl-cmp}
+\label{tbl-cmp2}
 
 %\justify
 %Note: ``Pre cost'' denotes the precomputation cost.
@@ -93,8 +93,8 @@ $ \frac{2k}{3}\mul + 11\mul + \frac{2}{3}\Mul$	\\
 
 \end{table}
 
-Note that there are various advantages of our constructions that cannot be justified by the cost shown in Table~\ref{tbl-cmp}.
-First of all, the costs shown in Table~\ref{tbl-cmp} do not reflect the total cost for the pairing-based protocols.
+Note that there are various advantages of our constructions that cannot be justified by the cost shown in Table~\ref{tbl-cmp1}.
+First of all, the costs shown in Table~\ref{tbl-cmp1} do not reflect the total cost for the pairing-based protocols.
 This is because generically there are many group operations performed prior to relatively few pairing computations.
 %and group operations on twisted Hessian curves allow faster point arithmetic operations than Weierstrass curves. -- this *is* accounted for in the table!
 Secondly, having curves represented in the same models for $\mathbb{G}_1$ and $\mathbb{G}_2$ does not induce the extra cost of conversion between curve models.

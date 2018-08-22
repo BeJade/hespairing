@@ -25,14 +25,14 @@ which can be done either by increasing the size of the prime or by increasing th
 Our constructions address this problem by generating pairing-friendly twisted Hessian curves with embedding degrees 15 and 21,
 which allows for an increase in security without having to jump from embedding degree 12 to 18, or from 18 to 24.
 
-%XXX emphasize advantages not shown in the tables
-There are various advantages of our constructions that cannot be justified by the cost shown in Table~\ref{tbl-cmp}. %Table~\ref{tbl-even} and Table~\ref{tbl-odd}.
-First of all, the costs shown in those tables do not reflect the total cost for the pairing-based protocols.
-This is because generically there are many group operations performed prior to relatively few pairing computations,
-and group operations on twisted Hessian curves allow faster point arithmetic operations than Weierstrass curves.
-Secondly, having curves represented in the same models for $\mathbb{G}_1$ and $\mathbb{G}_2$ does not induce the extra cost of conversion between curve models.
-(Recall that for BN, BLS, and KSS, this conversion is always necessary if one wants to take advantage of
-the fast point-arithmetic on Hessian or Edwards curves, as proven in~\cite{2013/bos-pairing}.)
+%%XXX emphasize advantages not shown in the tables
+%There are various advantages of our constructions that cannot be justified by the cost shown in Table~\ref{tbl-cmp}. %Table~\ref{tbl-even} and Table~\ref{tbl-odd}.
+%First of all, the costs shown in those tables do not reflect the total cost for the pairing-based protocols.
+%This is because generically there are many group operations performed prior to relatively few pairing computations,
+%and group operations on twisted Hessian curves allow faster point arithmetic operations than Weierstrass curves.
+%Secondly, having curves represented in the same models for $\mathbb{G}_1$ and $\mathbb{G}_2$ does not induce the extra cost of conversion between curve models.
+%(Recall that for BN, BLS, and KSS, this conversion is always necessary if one wants to take advantage of
+%the fast point-arithmetic on Hessian or Edwards curves, as proven in~\cite{2013/bos-pairing}.)
 
 %We also would like to emphasize that embedding degrees such as 12, 18, 24 can split into many subfields.
 %Recall that recent advances in number field sieve attacks on solving DLP~\cite{2016/KB} which further generalized by~\cite{2017/KJ} and~\cite{2016/conjugate}
