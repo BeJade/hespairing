@@ -22,7 +22,7 @@ Performance of pairing-based cryptography relies on
 elliptic-curve-point arithmetic, computation of line functions and pairing algorithms.
 A pairing is a bilinear map from two elliptic curve groups $\mathbb{G}_1$ and $\mathbb{G}_2$ to
 a target group $\mathbb{G}_T$.
-Therefore, to achieve a good performance, as well as having an efficient pairing algorithm,
+To achieve a good performance, as well as having an efficient pairing algorithm,
 it is also desirable to have a fast elliptic-curve-point arithmetic in both $\mathbb{G}_1$ and $\mathbb{G}_2$.
 
 Security of pairings depends mainly on the cost of solving discrete logarithm problem (DLP) in the three groups previously mentioned,
@@ -36,11 +36,9 @@ the cost of solving DLP must be sufficiently high in all of these three groups.
 
 One way to improve the performance of pairings is
 to improve the performance of the underlying point arithmetic.
-Since pairing computation arises naturally from a geometric representation of Weierstrass curves,
-most pairing formulas use curves written in Weierstrass form.
-However, the algorithms for performing point arithmetic on elliptic curves in Weierstrass form
-are known to be quite slow compared to elliptic curves with special properties allowing them to be written in,
-for example, Hessian form~\cite{2001/smart}~\cite{2001/joye} or
+Many authors have studied efficient point arithmetic via the 
+representation of elliptic curves in a specific model,
+for example, Hessian form~\cite{2001/smart}~\cite{2001/joye}, Jacobi Quartic form~\cite{}, or
 Edwards form~\cite{2007/edwards}~\cite{2007/bernstein-newelliptic}.
 
 Pairings based on Edwards curves,
@@ -52,39 +50,60 @@ is much more complicated than if the curves were written in Weierstrass form.
 In other words,
 %the gain due to the fast point arithmetic on Edwards curves is outweighed by the loss of slow computation of line functions.
 even though Edwards curves allow faster point arithmetic,
-this gain is outweighed by the slower computation of line functions.
+this gain is somewhat outweighed by the slower computation of line functions.
+Li, Wu, and Zhang~\cite{2002/LWZ} proposed the use of quartic and sextic twists
+for Edwards curves, improving the efficiency of both the point arithmetic and
+the computation of the line functions.
 %the computation of line functions is much slower which outweigh
 %%leads to a slowdown in the overall computation of pairing.
 
-Pairings based on Hessian curves with even embedding degrees have been considered by Gu, Gu and Xie~\cite{2010/Gu}.
+Pairings based on Hessian curves with even embedding degrees were proposed by Gu, Gu and Xie~\cite{2010/Gu}.
 They provided a geometric interpretation of the group law on Hessian curves
 along with an algorithm for computing Tate pairing on elliptic curves in Hessian form.
 However, no pairing-friendly curves in Hessian form were given.
 
-Bos, Costello and Naehrig~\cite{2013/bos-pairing} investigated the possibility of first
-using a model of a curve (such as Edwards or Hessian) allowing for fast group operations,
-then mapping to Weierstrass form for the computation of the pairing.
+Bos, Costello and Naehrig~\cite{2013/bos-pairing} investigated the possibility of
+using a model of a curve (such as Edwards or Hessian) allowing for fast point arithmetic
+and transforming to Weierstrass form for the actual computation of the pairing.
 They found that for every elliptic curve $E$ in the BN-12, BLS-12, and KSS-18 families of pairing-friendly curves,
 if $E$ is isomorphic over $\F{q}$ to a curve in Hessian or Edwards form,
 then it is not isomorphic over $\F{q^{k}}$ to a curve in Hessian or Edwards form,
-where $k$ is the embedding degree, so that the computations in either $\mathbb{G}_1$ or $\mathbb{G}_2$
-have to use slower algorithms for group operations on curves in Weierstrass form.
-Moreover, this idea of using different curve models comes at a cost of at least one conversion
-between other curve models into the Weierstrass form.
+where $k$ is the embedding degree, so that the computations in either $\mathbb{G}_1$ or $\mathbb{G}_2$.
+This implies that the point arithmetic has to be performed on curves in Weierstrass form - not all curves can be written in Hessian, Edwards, or Jacobi Quartic form.
+This idea of using different curve models comes at a cost of at least one conversion
+between other curve models into Weierstrass form.
+
+In this article we study the efficiency of curves in Hessian form for pairing computations. 
+Hessian curves with $j$-invariant 0 have degree 3 twists that can also be written in Hessian form, meaning that the speed-up techniques to point arithmetic and pairing computations studied in \cite{2012/LWZ} for Edwards curves and in
+\cite{} for quartic twists of Jacobi Quartic curves can be applied
+with the expensive curve conversion to Weierstrass form.
+We use the families proposed by \cite{2010/FST}, in which we could find
+3 families that can be written in Hessian form.
 
 Regardless of which model of elliptic curve was being studied,
 most of the previous articles on this topic were considering ``even'' embedding degrees.
-One of the main advantages of even embedding degrees is the applicability of a denominator elimination technique in the pairing computation,
-which is unfortunately not trivially available for odd embedding degrees.
+One of the main advantages of even embedding degrees is the applicability of a denominator elimination technique in the pairing computation 
+(avoiding a field inversion)
+which does not apply to odd embedding degrees.
 Examples of pairing algorithms for curves in Weierstrass form with odd embedding degree include
 the work by Lin, Zhao, Zhang and Wang in~\cite{2008/lin}, by Mrabet, Guillermin and Ionica in~\cite{2009/deg15},
 and by Fouotsa, Mrabet and Pecha in~\cite{2016/degodd}.
-In this paper, we concentrate on curves with embedding degrees divisible by 3,
-as pairing-friendly elliptic curves in (twisted) Hessian form are equipped with natural twists of degree 3.
+%In this paper, we concentrate on curves with embedding degrees divisible by 3,
+%as pairing-friendly elliptic curves in (twisted) Hessian form are equipped with natural twists of degree 3.
 
-%Due to recent advances in number field sieve techniques for attacking the discrete logarithm problem for pairing-friendly elliptic curves over finite fields,
-%it is necessary to increase the size of the finite fields for pairing-friendly curves.
-%One way of doing this is by increasing the embedding degree.
+\subsection{Attacks on solving DLP over finite fields}
+
+Due to recent advances in number field sieve techniques for attacking the discrete logarithm problem for pairing-friendly elliptic curves over finite fields~\cite{2013/jouxP}~\cite{2016/KB}~\cite{2015/BGGM}~\cite{2015/BGK}, (TNFS attacks),
+it is necessary to increase the size of the finite fields for pairing-friendly curves.
+In \cite{2018/FK}, Fotiadis and Konstaninou propose countering these attacks by using families with a higher $\rho$-value. In this paper, we investigate the feasability of an alternative method: increasing the embedding degree.
+This has the advantage of keeping the low $\rho$-values of previously proposed families, but is disadvantaged by the less efficient pairing computations.
+This article attempts to analyze the use of Hessian curves in combatting this.
+Previous research on computing pairings with  Hessian curves addressed only even emebedding degrees, and in order to make use of degree 3 twists the embedding degree should be divisible by 6. 
+Prior to the TNFS, the favoured embedding degree for 128-bit security level was 12, 
+so that to increase the embedding degree while making use of cubic twists the next
+candidate is 15. However, as 15 is odd the formulas of \cite{2010/Gu} do not apply;
+for this reason one focus of this article is to provide formulas for embedding degree 15. Simlarly, the pre-TNFS favourite embedding degree for 192-bit security level was 18, which we propose to increase to 21.
+Observe further that for 192-bit security level, the families of \cite{2018/FK} all require embedding degree $>21$.
 %This means increasing the conventional even embedding degree 12 to 18 or to 24 for higher security levels (see below).
 
 %Originally, part of the pairing algorithms is to compute $l \leftarrow l_1/l_2$.
@@ -103,47 +122,24 @@ as pairing-friendly elliptic curves in (twisted) Hessian form are equipped with 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Attacks on solving DLP over finite fields}
-
-The series of advances in attacking the discrete logarithm problem for elliptic curves over finite fields,
-i.e.,~\cite{2013/jouxP}~\cite{2016/KB}~\cite{2015/BGGM}~\cite{2015/BGK},
-have weakened the security of pairing-friendly elliptic curves by dramatically decreasing the security level on the finite field side.
-In order to retain the security level, either the size of the prime field or the embedding degree (or both) has to be increased.
-For example, BN-12 (BN curves with embedding degree 12) used to be very popular for 128-bit security level,
-because a 256-bit prime field maps to a 3072-bit finite field
-where the security on both the prime field side and the finite field side have a 128-bit security level.
-%However, series of advancement in computing discrete logarithm in finite field, for instance,
-%which have dramatically decreased the security level on the finite field side.
-According to the recent articles
-``Challenges with Assessing the Impact of NFS Advances on the Security of Pairing-based Cryptography''
-by Menezes, Sarkar and Singh~\cite{2016/MSS}
-and ``Updating key size estimations for parings'' by Barbulescu and Duquesne~\cite{2017/keysize},
-it is advisable to increase the field size.
-For example, the latter suggests that, for BN curves, the prime field has to be increased to over 400 bits in order to achieve 128-bit security level.
-Increasing the field size has a penalty of slowing down arithmetic operations which has a huge impact on performance.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Our contributions}
 
-In terms of the performance of pairing-based protocols,
-the paper~\cite{2013/bos-pairing} by Bos, Costello and Naehrig
-inspires the question whether it is possible to
-construct pairing-friendly curves that could be represented in the same curve models,
-preferably with fast point arithmetic and fast computation of line functions,
-for both $\mathbb{G}_1$ and $\mathbb{G}_2$,
-
-Twisted Hessian curves with faster point arithmetic have recently been proposed by
+We present formulas for computing pairings on both $\G{1} \times \G{2}$ and $\G{2} \times \G{1}$ for a curve given in Hessian form that admits degree 3 twists.
+These formulas exploit the degree 3 twists where possible: in moving the point arithmetic in $\F{q^k}$ to $\F{q^{k/3}}$ and performing the computations for the line functions in $\F{q^{k/3}}$ in place of $\F{q^k}$.
+For efficient curve arithmetic (before applying the use of twists) we refer to
 Bernstein, Chuengsatiansup, Kohel and Lange~\cite{2015/hessian}.
-This leads to questions whether the newer point arithmetic would also lead to faster formulas for computing line functions,
-and whether these formulas would be applicable to computing pairings on twisted Hessian curves.
 
-We present concrete constructions of a pairing on curves in twisted Hessian form starting
-from how to generate curves which guarantee to be representable in twisted Hessian form,
-how to convert them into the twisted Hessian form, and
-explicit formulas to compute pairings on such curves.
-To our knowledge, we are the first to consider pairing on twisted Hessian curves with odd embedding degrees.
-Our formulas for even embedding degrees are the fastest compared to previously published formulas despite the curve models.
+We analyze the efficiency of the pairing computation in each case. 
+Our analysis shows that for even embedding degrees, Hessian curves are ourperformed by twisted Edwards curves for pairings on $\G{1} \times \G{2}$, and by Weierstrass curves for pairings on $\G{2} \times \G{1}$.
+However, as explained above, our focus is on odd embedding degrees, as we propose 
+this as a countermeasure against the TNFS attacks.
+For embedding degrees 15 and 21 we show that the most efficient pairing
+computation available is the optimal Ate pairing with the Hessian form proposed in this paper.
+
+We also give concrete constructions of pairing-friendly Hessian curves for both embedding degrees and a proof-of-concept implementation of the optimal Ate pairing for these cases. 
 %Note in particular that among the popular pairing-friendly curve families,
 %BN-12 and KSS-18 have embedding degrees 12 and 18 respectively, which gives a large difference in field size.
 %Our results provide an alternative of embedding degree 15,
@@ -151,20 +147,23 @@ Our formulas for even embedding degrees are the fastest compared to previously p
 %For higher security levels, our constructions allow, for example, embedding degrees 21 or 33.
 
 The setup of this paper is as follows:
-in Section~\ref{sec:background}, we recall Miller's algorithm to compute the optimal ate pairing on elliptic curves in twisted Hessian form.
+in Section~\ref{sec:background}, we recall Miller's algorithm to compute pairings on elliptic curves.
 In Section~\ref{sec:curves}, we state constructions of families of pairing-friendly elliptic curves given in~\cite{2010/freeman}
-that can be written in twisted Hessian form and show the conversion.
+that can be written in twisted Hessian form together with the conversion
+to twisted Hessian form.
 %In Section~\ref{sec:lines}, we observe that the efficiency of computing line functions on curves in twisted Hessian form is similar to the Weierstrass case
 %and explain how to compute them.
-In Section~\ref{sec:lines}, we provide explicit formulas for the computation of the optimal Tate and ate pairing on twisted Hessian curves
-based on the state-of-the-art point arithmetic formulas.
+In Section~\ref{sec:lines}, we provide explicit formulas for the computation of 
+pairings for both $\G{1} \times \G{2}$ and $\G{2} \times \G{1}$ 
+on twisted Hessian curves
+using the state-of-the-art point arithmetic formulas presented in \cite{2015/hessian}.
 %In Section~\ref{sec:even}, we state explicit formulas for the computation of the optimal ate pairing
 %on twisted Hessian curves having even embedding degrees based on the state-of-the-art point arithmetic formulas.
 %We also provide comparisons to previous works.
 %In Section~\ref{sec:odd}, we give explicit formulas for the odd embedding degree case
 %and a comparison.
-In Section~\ref{sec:cmp}, we compare our results to previous works.
-In Section~\ref{sec:conclude}, we conclude our results.
+In Section~\ref{sec:cmp}, we compare our results to previous work.
+In Section~\ref{sec:conclude}, we present our conclusions.
 %and remark on some advantages that do not obviously appear in the comparison tables.
 %In Section~\ref{sec:formulas}, we state explicit formulas for the computation of the optimal ate pairing
 %on twisted Hessian curves based on the state-of-the-art point arithmetic formulas.

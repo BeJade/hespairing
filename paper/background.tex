@@ -28,30 +28,32 @@ a_{T} :	& \G{2} \times \G{1}	& \longrightarrow	& \mu_{r} \\
 \end{array}\]
 Note that in addition to the arguments $P$ and $Q$ being switched, the subscript $r$ (i.e. the number of loops) is also changed to $T$.
 
-Miller's algorithm for computing pairings works as follows.
-Let $m$ be an integer expressed in a binary format as $(m_{n-1},\dots,m_1,m_0)_2$.
-First, a rational function $f_{m,P}$ associated to a point $P$ and to $m$ is constructed.
-Then, this function is evaluated at a point $Q$.
-Miller's algorithm computes $f_{m,P}$ in the double-and-add manner
-and uses the following relation
-$$ f_{i+j,P} = f_{i,P} f_{j,P} \frac{l}{v}, $$
-where $l$ is a line through points $iP$ and $jP$,
-and $v$ is a line through points $(i+j)P$ and $-(i+j)P$.
+%Miller's algorithm for computing pairings works as follows.
+%Let $m$ be an integer expressed in a binary format as $(m_{n-1},\dots,m_1,m_0)_2$.
+%First, a rational function $f_{m,P}$ associated to a point $P$ and to $m$ is constructed.
+%Then, this function is evaluated at a point $Q$.
+%Miller's algorithm computes $f_{m,P}$ in the double-and-add manner
+%and uses the following relation
+%$$ f_{i+j,P} = f_{i,P} f_{j,P} \frac{l}{v}, $$
+%where $l$ is a line through points $iP$ and $jP$,
+%and $v$ is a line through points $(i+j)P$ and $-(i+j)P$.
 
-Constructing the line $l$ can be done by substituting $x$ and $y$ coordinates of points $iP$ and $jP$
-into the equation $y = mx + b$ and solving for $m$ and $b$.
-For Weierstrass curves, the line $v$ is simply a vertical line through $(i+j)P$.
-Therefore, the line $v$ is of the form $x = c$ where $c$ is the $x$-coordinate of the point $(i+j)P$.
-Note that the points $(i+j)P$ and $-(i+j)P$ have the same $x$-coordinate.
-For (twisted) Hessian curves, however, the line $v$ is not a vertical line
-and thus has to be constructed in a similar way as the line $l$,
-i.e., solving for $m$ and $b$ of $y = mx + b$ using points $(i+j)P$ and $-(i+j)P$.
+%Constructing the line $l$ can be done by substituting $x$ and $y$ coordinates of points $iP$ and $jP$
+%into the equation $y = mx + b$ and solving for $m$ and $b$.
+%For Weierstrass curves, the line $v$ is simply a vertical line through $(i+j)P$.
+%Therefore, the line $v$ is of the form $x = c$ where $c$ is the $x$-coordinate of the point $(i+j)P$.
+%Note that the points $(i+j)P$ and $-(i+j)P$ have the same $x$-coordinate.
+%For (twisted) Hessian curves, however, the line $v$ is not a vertical line
+%and thus has to be constructed in a similar way as the line $l$,
+%i.e., solving for $m$ and $b$ of $y = mx + b$ using points $(i+j)P$ and $-(i+j)P$.
 
-Algorithm~\ref{algo:miller} shows Miller's algorithm.
-We denote $\ell_{2R} = l_{2R} / v_{2R}$ where $l_{2R}$ is the tangent line at point $R$
-while $v_{2R}$ is the line passing through points $2R$ and its negation $-2R$.
-We denote $\ell_{R,P} = l_{R,P} / v_{R,P}$ where $l_{R,P}$ is the line passing through points $R$ and $P$
-while $v_{R,P}$ is the line passing through points $R+P$ and its negation $-(R+P)$.
+Algorithm~\ref{algo:miller} shows Miller's algorithm to compute the reduced Tate pairing or the Ate pairing. 
+Let $m \in \{r,T\}$ and represent the binary format of $m$ by $(m_{n-1},\dots,m_1,m_0)_2$.
+For any two points $R,S$ on $E$ denote by $l_{R,S}$ the line passing through
+$R$ and $S$, and by by $v_R$ the line passing through $R$ and $-R$.
+We further define $\ell_{2R} = l_{R,R}/v_{2R}$ and
+$\ell_{R,P} = l_{R,P} / v_{R+P}$.
+Miller's algorithm outputs the Tate pairing if $m = r$, $P \in \G{1}$, and $Q \in \G{2}$, and outputs the Ate pairing if $m = T$, $P \in \G{2}$, and $Q \in \G{1}$.
 
 \begin{algorithm}
 \caption{Miller's algorithm}
