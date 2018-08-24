@@ -74,7 +74,7 @@ This idea of using different curve models comes at a cost of at least one conver
 between other curve models into Weierstrass form.
 
 In this article we study the efficiency of curves in Hessian form for pairing computations. 
-Hessian curves with $j$-invariant 0 have degree 3 twists that can also be written in Hessian form, meaning that the speed-up techniques to point arithmetic and pairing computations studied in \cite{2014/LWZ} for Edwards curves can be applied
+Hessian curves with $j$-invariant 0 have degree-3 twists that can also be written in Hessian form, meaning that the speed-up techniques to point arithmetic and pairing computations studied in \cite{2014/LWZ} for Edwards curves can be applied
 without the expensive curve conversion to Weierstrass form.
 We use the families proposed by \cite{2010/freeman}, in which we could find
 3 families that can be written in Hessian form.
@@ -98,7 +98,7 @@ In \cite{2018/FK}, Fotiadis and Konstantinou propose countering these attacks by
 In this paper, we investigate the feasability of an alternative method: increasing the embedding degree.
 This has the advantage of keeping the low $\rho$-values of previously proposed families, but is disadvantaged by the less efficient pairing computations.
 This article attempts to analyze the use of Hessian curves in combatting this.
-Previous research on computing pairings with  Hessian curves addressed only even emebedding degrees, and in order to make use of degree 3 twists the embedding degree should be divisible by 6. 
+Previous research on computing pairings with  Hessian curves addressed only even emebedding degrees, and in order to make use of degree-3 twists the embedding degree should be divisible by 6. 
 Prior to the NFS attacks and their variants, the favoured embedding degree for 128-bit security level was 12, 
 so that to increase the embedding degree while making use of cubic twists the next
 candidate is 15. However, as 15 is odd the formulas of \cite{2010/Gu} do not apply;
@@ -127,8 +127,8 @@ Observe further that for 192-bit security level, the families of \cite{2018/FK} 
 
 \subsection{Our contributions}
 
-We present formulas for computing pairings on both $\G{1} \times \G{2}$ and $\G{2} \times \G{1}$ for a curve given in Hessian form that admits degree 3 twists.
-These formulas exploit the degree 3 twists where possible: in moving the point arithmetic in $\F{q^k}$ to $\F{q^{k/3}}$ and performing the computations for the line functions in $\F{q^{k/3}}$ in place of $\F{q^k}$.
+We present formulas for computing pairings on both $\G{1} \times \G{2}$ and $\G{2} \times \G{1}$ for a curve given in Hessian form that admits degree-3 twists.
+These formulas exploit the degree-3 twists where possible: in moving the point arithmetic in $\F{q^k}$ to $\F{q^{k/3}}$ and performing the computations for the line functions in $\F{q^{k/3}}$ in place of $\F{q^k}$.
 For efficient curve arithmetic (before applying the use of twists) we refer to
 Bernstein, Chuengsatiansup, Kohel, and Lange~\cite{2015/hessian}.
 
