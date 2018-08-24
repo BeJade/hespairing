@@ -74,9 +74,11 @@ This idea of using different curve models comes at a cost of at least one conver
 between other curve models into Weierstrass form.
 
 In this article we study the efficiency of curves in Hessian form for pairing computations. 
-Hessian curves with $j$-invariant 0 have degree-3 twists that can also be written in Hessian form,
-meaning that the speed-up techniques to point arithmetic and pairing computations studied in~\cite{2014/LWZ} %for Edwards curves
-can be applied without the expensive curve conversion to Weierstrass form.
+Hessian curves with $j$-invariant 0 have degree-3 twists that can also be written in Hessian form. This
+means that we can take full advantage of speed-up techniques for
+point arithmetic and pairing computations that move arithmetic to subfields
+via the twist, for example as studied for Edwards curves in~\cite{2014/LWZ},
+without the expensive curve conversion to Weierstrass form.
 We use the families proposed by~\cite{2010/freeman}, in which we could find
 three families that can be written in Hessian form.
 
