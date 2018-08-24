@@ -223,6 +223,16 @@ where $\eta = aX_Q$ and can be precomputed.
 Observe further that when computing $2R$ we can instead compute
 $\varphi(2\varphi^{-1}(R))$ due to the simplicity of the twist isomorphism \eqref{twistiso},
 so that our operation count for point doubling occurs in $\F{q^{k/3}}$, not $\F{q^k}$, giving a total cost of $\frac{5}{9}\Mul + \frac{2}{9}\Sqr$ for the computation of $2R$.
+This also means that $S, T \in \F{q^{k/3}}$, and recall that $X_3',Y_3',Z_3',X_1' \in \F{q^{k/3}}$. 
+In particular:
+\begin{itemize}
+\item The computations of $\alpha$, $\beta$, $\gamma$, and $l$ amount to the multiplication of a $\F{q}$-element with a $\F{q^{k/3}}$-element, costing $\frac{k}{3}\mul$ with schoolbook multiplication.
+\item The computation of $\gamma$ costs one squaring in $\F{q^{k/3}}$, which is $\left(\frac{k}{3}\right)^2\sqr = \frac{1}{9}\Sqr$.
+\item The computation of $n$ costs two squarings and one multiplication in $\F{q^{k/3}}$, which is $\left(\frac{k}{3}\right)^2\mul + 2\left(\frac{k}{3}\right)^2\sqr = \frac{1}{9}\Mul + \frac{2}{9}\Sqr$.
+\item The computation of $\ell_{R,R}(Q)$ costs 6 multiplications in $\F{q^{k/3}}$ using schoolbook multiplication, as $l$ has no coefficient of $\omega$, which is
+$6\left(\frac{k}{3}\right)^2\mul = \frac{2}{3}\Mul$
+\end{itemize}
+Therefore, the computation of the line function costs $\frac{4k}{3}\mul + \frac{7}{9}\Mul + \frac{1}{3}\Sqr$.
 Putting together the above, we get a total cost of 
 \[\left(\frac{5}{9}\Mul + \frac{2}{9}\Sqr\right) + \left(\frac{1}{3}\Sqr + \frac{7}{9}\Mul + \frac{4k}{3}\mul \right) + \Mul + \Sqr = \frac{7}{3}\Mul + \frac{14}{9}\Sqr + \frac{4k}{3}\mul\]
 for the whole Miller doubling step.
