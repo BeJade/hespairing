@@ -67,9 +67,9 @@ Recall that Miller's algorithm computes the line function
 $$\ell_{P_1,P_2}(Q) = l_{P_1,P_2}(Q)/v_{P_1 + P_2}(Q);$$
 for pairings on $\G{1} \times \G{2}$ we have that $P_1, P_2 \in \G{1}$ and $Q \in \G{2}$.
 
-To avoid the field inversion we apply the denominator elimination technique of \cite{2010/Gu},
+To avoid the field inversion we apply the denominator elimination technique of~\cite{2010/Gu},
 described briefly below. 
-It is shown in \cite[Section 4]{2010/Gu} that if
+It is shown in~\cite[Section 4]{2010/Gu} that if
 $\alpha \in \F{q^k} \setminus \F{q^{k/2}}$, then
 without loss of generality we may assume that a point
 $Q \in E(\F{q^k})$ is of the form
@@ -132,7 +132,7 @@ Putting together all of the above, the entire Miller addition step costs
 
 \subsection{Odd embedding degrees with pairings on $\G{1} \times \G{2}$}
 
-Unfortunately the denominator elimination technique of \cite{2010/Gu} does not apply to this case;
+Unfortunately the denominator elimination technique of~\cite{2010/Gu} does not apply to this case;
 instead we extend ideas of~\cite{2008/lin} and~\cite{2009/deg15}.
 Write $P_1 + P_2 = (X_3:Y_3:Z_3)$ and $Q = (X_Q:Y_Q:1)$. 
 Recall that Miller's algorithm starts from a chosen point $Q \in \G{2}$;
@@ -180,11 +180,11 @@ $$\ell_{P_1,P_2}(Q) = l_{P_1,P_2}(Q)/v_{P_1 + P_2}(Q).$$
 Also as above, we write $\mul$ and $\sqr$ for the cost of multiplication and squaring in $\F{q}$ respectively and we write $\Mul$ an $\Sqr$ for the cost of multiplication and squaring in $\F{q^k}$ respectively. For pairings on $\G{2} \times \G{1}$ we have that $P_1, P_2 \in \G{2}$ and $Q \in \G{1}$.
 
 As with odd embedding degrees for pairings on $\G{1} \times \G{2}$, 
-the denominator elimination technique of \cite{2010/Gu} does not apply
+the denominator elimination technique of~\cite{2010/Gu} does not apply
  and we again use the ideas of~\cite{2008/lin} and~\cite{2009/deg15}.
 Write $P_1 + P_2 = (X_3:Y_3:Z_3)$ and $Q = (X_Q:Y_Q:1)$. 
 Recall that Miller's algorithm starts from a chosen point $P \in \G{2}$
-from which $P_1$ and $P_2$ are derived - in particular $P_1 + P_2$ is
+from which $P_1$ and $P_2$ are derived -- in particular $P_1 + P_2$ is
 multiple of $P$, say $mP$.
 Using the twist isomorphism \eqref{twistiso} we can assume that
 $P$ is the image of a point $P' \in \mathcal{H}_{\omega}(\F{q^{k/3}})$,
@@ -231,7 +231,7 @@ for the whole Miller doubling step.
 When $P_1  = P = (X_1:Y_1:1)$ and $P_2 = R = (X_2:Y_2:Z_2)$, 
 the line $l_{P_1,P_2}(Q)$ is the line passing through $P$ and $R$ evaluated at $Q$.
 As above we write $P = (\omega X_1':Y_1':1)$ and 
-$R = (\omega X_2': Y_2', Z_2')$ where $X_1',Y_1',X_2',Y_2',Z_2' \in \F{q^{k/3}}$ 
+$R = (\omega X_2': Y_2': Z_2')$ where $X_1',Y_1',X_2',Y_2',Z_2' \in \F{q^{k/3}}$ 
 so that
 $$l_{P,R}(Q): - (E - Y_2') \cdot X_{Q} + ((E - Y_2') \cdot X_1' + (Y_{Q}-Y_1')(A'-X_2'))\omega, $$
 where $E = Y_1' \cdot Z_2'$, and where $A = A'\omega = X_1'Z_2'\omega$ is the value that was computed during the computation of $P+R$.
