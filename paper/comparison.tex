@@ -42,7 +42,7 @@ $\begin{array}{c} \text{even,} \\ 6|k \end{array}$}}
 				&$(k + 3)\mul + 5\sqr + \Mul + \Sqr$		\\
 &$\mathcal{E}$, \cite{2009/fastertate}			
 				&$(k + 6)\mul + 5\sqr + \Mul + \Sqr$			\\
-&$\mathcal{E},j=0$, \cite{2012/LWZ}
+&$\mathcal{E},j=0$, \cite{2014/LWZ}
 				&$\left(\frac{4k}{3}+ 4\right)\mul + 7\sqr  + \frac{1}{3}\Mul + \Sqr$\\
 &$\mathcal{H}$, \cite{2010/Gu}	&$(k + 3)\mul + 6\sqr + \Mul + \Sqr$ 	\\
 &$\mathcal{H},j=0$, this paper 	&
@@ -85,7 +85,7 @@ $\begin{array}{c} \text{even,} \\ 6|k \end{array}$}}
 		&$(k + 10)\mul + 2\sqr + \Mul$	\\
 &$\mathcal{E}$, \cite{2009/fastertate}			
 		&$(k+ 12)\mul + \Mul$	\\
-&$\mathcal{E},j=0$, \cite{2012/LWZ}
+&$\mathcal{E},j=0$, \cite{2014/LWZ}
 				&$\left(\frac{4k}{3} + 12\right)\mul  + \frac{1}{3}\Mul$ \\
 &$\mathcal{H}$, \cite{2010/Gu}	&$(k + 10)\mul + \Mul$	\\
 &$\mathcal{H},j=0$, this paper 	&
@@ -149,9 +149,9 @@ that utilizes twists.
 In particular we believe that this is the first paper that studies the use of cubic twists for the efficient computation of the Miller line function for a pairing on $\G{2} \times \G{1}$
 for curves with odd embedding degree.
 Curve arithmetic in this context is discussed to some extent in \cite{2009/fastertate}, 
-but the formulas given in Section 6 for the line function correspond to pairings on $\G{1} \times \G{2}$, so it appears that the authors chose to concentrate of pairings for $\G{1} \times \G{2}$ for odd embedding degree.
+but the formulas given in Section 6 for the line function correspond to pairings on $\G{1} \times \G{2}$, so it appears that the authors chose to concentrate on pairings for $\G{1} \times \G{2}$ for odd embedding degree.
 
-Comparing Tables \ref{tbl-cmp1}, \ref{tbl-cmp1a}, and \ref{tbl-cmp2}, it is clear that one iteration of Miller's loop is faster for a $\G{1} \times \G{2}$ pairing tha on a $\G{2} \times \G{1}$ pairing.
+Comparing Tables \ref{tbl-cmp1}, \ref{tbl-cmp1a}, and \ref{tbl-cmp2}, it is clear that one iteration of Miller's loop is faster for a $\G{1} \times \G{2}$ pairing than for a $\G{2} \times \G{1}$ pairing.
 However, there has been much research on minimizing the number of iterations of Miller's loop for both types of pairing which affects our analysis considerably.
 
 For pairings on $\G{1} \times \G{2}$, the lowest number of iterations occurs for the twisted Ate pairing when twists are available, or the reduced Tate pairing when twists are not available.
@@ -160,13 +160,13 @@ Let $t$ be the trace of Frobenius, let $T = t-1$, and let $d$ be the degree of t
 $T_e \equiv T^e \pmod{r}$ and $1 < e | d$. 
 Also $T$ is a $d^{\text{th}}$-root of unity in $\F{r}$, so when $d = 6$ the smallest value of
 $T_e$ is $T_2$ where $T_2^3= r-1$, and when $d = 3$ the smallest value of $T_e$ is
-$T_3 = r-1$. For more details on the twisted Ate pairing see \cite{}.
+$T_3 = r-1$. For more details on the twisted Ate pairing see \cite{2006/hess}.
 
-For pairings on $\G{2} \times \G{1}$, the lowest number of iterations occurs for the optimal Ate pairing. The best-case-scenario (which can in principle occur for any embedding degree) is $x$ iterations of Miller's loop. For more details on the optimal Ate pairing see \cite{}. 
+For pairings on $\G{2} \times \G{1}$, the lowest number of iterations occurs for the optimal Ate pairing. The best-case-scenario (which can in principle occur for any embedding degree) is $x$ iterations of Miller's loop. For more details on the optimal Ate pairing see \cite{2010/vercauteren}. 
 
 To motivate the study of pairings of $\G{2} \times \G{1}$, 
 we compare the number of iterations for $\G{1} \times \G{2}$ and $\G{2} \times \G{1}$ when $k$ is odd and divisible by 3. 
-In all the pairing-friendly families given in this paper, the polynomial $r(x)$ is the $k^{\text{th}}$ or $2k^{\text{th}}$ cyclotomic polynomial, both of which have degree given by the Euler function $\phi(k)$. 
+In all the pairing-friendly families given in this paper, the polynomial $r(x)$ is the $k^{\text{th}}$ or $2k^{\text{th}}$ cyclotomic polynomial, both of which have degree given by the Euler function $\varphi(k)$. 
 That is, where the twisted Ate pairing (on $\G{1} \times \G{2}$) requires $\log(r-1)$ iterations of Miller's loop,
 the optimal Ate pairing (on $\G{2} \times \G{1}$) requires only $\log(r)/\phi(k)$ iterations of Miller's loop. 
 So, if we wish to deduce from Tables~\ref{tbl-cmp1}, \ref{tbl-cmp1a}, and~\ref{tbl-cmp2} which pairing should be used, as a rough guide we could divide the operation counts of Table~\ref{tbl-cmp2} by $\phi(k)$. We give a comparison in the two aforementioned cases $k=15$ and $k=21$ with the TNFS attacks in mind.
