@@ -10,7 +10,8 @@ searching through constructions of pairing-friendly Weierstrass curves for curve
 and converting those curves into Hessian form.
 The families that we present below are guaranteed to have points of order 3.
 
-In order to give fast formulas for curve arithmetic, it is desirable for the pairing-friendly curves that we consider to have \emph{twists}. Recall that a \emph{degree $d$ twist} of an elliptic curve $E/\F{q}$ is an elliptic curve $E'/\F{q^e}$ that is
+In order to give fast formulas for curve arithmetic, it is desirable for the pairing-friendly curves that we consider to have \emph{twists}.
+Recall that a \emph{degree-$d$ twist} of an elliptic curve $E/\F{q}$ is an elliptic curve $E'/\F{q^e}$ that is
 isomorphic to $E$ over a degree-$d$ extension of $\F{q^e}$ but not over any smaller field.
 Recall also (e.g. \cite{2009/silverman-arithmetic}) that the only degrees of twists that occur for elliptic curves are $d \in \{2,3,4,6\}$ such that $d|k$, and that degree 3 and 6 twists occur only for elliptic curves with $j$-invariant 0.
 We concentrate in this article on twists of degree 3, as motivated by our aforementioned interest in embedding degrees $k = 15$ and 21.
@@ -43,14 +44,14 @@ degree-3 twist of $E$ that we consider to have order 3.
 Recall that
 \[\#E(\F{q}) = q+1-t,\]
 where $t$ is the trace of Frobenius; 
-by~\cite{2006/hess} the two non-trivial degree 3 twists $E'$ satisfy:
+by~\cite{2006/hess} the two non-trivial degree-3 twists $E'$ satisfy:
 \begin{align*}
 \# E' (\F{q}) &= q + 1 - (3f - t) / 2 & \text{with} & \quad t^2 - 4q = -3f^2, \\
 \# E' (\F{q}) &= q + 1 - (-3f- t) / 2 & \text{with} & \quad t^2 - 4q = -3f^2.
 \end{align*}
 It is also necessary that for the twist $E'$ that we use $\#E'(\F{q})$ is divisible by $r$ (recall that $r$ was the largest prime factor of $\# E(\F{q})$) and exactly one of the two possible twists satisfies this condition.
 
-So to choose a family for which the elliptic curve $E$ can be rewritten in Hessian form together with a degree 3 twist, it suffices to check that 3 divides $q+1-t$ and that $3r$ divides $q + 1 - (\pm 3f - t) / 2$ (for one choice of sign).
+So to choose a family for which the elliptic curve $E$ can be rewritten in Hessian form together with a degree-3 twist, it suffices to check that 3 divides $q+1-t$ and that $3r$ divides $q + 1 - (\pm 3f - t) / 2$ (for one choice of sign).
 
 %------------------------
 
