@@ -2,13 +2,13 @@
 \label{sec:background}
 
 Let $E$ be an elliptic curve defined over a finite field $\FF_{q}$ where $q$ is a prime.
-Let $r$ be the largest prime factor of $n = \#E(\FF_{q}) = q + 1 - t$ where $t$ is a trace of Frobenius.
+Let $r$ be the largest prime factor of $n = \#E(\FF_{q}) = q + 1 - t$ where $t$ is the trace of Frobenius.
 The \emph{embedding degree} with respect to $r$ is defined to be the smallest positive integer $k$ such that $r | (q^k-1)$.
 Let $\mu_{r} \subseteq \FF_{q^{k}}^{*}$ be the group of $r$-th roots of unity.
 For $m \in \ZZ$ and $P \in E[r]$,
 let $f_{m,P}$ be a function with divisor 
 $\text{div}(f_{m,P}) = m(P) - ([m]P) - (m-1)(\mathcal{O})$,
-where $\mathcal{O}$ denotes the point at infinity on $E$.
+where $\mathcal{O}$ denotes the neutral element of $E$.
 The reduced Tate pairing is defined as
 \[\begin{array}{rccl}
 \tau_{r} :	& E(\FF_{q^{k}})[r] \times E(\FF_{q^{k}})/[r]E(\FF_{q^{k}})	& \longrightarrow	& \mu_{r} \\
@@ -24,9 +24,9 @@ Let $T = t-1$.
 We define the \emph{ate pairing} $a_{T}$ by restricting the Tate pairing to $\G{2} \times \G{1}$ so that
 \[\begin{array}{rccl}
 a_{T} :	& \G{2} \times \G{1}	& \longrightarrow	& \mu_{r} \\
-	& (Q,P) 		& \mapsto		& f_{T,Q}(P)^{\frac{q^{k}-1}{r}}.
+	& (P,Q) 		& \mapsto		& f_{T,P}(Q)^{\frac{q^{k}-1}{r}}.
 \end{array}\]
-Note that in addition to the arguments $P$ and $Q$ being switched, the subscript $r$ (i.e. the number of loops) is also changed to $T$.
+Note that in addition to $\G{1}$ and $\G{2}$ being switched, the subscript $r$ (i.e. the number of loops) is also changed to $T$.
 
 %Miller's algorithm for computing pairings works as follows.
 %Let $m$ be an integer expressed in a binary format as $(m_{n-1},\dots,m_1,m_0)_2$.
