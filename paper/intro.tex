@@ -94,17 +94,17 @@ and by Fouotsa, Mrabet and Pecha in~\cite{2016/degodd}.
 \subsection{Attacks on solving DLP over finite fields}
 
 Due to recent advances in number field sieve techniques for attacking the discrete logarithm problem for pairing-friendly elliptic curves over finite fields~\cite{2013/jouxP}~\cite{2016/KB}~\cite{2015/BGGM}~\cite{2015/BGK} (NFS attacks),
-it is necessary to reevaluate the security of pairing-friendly curves.
+it is necessary to re-evaluate the security of pairing-friendly curves.
 In~\cite{2018/FK}, Fotiadis and Konstantinou propose countering these attacks by using families with a higher $\rho$-value. 
 In this paper, we investigate the feasability of an alternative method: increasing the embedding degree.
-This has the advantage of keeping the low $\rho$-values of previously proposed families, but is disadvantaged by the less efficient pairing computations.
+This has the advantage of keeping the low $\rho$-value of previously proposed families, but it is disadvantaged by the less efficient pairing computations.
 This article attempts to analyze the use of Hessian curves in combatting this.
 Previous research on computing pairings with  Hessian curves addressed only even emebedding degrees, and in order to make use of degree-3 twists the embedding degree should be divisible by 6. 
-Prior to the NFS attacks and their variants, the favoured embedding degree for 128-bit security level was 12, 
+Prior to the NFS attacks and their variants, the favoured embedding degree for 128-bit security was 12, 
 so that to increase the embedding degree while making use of cubic twists the next
 candidate is 15. However, as 15 is odd the formulas of~\cite{2010/Gu} do not apply;
-for this reason one focus of this article is to provide formulas for embedding degree 15. Simlarly, the pre-NFS favourite embedding degree for 192-bit security level was 18, which we propose to increase to 21.
-Observe further that for 192-bit security level, the families of~\cite{2018/FK} all require embedding degree $>21$.
+for this reason one focus of this article is to provide formulas for embedding degree 15. Simlarly, the pre-NFS favourite embedding degree for 192-bit security was 18, which we propose to increase to 21.
+Observe further that for 192-bit security, the families of~\cite{2018/FK} all require embedding degree to be greater than $21$.
 %This means increasing the conventional even embedding degree 12 to 18 or to 24 for higher security levels (see below).
 
 %Originally, part of the pairing algorithms is to compute $l \leftarrow l_1/l_2$.
