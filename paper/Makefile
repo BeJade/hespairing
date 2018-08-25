@@ -5,6 +5,7 @@ background.tex \
 curves.tex \
 lines.tex \
 comparison.tex \
+numer.tex \
 conclusions.tex \
 main.tex
 	pdflatex main
