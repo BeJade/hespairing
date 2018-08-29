@@ -52,7 +52,7 @@ When considering pairings on $\G{1} \times \G{2}$, we have that $P_3 \in \G{1}$ 
 As $v_{P_3}(Q) = v_{Q}(P_3)$, exactly the same arguments apply to $\G{1} \times \G{2}$ as to $\G{2} \times \G{1}$ in this case; 
 say for simplicity that $P_3 \in \G{1}$ and $Q \in \G{2}$.
 Suppose that we have chosen $Q$ such that there exists $Q' \in \mathcal{H}_a(\F{q^{k/3}})$ for which $Q = \varphi(Q')$, where $\varphi$ is the 
-cubic twist isomorphism from Equation \ref{twistiso}.
+cubic twist isomorphism from Equation \eqref{twistiso}:
 
 \paragraph*{Even embedding degrees.}
 
@@ -63,7 +63,7 @@ Section~\ref{sextic}, the triangular curve
 \[T:\alpha^2VW(V + \omega^3W) = U^3,\]
 with $\alpha$ and $\omega$ as in Section~\ref{sextic},
 defines a quadratic twist of $\mathcal{H}_{\omega^3}$ via the isomorphism
-$\psi$ of Equation~\ref{quadtwist}.
+$\psi$ of Equation~\eqref{quadtwist}.
 We choose our point $Q' \in \mathcal{H}_{\omega^3}(\F{q^{k/3}})$ from the
 image under $\psi$ of $T(\F{q^{k/6}})$, so that there exist $U, V, W \in \F{q^{k/6}}$ for which
 $$Q' = (U:\beta(\alpha V - 54W) : \beta(-\alpha V + 54\zeta_3^2 W)),$$
@@ -91,7 +91,8 @@ $$n_{P_3}(Q) = ((Z_3 + Y_3)X_{Q'})^2\omega^2
 and we replace the Miller function 
 $\ell_{P_1,P_2}(Q)$ by $n_{P_3}(Q) \cdot l_{P_1,P_2}(Q)$.
 The numerator $n_{P_3}(Q)$ can be computed with cost
-$\frac{2k}{3}\mul + \frac{2}{9}\Sqr + \frac{1}{9}\Mul$ via
+$\frac{2k}{3}\mul + \frac{1}{9}\Mul + \frac{2}{9}\Sqr$
+via
 \[\begin{array}{cccc}
 u = (Z_3 + Y_3)\cdot X_{Q'}; &
 v = (1+Y_{Q'})X_3; &
@@ -136,7 +137,9 @@ is the twist isomorphism \eqref{twistiso}
 (this is possible as $3|k$).
 Then we can write $l_{R,R}(Q)$ as
 \[l_{R,R}(Q): (S \cdot Y_{Q'} + T) + a X_{Q'} \cdot X_1^2 \omega,\]
-which can be computed with cost $\sqr + \frac{2k}{3}\mul$ via
+which can be computed with cost
+$\frac{2k}{3}\mul + \sqr$
+via
 \[\begin{array}{ccc}
 U = X_1^2; & V = S \cdot Y_{Q'}; & W = \eta \cdot U;
 \end{array}\]
@@ -177,7 +180,10 @@ as $l_{R,R}(Q)$ has no coefficient of $\omega^2$.
 Putting the above together, the Miller doubling step 
 for odd embedding degrees costs
 \begin{align*}
-3\sqr + \left(5 + \frac{4k}{3}\right)\mul + \frac{11}{9}\Sqr + \frac{16}{9}\Mul.
+\left(5 + \frac{4k}{3}\right)\mul
++ 3\sqr
++ \frac{16}{9}\Mul
++ \frac{11}{9}\Sqr.
 \end{align*}
 
 \subsubsection{Pairings on $\G{2} \times \G{1}$}
@@ -187,7 +193,7 @@ $P \in \G{2}$ and $Q \in \G{1}$, and
 $R$ will be a multiple of $P$.
 We choose $P = (X_P:Y_P:1) \in \varphi(\mathcal{H}_a(\F{p^{k/3}}))$, where $\varphi$
 is the twist isomorphism given in Equation \eqref{twistiso}.
-As $R=(X_1,Y_1,Z_1)$ is a multiple of $P$ it is also in the image of $\mathcal{H}_a(\F{p^{k/3}})$ under $\varphi$; 
+As $R=(X_1 : Y_1 : Z_1)$ is a multiple of $P$ it is also in the image of $\mathcal{H}_a(\F{p^{k/3}})$ under $\varphi$; 
 let $R' \in \mathcal{H}_a(\F{p^{k/3}})$ be the preimage of $R$ under $\varphi$.
 As $2R = 2\varphi(R') = \varphi(2R')$, 
 we can peforming the doubling operation on the cubic twist $\mathcal{H}_a$, 
@@ -240,7 +246,7 @@ so that Equation \eqref{l2R} becomes
 \[l_{R,R}(Q): (X_1')^2X_Q\omega^2 + T Y_Q + S.\]
 The values $S$ and $T$ are computed during the point doubling computation and lie in $\F{q^{k/3}}$,
 so the computation of $\ell_{R,R}(Q) = l_{R,R}(Q)$ costs an additional squaring in $\F{q^{k/6}}$, multiplication of a $\F{q^{k/6}}$-element with a $\F{q}$-element, and multiplication of a $\F{q^{k/3}}$-element with a $\F{q}$-element, that is 
-$\frac{1}{36}\Sqr + \frac{k}{2}\mul$, via
+$\frac{k}{2}\mul + \frac{1}{36}\Sqr$, via
 \[\begin{array}{ccc}
 c_1 = (X_1')^2; & c_2 = c_1 \cdot  X_Q; & c_3 = T \cdot Y_Q.
 \end{array}\]
@@ -262,16 +268,16 @@ As described above for even embedding degrees, we have that
 where $S,T \in \F{q^{k/3}}$ and are computed during the point doubling computation. 
 In the case of odd embedding degrees, we have that $X_1' \in \F{q^{k/3}}$,
 so that the cost of computating $l_{R,R}(Q)$ via $c_1$, $c_2$, and $c_3$ as above is
-$\frac{1}{9}\Sqr + \frac{2k}{3}\mul$.
+$\frac{2k}{3}\mul + \frac{1}{9}\Sqr$.
 The multiplication of $l_{R,R}(Q)$ with $n_{2R}(Q)$ costs only $\frac{2}{3}\Mul$ as $l_{R,R}(Q)$ has no coefficient of $\omega$, so the total cost of the computation of $\ell_{R,R}(Q)$ is 
-$\left(\frac{2k}{3}\mul + \frac{2}{9}\Sqr + \frac{1}{9}\Mul\right)
+$\left(\frac{2k}{3}\mul + \frac{1}{9}\Mul + \frac{2}{9}\Sqr\right)
 + \left(\frac{2k}{3}\mul + \frac{1}{9}\Sqr \right)
 + \frac{2}{3}\Mul
 =
-\frac{1}{3}\Sqr + \frac{7}{9}\Mul + \frac{4k}{3}\mul$.
+\frac{4k}{3}\mul + \frac{7}{9}\Mul + \frac{1}{3}\Sqr$.
 
 Putting the above together, the whole Miller doubling step costs
-\[\frac{7}{3}\Mul + \frac{14}{9}\Sqr + \frac{4k}{3}\mul\]
+\[\frac{4k}{3}\mul + \frac{7}{3}\Mul + \frac{14}{9}\Sqr\]
 for odd embedding degrees.
 
 \subsection{Miller addition}
@@ -349,9 +355,9 @@ $P_1 = P = (X_1:Y_1:1)$ and $P_2 = R = (X_2:Y_2:Z_2)$, which is some multiple of
 In exactly the same way as discussed for the Miller doubling function,
 the point addition can be performed in the group $\mathcal{H}_a(\F{q^{k/3}})$
 in place of $\mathcal{H}(\F{q^k})$, so that the operation count occurs in
-$\F{q^{k/3}})$. That is, point addition can be performed in 9 multiplications in 
+$\F{q^{k/3}}$. That is, point addition can be performed in 9 multiplications in 
 $\F{q^{k/3}}$, which amounts to $1\Mul$. 
-For even embedding degrees this can be done faster, which we adress below.
+For even embedding degrees this can be done faster, which we address below.
 As for pairings on $\G{1} \times \G{2}$, we will need to compute the line function
 $$l_{P,R}(Q): - (E - Y_2) \cdot X_{Q} + (E - Y_2) \cdot X_1 + (Y_{Q}-Y_1)(A-X_2), $$
 where $E = Y_1 \cdot Z_2$ and $A = X_1 \cdot Z_2$.
@@ -363,7 +369,7 @@ $$l_{P,R}(Q): - (E' - Y_2') \cdot X_{Q} + (C'-Y_2'X_1' + Y_Q(A'-X_2'))\omega, $$
 where $E' = Y_1' \cdot Z_2'$, $A = A'\omega$, $C = C'\omega$ and 
 $A' = X_1'Z_2'$ and $C' = Y_1'X_2'$ are the values that were computed during the point addition.
 This can be computed in 
-$\frac{2}{9}\Mul + \frac{2k}{3}\mul$
+$\frac{2k}{3}\mul + \frac{2}{9}\Mul$
 via
 \[\begin{array}{cccc}
 E' = Y_1' \cdot Z_2'; &
