@@ -38,7 +38,7 @@ One way to improve the performance of pairings is
 to improve the performance of the underlying point arithmetic.
 Many authors have studied efficient point arithmetic via the 
 representation of elliptic curves in a specific model,
-for example, Hessian form~\cite{2001/smart}~\cite{2001/joye} or
+for example, Hessian form~\cite{2001/smart}~\cite{2001/joye} and
 Edwards form~\cite{2007/edwards}~\cite{2007/bernstein-newelliptic}.
 
 Pairings based on Edwards curves,
@@ -77,7 +77,7 @@ In this article we study the efficiency of curves in Hessian form for pairing co
 Hessian curves with $j$-invariant 0 have degree-3 twists that can also be written in Hessian form. This
 means that we can take full advantage of speed-up techniques for
 point arithmetic and pairing computations that move arithmetic to subfields
-via the twist, for example as studied for Edwards curves in~\cite{2014/LWZ},
+via the twist, e.g., as studied for Edwards curves in~\cite{2014/LWZ},
 without the expensive curve conversion to Weierstrass form.
 We use the families proposed by~\cite{2010/freeman}, in which we could find
 three families that can be written in Hessian form.
@@ -95,17 +95,18 @@ and by Fouotsa, Mrabet and Pecha in~\cite{2016/degodd}.
 
 \subsection{Attacks on solving DLP over finite fields}
 
-Due to recent advances in number field sieve techniques for attacking the discrete logarithm problem for pairing-friendly elliptic curves over finite fields~\cite{2013/jouxP}~\cite{2016/KB}~\cite{2015/BGGM}~\cite{2015/BGK} (NFS attacks),
+Due to recent advances in number field sieve techniques for attacking the discrete logarithm problem
+for pairing-friendly elliptic curves over finite fields~\cite{2013/jouxP}~\cite{2016/KB}~\cite{2015/BGGM}~\cite{2015/BGK} (NFS attacks and their variants),
 it is necessary to re-evaluate the security of pairing-friendly curves.
 In~\cite{2018/FK}, Fotiadis and Konstantinou propose countering these attacks by using families with a higher $\rho$-value. 
-In this paper, we investigate the feasability of an alternative method: increasing the embedding degree.
+In this paper, we investigate the feasibility of an alternative method: increasing the embedding degree.
 This has the advantage of keeping the low $\rho$-value of previously proposed families, but it is disadvantaged by the less efficient pairing computations.
-This article attempts to analyze the use of Hessian curves in combatting this.
-Previous research on computing pairings with  Hessian curves addressed only even emebedding degrees, and in order to make use of degree-3 twists the embedding degree should be divisible by 6. 
+This article attempts to analyze the use of Hessian curves in combating this.
+Previous research on computing pairings with  Hessian curves addressed only even embedding degrees, and in order to make use of degree-3 twists the embedding degree should be divisible by 6. 
 Prior to the NFS attacks and their variants, the favoured embedding degree for 128-bit security was 12, 
 so that to increase the embedding degree while making use of cubic twists the next
 candidate is 15. However, as 15 is odd the formulas of~\cite{2010/Gu} do not apply;
-for this reason one focus of this article is to provide formulas for embedding degree 15. Simlarly, the pre-NFS favourite embedding degree for 192-bit security was 18, which we propose to increase to 21.
+for this reason one focus of this article is to provide formulas for embedding degree 15. Similarly, the pre-NFS favourite embedding degree for 192-bit security was 18, which we propose to increase to 21.
 Observe further that for 192-bit security, the families of~\cite{2018/FK} all require the embedding degree to be greater than $21$.
 %This means increasing the conventional even embedding degree 12 to 18 or to 24 for higher security levels (see below).
 
@@ -149,6 +150,7 @@ We also give concrete constructions of pairing-friendly Hessian curves for both 
 %in an attempt to give a better balance between the size of the prime field and of the embedding degree.
 %For higher security levels, our constructions allow, for example, embedding degrees 21 or 33.
 
+\ifpublic
 The setup of this paper is as follows:
 in Section~\ref{sec:background}, we recall Miller's algorithm to compute pairings on elliptic curves.
 In Section~\ref{sec:curves}, we state constructions of families of pairing-friendly elliptic curves given in~\cite{2010/freeman}
@@ -171,6 +173,8 @@ In Section~\ref{sec:conclude}, we present our conclusions.
 %In Section~\ref{sec:formulas}, we state explicit formulas for the computation of the optimal ate pairing
 %on twisted Hessian curves based on the state-of-the-art point arithmetic formulas.
 %In Appendix~\ref{app:magma}, we provide full Magma codes for a toy example of pairing-friendly twisted Hessian curves with embedding degree $k = 21$.
+\fi
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 
