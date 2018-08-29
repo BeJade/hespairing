@@ -1,36 +1,109 @@
 \section{Computation of line functions}
 \label{sec:lines}
 
-The efficiency of pairings relies heavily on the computation of the line functions
-(as denoted by $\ell_{2R} = l_{R,R}/v_{2R}$ and $\ell_{R,P} = l_{R,P}/v_{R+P}$ in Algorithm~\ref{algo:miller}).
-Recall that $l_{R,P}$ is notation for the line passing through $R$ and $P$ and that
-$v_{R}$ is notation for the line passing through $R$ and $-R$.
-In many other representations of elliptic curves, for example short Weierstrass form or
-Edwards form, the negation of a point is its reflection in the $x$-axis
-due to the fact that the identity group element is the point at infinity.
-In particular, the line $v_R$ has a particularly simple form, meaning that very often
-the field inversion can be avoided using demoninator elimination techniques.
-
-For curves in Hessian form, the neutral group element is given by $(-1:0:1)$,
-and negation by
-\[-(x,y) = (x/y,1/y)\]
-(in affine coordinates).
-Below, we give an optimized algorithm to compute the line functions for
+Each iteration of Miller's loop (Algorithm~\ref{algo:miller}) includes a 
+\emph{Miller doubling} step and some of the iterations also include a
+\emph{Miller addition} step. 
+The Miller doubling step has four costly parts:
+computing the double of a point $R$ on the curve, computing the 
+Miller function
+$\ell_{R,R} = l_{R,R}/v_{2R}$, squaring an element $f \in \F{q^k}$, 
+and multiplying $f^2$ by $\ell_{R,R}$. 
+The Miller addition step has three costly parts:
+computing the sum of two points $P$ and $R$ on the curve, 
+computing the Miller function
+$\ell_{P,R} = l_{P,R}/v_{P+R}$,
+and multiplying an element $f \in \F{q^k}$ by $\ell_{P,R}$. 
+We attempt in the following sections to optimize each of these parts
+for
 Hessian curves 
-\[\mathcal{H}/\F{q}: aX^3 + Y^3 + Z^3 = 0\]
+\[\mathcal{H}/\F{q}: X^3 + Y^3 + Z^3 = 0\]
 of $j$-invariant 0 
 for pairings on both $\G{1} \times \G{2}$ (such as the Tate pairing)
 and $\G{2} \times \G{1}$ (such as the ate pairing).
 
-\subsection{Arithmetic on Hessian curves}
+%The efficiency of pairings relies heavily on the computation of the Miller function
+%(as denoted by $\ell_{2R} = l_{R,R}/v_{2R}$ and $\ell_{R,P} = l_{R,P}/v_{R+P}$ in Algorithm~\ref{algo:miller}).
+%Recall that $l_{R,P}$ is notation for the line passing through $R$ and $P$ and that
+%$v_{R}$ is notation for the line passing through $R$ and $-R$.
+%In many other representations of elliptic curves, for example short Weierstrass form or
+%Edwards form, the negation of a point is its reflection in the $x$-axis
+%due to the fact that the identity group element is the point at infinity.
+%In particular, the line $v_R$ has a particularly simple form, meaning that very often
+%the field inversion can be avoided using demoninator elimination techniques.
 
-For the benefit of the reader, we include the most efficient (known) formulas
-for doubling and adding points on elliptic curves in Hessian form.
+\subsection{Denominator elimination}\label{denelim}
 
-Let $R = (X_1 : Y_1 : Z_1) \in \mathcal{H}(K)$, 
-and denote by $\mul$ and $\sqr$ 
-the field multiplication and field squaring in $K$ respectively.
-The following formulas compute $2R = (X_3 : Y_3 : Z_3)$.
+It is of course desirable to avoid the field inversion that comes from dividing by 
+$v_{P_1 + P_2}(Q)$, with $P_2 = R$ and $P_1 \in \{R,P\}$, which we can do (to some extent).
+For curves in (twisted) Hessian form, the neutral group element is given by 
+$(0:-1:1)$,
+and negation by
+\[-(x,y) = (x/y,1/y)\]
+(in affine coordinates). 
+This means that the line $v_{P_1 + P_2}$
+passing through $P_3 = P_1 + P_2$ and $(0:-1:1)$ has a more complicated form than for many other popular curve shapes (such as
+short Weierstrass or Edwards).
+Namely, writing 
+$(X_3:Y_3:Z_3) = P_3$ and $(X_Q:Y_Q:Z_Q)$, we have
+\[v_{P_3}(Q): (Z_3 + Y_3)X_Q - (Z_Q+Y_Q)X_3.\]
+
+When considering pairings on $\G{1} \times \G{2}$, we have that $P_3 \in \G{1}$ and $Q \in \G{2}$, and when considering pairings on $\G{2} \times \G{1}$, we have that $P_3 \in \G{2}$ and $Q \in \G{1}$.
+As $v_{P_3}(Q) = v_{Q}(P_3)$, exactly the same arguments apply to $\G{1} \times \G{2}$ as to $\G{2} \times \G{1}$ in this case; 
+say for simplicity that $P_3 \in \G{1}$ and $Q \in \G{2}$.
+Suppose that we have chosen $Q$ such that there exists $Q' \in \mathcal{H}_a(\F{q^{k/3}})$ for which $Q = \varphi(Q')$, where $\varphi$ is the 
+cubic twist isomorphism from Equation \ref{twistiso}.
+
+\paragraph*{Even embedding degrees.}
+
+The following is essentially as rephrasing of the denominator elimination technique presented in~\cite{2010/Gu} (although they do not mention pairings on $\G{2} \times \G{1}$).
+
+Assume now that $6|k$. In particular, by the discussion in
+Section~\ref{sextic}, the triangular curve
+\[T:\alpha^2VW(V + \omega^3W) = U^3,\]
+with $\alpha$ and $\omega$ as in Section~\ref{sextic},
+defines a quadratic twist of $\mathcal{H}_{\omega^3}$ via the isomorphism
+$\psi$ of Equation~\ref{quadtwist}.
+We choose our point $Q' \in \mathcal{H}_{\omega^3}(\F{q^{k/3}})$ from the
+image under $\psi$ of $T(\F{q^{k/6}})$, so that there exist $U, V, W \in \F{q^{k/6}}$ for which
+$$Q' = (U:\beta(\alpha V - 54W) : \beta(-\alpha V + 54\zeta_3^2 W)),$$
+where $\beta = \zeta_3-\zeta_3^2$ and 
+$\zeta_3 \in \F{q}$ is a primitive cube root of unity.
+Evaluation of $v_{P_3}$ at $Q = \varphi(Q')$ then gives
+\[v_{2R}(Q) : (Z_3 + Y_3) U\omega - 54\beta(\zeta_3^2-1)W X_3 \in \F{q^{k/2}}.\]
+This value will go to 1 in the final expontentiation step of Miller's algorithm 
+(Algorithm~\ref{algo:miller}), so without loss of generality we can set it to 1 throughout the computation.
+
+\paragraph*{Odd embedding degrees.}
+
+Unfortunately the denominator elimination technique of~\cite{2010/Gu} does not apply to this case;
+instead we extend ideas of~\cite{2008/lin} and~\cite{2009/deg15}.
+
+Observe that
+\[\frac{1}{x-y} = \frac{x^2 + xy + y^2}{x^3-y^3}.\]
+Let $Q' = (X_{Q'},Y_{Q'},Z_{Q'})$.
+Plugging $x = (Z_3 + Y_3)X_{Q'}\omega$ and $y = (Z_{Q'}+Y_{Q'})X_3$ in $\frac{1}{v_{P_3}(Q)}$ with $Q = \varphi(Q')$,
+we get that the denominator $x^3 - y^3$ is in $\F{q^{k/3}}$ so will go to 1 in the final exponentiation, hence can be set to 1 for the whole computation.
+That is, we replace $\frac{1}{v_{P_3}(Q)}$ by the numerator 
+$$n_{P_3}(Q) = ((Z_3 + Y_3)X_{Q'})^2\omega^2 
++ (Z_3 + Y_3)X_{Q'}(1+Y_{Q'})X_3\omega 
++ ((1+Y_{Q'})X_3)^2$$
+and we replace the Miller function 
+$\ell_{P_1,P_2}(Q)$ by $n_{P_3}(Q) \cdot l_{P_1,P_2}(Q)$.
+The numerator $n_{P_3}(Q)$ can be computed with cost
+$\frac{2k}{3}\mul + \frac{2}{9}\Sqr + \frac{1}{9}\Mul$ via
+\[\begin{array}{cccc}
+u = (Z_3 + Y_3)\cdot X_{Q'}; &
+v = (1+Y_{Q'})X_3; &
+n = u^2\omega^2 + (u\cdot v)\omega + v^2.
+\end{array}\]
+
+\subsection{Miller doubling}
+
+Let $R = (X_1 : Y_1 : Z_1) \in \mathcal{H}_b(K)$ for $b \in \{1,a\}$.
+The fastest known formulas to compute $2R = (X_3 : Y_3 : Z_3)$
+(due to~\cite{2010/hess}) are as follows:
+
 \begin{align*}
 T &= Y_1^2;\	\qquad	A = Y_1 \cdot T;\	\qquad
 S = Z_1 ^ 2;\	\qquad	B = Z_1 \cdot S;\\
@@ -38,11 +111,174 @@ X_3 &= X_1 \cdot (A - B);\	\quad
 Y_3 = -Z_1 \cdot (2A + B);\	\quad
 Z_3 = Y_1 \cdot (A + 2B).
 \end{align*}
-The cost for point doubling with the above formulas is $5\mul + 2\sqr$. 
+The cost for point doubling with the above formulas is 5 multiplications in $K$ and 2 squarings in $K$.
 
-Let $P = (X_1 : Y_1 : 1)$ and $R = (X_2 : Y_2 : Z_2) \in \mathcal{H}(K)$.
-The following formulas compute
-$P + R = (X_1 : Y_1 : 1) + (X_2 : Y_2 : Z_2) = (X_3 : Y_3 : Z_3)$.
+In all that follows we denote multiplication and squaring in $\F{q}$ by $\mul$ and $\sqr$ respectively, and multiplication and squaring in $\F{q^k}$ by $\Mul$ and $\Sqr$ respectively. We also assume always that $3|k$.
+
+\subsubsection{Pairings on $\G{1} \times \G{2}$}
+
+Recall that Miller's (doubling) function is given by
+$$\ell_{R,R}(Q) = l_{R,R}(Q)/v_{2R}(Q),$$
+For pairings on $\G{1} \times \G{2}$ the input points are
+$P \in \G{1}$ and $Q \in \G{2}$, and
+$R$ will be a multiple of $P$.
+
+We first address the computation of $l_{R,R}(Q)$.
+This line is the tangent line to $\mathcal{H}_1$ at $R$ evaluated at $Q$, 
+which is given by
+\[l_{R,R}(Q): X_1^2 X_Q + T Y_Q + S.\]
+where $R = (X_1:Y_1:Z_1)$ 
+and $S=Y_1^2$ and $T=Z_1^2$ are the values 
+that were computed in the point doubling computation.
+Set $Q' = (X_{Q'}:Y_{Q'}:1)$ and $Q = \varphi(Q')$, where
+$\varphi : \mathcal{H}_a \rightarrow \mathcal{H}_1$ 
+is the twist isomorphism \eqref{twistiso}
+(this is possible as $3|k$).
+Then we can write $l_{R,R}(Q)$ as
+\[l_{R,R}(Q): (S \cdot Y_{Q'} + T) + a X_{Q'} \cdot X_1^2 \omega,\]
+which can be computed with cost $\sqr + \frac{2k}{3}\mul$ via
+\[\begin{array}{ccc}
+U = X_1^2; & V = S \cdot Y_{Q'}; & W = \eta \cdot U;
+\end{array}\]
+\[l_{R,R}(Q)= V+T + W\omega,\]
+where $\eta = aX_{Q'}$ and can be precomputed.
+
+We now split into cases.
+
+\paragraph*{Even embedding degrees.}
+
+By Section \ref{denelim}, we can set the denominator of the Miller doubling function to 1, so that the computation of the line function $l_{R,R}(Q)$ is in fact
+the computation of the whole Miller (doubling) function $\ell_{R,R}(Q)$.
+
+Furthermore, a general element of $\F{q^k}$ considered as element of the 
+$\F{q^{k/3}}$-vector space generated
+by $\omega$ will be of the form 
+\[c_1 \omega + c_2 \omega^2 + c_3 \omega^3,\]
+but for $\ell_{2R}(Q)$ we have that $c_2 = 0$. 
+In particular, the multiplication of $\ell_{2R}(Q)$ with $f^2$ in
+Step 3 of Algorithm~\ref{algo:miller} will not be the full cost of a general multiplication in $\F{q^k}$ (that
+is, approximately $k^2\mul$), 
+but by schoolbook multiplication will cost 6 multiplications in $\F{q^{k/3}}$, 
+which amounts to 
+$6 \left(\frac{k}{3}\right)^2 \mul = \frac{2}{3} \Mul$.
+Putting together all of the above, the Miller doubling step for even
+embedding degrees costs
+\[\left( 5 + \frac{2k}{3}\right)\mul + 3\sqr + \frac{2}{3}\Mul + 1\Sqr.\]
+
+\paragraph*{Odd embedding degrees.}
+
+By Section \ref{denelim}, we have
+\[\ell_{2R}(Q) = n_{2R}(Q) \cdot l_{R,R}(Q),\]
+where $n_{2R}(Q)$ is as given in Section \ref{denelim}.
+The multiplication of $n_{2R}(Q)$ with $l_{R,R}(Q)$ 
+costs $\frac{2}{3}\Mul$ 
+as $l_{R,R}(Q)$ has no coefficient of $\omega^2$.
+
+Putting the above together, the Miller doubling step 
+for odd embedding degrees costs
+\begin{align*}
+3\sqr + \left(5 + \frac{4k}{3}\right)\mul + \frac{11}{9}\Sqr + \frac{16}{9}\Mul.
+\end{align*}
+
+\subsubsection{Pairings on $\G{2} \times \G{1}$}
+
+For pairings on $\G{2} \times \G{1}$ the input points are
+$P \in \G{2}$ and $Q \in \G{1}$, and
+$R$ will be a multiple of $P$.
+We choose $P = (X_P:Y_P:1) \in \varphi(\mathcal{H}_a(\F{p^{k/3}}))$, where $\varphi$
+is the twist isomorphism given in Equation \eqref{twistiso}.
+As $R=(X_1,Y_1,Z_1)$ is a multiple of $P$ it is also in the image of $\mathcal{H}_a(\F{p^{k/3}})$ under $\varphi$; 
+let $R' \in \mathcal{H}_a(\F{p^{k/3}})$ be the preimage of $R$ under $\varphi$.
+As $2R = 2\varphi(R') = \varphi(2R')$, 
+we can peforming the doubling operation on the cubic twist $\mathcal{H}_a$, 
+so that the operation count occurs in $\F{q^{k/3}}$.
+That is, point doubling can be performed in 5 multiplications and 2 squarings in $\F{q^{k/3}}$, which amounts to $\frac{5}{9}\Mul + \frac{2}{9}\Sqr$.
+For even embedding degrees this can be done slightly faster, which we address below.
+
+As for pairings on $\G{1} \times \G{2}$, 
+we address the computations of the line function 
+\begin{equation}\label{l2R}
+l_{R,R}(Q): X_1^2 X_Q + T Y_Q + S,
+\end{equation}
+where $S = Y_1^2$ and $T = Z_1^2$,
+in order to compute the Miller doubling function.
+
+\paragraph*{Even embedding degrees.}
+
+Assume now that $6|k$. 
+As described in Section \ref{denelim}
+we choose the input point from $\G{2}$, 
+in this case $P = \varphi(P')$, such that $P'$ is
+in the image of the quadratic twist isomorphism $\psi$ given in 
+Section~\ref{sextic}. 
+This implies that $R' = \varphi^{-1}(R)$, 
+as a multiple of $P'$, also lies in this image, 
+so that there exist $U_1, V_1, W_1 \in \F{q^{k/6}}$ for which
+\begin{equation}\label{Rprime}
+R' = (X_1':Y_1':Z_1') = (U_1:\beta(\alpha V_1 - 54W_1) : \beta(-\alpha V_1 + 54\zeta_3^2 W_1)),
+\end{equation}
+where $\beta = \zeta_3-\zeta_3^2$ and 
+$\zeta_3 \in \F{q}$ is a primitive cube root of unity.
+Here $\omega$ and $\alpha$ are as in Section~\ref{sextic}.
+In particular we have that $X_1' \in \F{q^{k/6}}$ and
+$Y_1',Z_1' \in \F{q^{k/3}}$.
+
+This gives us a small saving in the point doubling calculation:
+In the preamble we stated that all the point doubling arithmetic is performed 
+in $\F{q^{k/3}}$. 
+However, the final step in the computation of $X_3'$
+(the $X$-coordinate of $2R'$) is not a full multiplication in $\F{q^{k/3}}$
+but a multiplication of a $\F{q^{k/6}}$-element $X_1'$ with a 
+$\F{q^{k/3}}$-element $(A-B)$,
+costing $2\left(\frac{k}{6}\right)^2\mul = \frac{1}{18}\Mul$
+using schoolbook multiplication instead of $\frac{1}{9}\Mul$.
+So we save $\frac{1}{18}\Mul$ on the point doubling for even embedding degrees, giving an operation count of $\frac{1}{2}\Mul + \frac{2}{9}\Sqr$.
+
+As shown in Section \ref{denelim}, the Miller doubling function $\ell_{R,R}(Q)$ is just given by the line function $l_{R,R}(Q)$ in this case, the computation of which we now address.
+As above we have that $R = (X_1:Y_1:Z_1) = (X_1'\omega:Y_1':Z_1')$ 
+so that Equation \eqref{l2R} becomes
+\[l_{R,R}(Q): (X_1')^2X_Q\omega^2 + T Y_Q + S.\]
+The values $S$ and $T$ are computed during the point doubling computation and lie in $\F{q^{k/3}}$,
+so the computation of $\ell_{R,R}(Q) = l_{R,R}(Q)$ costs an additional squaring in $\F{q^{k/6}}$, multiplication of a $\F{q^{k/6}}$-element with a $\F{q}$-element, and multiplication of a $\F{q^{k/3}}$-element with a $\F{q}$-element, that is 
+$\frac{1}{36}\Sqr + \frac{k}{2}\mul$, via
+\[\begin{array}{ccc}
+c_1 = (X_1')^2; & c_2 = c_1 \cdot  X_Q; & c_3 = T \cdot Y_Q.
+\end{array}\]
+Additionally, the formula for $\ell_{R,R}(Q)$ considered as an element of the $\F{q^{k/6}}$-vector space generated by $\omega$ and $\alpha$ has no coefficient of $\omega$, $\alpha\omega$, or $\alpha\omega^2$.
+Therefore the multiplication of $\ell_{R,R}(Q)$ with a general element 
+(i.e. $f^2$) of
+$\F{q^k}$ costs only $3\cdot 6\left(\frac{k}{6}\right)^2\mul= \frac{1}{2}\Mul$ with schoolbook arithmetic.
+
+Putting the above together, the full Miller doubling step for even embedding degrees costs
+$\frac{k}{2}\mul + \Mul + \frac{7}{6}\Sqr.$
+
+\paragraph*{Odd embedding degrees.}
+
+By Section~\ref{denelim}, the Miller doubling function $\ell_{R,R}(Q)$ is given by
+\[\ell_{R,R}(Q) = n_{2R}(Q) \cdot l_{R,R}(Q),\]
+where $n_{2R}(Q)$ is as given in Section~\ref{denelim}.
+As described above for even embedding degrees, we have that
+\[l_{R,R}(Q): (X_1')^2X_Q\omega^2 + T Y_Q + S,\]
+where $S,T \in \F{q^{k/3}}$ and are computed during the point doubling computation. 
+In the case of odd embedding degrees, we have that $X_1' \in \F{q^{k/3}}$,
+so that the cost of computating $l_{R,R}(Q)$ via $c_1$, $c_2$, and $c_3$ as above is
+$\frac{1}{9}\Sqr + \frac{2k}{3}\mul$.
+The multiplication of $l_{R,R}(Q)$ with $n_{2R}(Q)$ costs only $\frac{2}{3}\Mul$ as $l_{R,R}(Q)$ has no coefficient of $\omega$, so the total cost of the computation of $\ell_{R,R}(Q)$ is 
+$\left(\frac{2k}{3}\mul + \frac{2}{9}\Sqr + \frac{1}{9}\Mul\right)
++ \left(\frac{2k}{3}\mul + \frac{1}{9}\Sqr \right)
++ \frac{2}{3}\Mul
+=
+\frac{1}{3}\Sqr + \frac{7}{9}\Mul + \frac{4k}{3}\mul$.
+
+Putting the above together, the whole Miller doubling step costs
+\[\frac{7}{3}\Mul + \frac{14}{9}\Sqr + \frac{4k}{3}\mul\]
+for odd embedding degrees.
+
+\subsection{Miller addition}
+
+Let $P_1 = P = (X_1:Y_1:1)$ and $P_2 = R = (X_2:Y_2:Z_2) \in \mathcal{H}_b(K)$ for $b \in \{1,a\}$.
+The fastest known formulas to compute $P_1 + P_2 = P_3 = (X_3:Y_3:Z_3)$
+for $P_1 \neq P_2$ (due to \cite{2012/hess}) are as follows:
 \begin{align*}
 A &= X_1 \cdot Z_2;\	\qquad
 C = Y_1 \cdot X_2;\	\qquad
@@ -57,62 +293,20 @@ Y_3 = K - J;\\
 Z_3 &= J + K - G - H - 2(Z_2 - F) \cdot (C + Y_2),
 \end{align*}
 where $\eta = a\cdot X_1$ can be precomputed.
-The cost for point addition with the above formulas is $9\mul$.
+The cost for point addition with the above formulas is 9 multiplications in $K$.
 
-\subsection{Even embedding degrees with pairings on $\G{1} \times \G{2}$}
+\subsubsection{Pairings on $\G{1} \times \G{2}$}
 
-In all that follows we denote multiplication and squaring in $\F{q}$ by $\mul$ and $\sqr$ respectively, and multiplication and squaring in $\F{q^k}$ by $\Mul$ and $\Sqr$ respectively.
-
-Recall that Miller's algorithm computes the line function 
-$$\ell_{P_1,P_2}(Q) = l_{P_1,P_2}(Q)/v_{P_1 + P_2}(Q);$$
-for pairings on $\G{1} \times \G{2}$ we have that $P_1, P_2 \in \G{1}$ and $Q \in \G{2}$.
-
-To avoid the field inversion we apply the denominator elimination technique of~\cite{2010/Gu},
-described briefly below. 
-It is shown in~\cite[Section 4]{2010/Gu} that if
-$\alpha \in \F{q^k} \setminus \F{q^{k/2}}$, then
-without loss of generality we may assume that a point
-$Q \in E(\F{q^k})$ is of the form
-$Q = (c+d\alpha, c-d\alpha )$, where
-$c, d \in \F{q^{k/2}}$.
-In particular, the line $v_R$ passing through $R = (x,y) \in E(\F{q})$ 
-and $-R = (x/y, 1/y)$ evaluated at $Q$ is given by
-$2c(y-x) + x^2-y^2 \in \F{q^{k/2}}$.
-Hence in the final exponentiation step of Miller's algorithm the denominator will become 1,
-so can be ignored.
-
-So, we replace the line funtion $\ell_{P_1,P_2}(Q)$ by just $l_{P_1,P_2}(Q)$.
-When $P_1 = P_2 = R$, this is the tangent line at $R$ evaluated at $Q$, which is given by
-\[l_{R,R}(Q): aX_1^2 X_Q + T Y_Q + S.\]
-where $R = (X_1:Y_1:Z_1)$ 
-and $S$ and $T$ are the values that were computed in the point doubling computation.
-Set $Q' = (X_{Q'}:Y_{Q'}:1)$ and $Q = \varphi(Q')$, where
-$\varphi$ is the twist isomorphism \eqref{twistiso}.
-Then we can write $l_{R,R}(Q)$ as
-
-\[l_{R,R}(Q): (S \cdot Y_{Q'} + T) + a X_{Q'} \cdot X_1^2 \omega,\]
-which can be computed with cost $\sqr + \frac{2k}{3}\mul$ via
-\[\begin{array}{ccc}
-U = X_1^2; & V = S \cdot Y_{Q'}; & W = \eta \cdot U;
-\end{array}\]
-\[l_{R,R}(Q)= V+T + W\omega,\]
-where $\eta = aX_{Q'}$ and can be precomputed.
-
-Furthermore, a general element of $\F{q^k}$ considered as element of the $\F{q^{k/3}}$-vector space generated
-by $\omega$ will be of the form 
-\[c_1 \omega + c_2 \omega^2 + c_3 \omega^3,\]
-but for $l_{2R}(Q)$ we have that $c_2 = 0$. In particular, the multiplication of $l_{2R}(Q)$ with $f^2$ in
-Step 3 of Algorithm~\ref{algo:miller} will not be the full cost of a general multiplication in $\F{q^k}$ (that
-is, approximately $k^2\mul$), but by schoolbook multiplication will cost 6 multiplications in $\F{q^{k/3}}$, which
-amounts to $6 \left(\frac{k}{3}\right)^2 \mul = \frac{2}{3} \Mul$
-where $\Mul$ is the cost of field multiplication in $\F{q^k}$.
-Putting together all of the above, the entire Miller doubling costs
-\[(5\mul + 2\sqr) + \left(1\sqr + \frac{2k}{3}\mul\right) + \frac{2}{3}\Mul  + 1\Sqr 
-= \left( 5 + \frac{2k}{3}\right)\mul + 3\sqr + \frac{2}{3}\Mul + 1\Sqr.\]
-
-When $P_1  = P = (X_1:Y_1:1)$ and $P_2 = R = (X_2:Y_2:Z_2)$, 
-the line $l_{P_1,P_2}(Q)$ is the line passing through $P$ and $R$ evaluated at $Q$.
-As above we write $Q = (\omega X_Q':Y_Q':1)$ so that
+Recall that the Miller addition function is given by
+\[\ell_{P_1,P_2}(Q) = l_{P_1,P_2}(Q)/v_{P_1 + P_2}(Q).\]
+For pairings on $\G{1} \times \G{2}$ the input points are $P \in \G{1}$ and
+$Q \in \G{2}$, and for addition we have that
+ $P_1  = P = (X_1:Y_1:1)$ and $P_2 = R = (X_2:Y_2:Z_2)$ is a multiple of $P$.
+ 
+The line $l_{P_1,P_2}(Q)$ is the line passing through $P$ and $R$ evaluated at $Q$.
+As above we write $Q = (\omega X_Q':Y_Q':1)$ with
+$Q' = (X_{Q'},Y_{Q'}:1) \in \mathcal{H}_a(\F{q^{k/3}})$.
+Then
 $$l_{P,R}(Q): (E - Y_2) \cdot X_1 + (Y_{Q'} - Y_1) \cdot (A - X_2) - (E - Y_2) \cdot X_{Q'}\omega,  $$
 where $E = Y_1 \cdot Z_2$, and where $A$ is the value that was computed during the computation of $P+R$.
 In particular, the cost of computing $l_{P,R}(Q)$ is $\left(2 + \frac{2k}{3}\right)\mul$ via
@@ -124,141 +318,88 @@ E = Y_1 \cdot Z_2; & L = (E-Y_2)\cdot X_1;
 N = (E - Y_2) \cdot X_{Q'}; &
 l_{P,R}(Q) = L + M - N\omega.
 \end{array}\]
-Also exactly as for the the doubling line function, multiplying a general element of $\F{q^k}$ with $l_{P,R}(Q)$ costs only
+
+\paragraph*{Even embedding degrees.}
+
+By Section~\ref{denelim}, the Miller addition function $\ell_{P_1,P_2}(Q)$ is just given by $l_{P_1,P_2}(Q)$ in this case. 
+Also, exactly as for the the Miller doubling function, multiplying a general element of $\F{q^k}$ with $l_{P,R}(Q)$ costs only
 $\frac{2}{3}\Mul$.
 Putting together all of the above, the entire Miller addition step costs
-\[9\mul + \left(2 + \frac{2k}{3}\right)\mul + \frac{2}{3}\Mul 
-= \left(11 + \frac{2k}{3}\right)\mul + \frac{2}{3}\Mul.\]
+\[\left(11 + \frac{2k}{3}\right)\mul + \frac{2}{3}\Mul.\]
 
-\subsection{Odd embedding degrees with pairings on $\G{1} \times \G{2}$}
+\paragraph*{Odd embedding degrees.}
 
-Unfortunately the denominator elimination technique of~\cite{2010/Gu} does not apply to this case;
-instead we extend ideas of~\cite{2008/lin} and~\cite{2009/deg15}.
-Write $P_1 + P_2 = (X_3:Y_3:Z_3)$ and $Q = (X_Q:Y_Q:1)$. 
-Recall that Miller's algorithm starts from a chosen point $Q \in \G{2}$;
-as above we use the twist isomorphism \eqref{twistiso} to write
-$Q = (X_{Q'}\omega:Y_{Q'}:1)$, where $X_{Q'}$ and $Y_{Q'} \in \F{q^{k/3}}$.
-The line $v_{P_1+P_2}(Q)$ passing through $P_1+P_2$ and $-(P_1 + P_2)$ 
-evaluated at $Q$
-is hence given by
-\[v_{P_1+P_2}(Q): 
-(Z_3 + Y_3)X_{Q'}\omega - (1+Y_Q')X_3.\]
-To avoid inversion, we simply apply a trick of~\cite{2008/lin} and~\cite{2009/deg15}, 
-namely observing that
-\[\frac{1}{x-y} = \frac{x^2 + xy + y^2}{x^3-y^3}.\]
-Plugging in $x = (Z_3 + Y_3)X_{Q'}\omega$ and $y = (1+Y_{Q'})X_3$ in $\frac{1}{v_{P_1+P_2}(Q)}$,
-we get that the denominator $x^3 - y^3$ is in $\F{q^{k/3}}$ so will disappear in the final exponentiation, hence can be ignored.
-So we replace $\frac{1}{v_{P_1+P_2}(Q)}$ by the numerator 
-$$n_{P_1+P_2}(Q) = ((Z_3 + Y_3)X_{Q'})^2\omega^2 
-+ (Z_3 + Y_3)X_{Q'}(1+Y_{Q'})X_3\omega 
-+ ((1+Y_{Q'})X_3)^2.$$
-That is, we replace the line function $\ell_{P_1,P_2}(Q)$ by $n_{P_1+P_2}(Q) \cdot l_{P_1,P_2}(Q)$.
-As for even embedding degrees, the computation of $l_{P_1,P_2}(Q)$ costs $\sqr + \frac{2k}{3}\mul$ if $P_1 = P_2$ and $2\mul + \frac{2k}{3}\mul$ if $P_1 \neq P_2$. 
-The computation of $n_{P_1+P_2}(Q)$ can be computed in
-$\frac{2k}{3}\mul + \frac{2}{9}\Sqr + \frac{1}{9}\Mul$ via
+By Section~\ref{denelim}, the Miller doubling function $\ell_{P_1,P_2}(Q)$ is given by
+\[\ell_{P_1,P_2}(Q) = n_{P_1+P_2}(Q) \cdot l_{P_1,P_2}(Q),\]
+where $n_{P_1+P_2}(Q)$ is as given in Section~\ref{denelim}.
+The multiplication of $n_{P_1+P_2}$ with $l_{P_1,P_2}(Q)$ costs
+$\frac{2}{3}\Mul$ as $l_{P_1,P_2}(Q)$ has no coefficient of $\omega^2$,
+so the computation of $\ell_{P_1,P_2}(Q)$ in this case costs
+\[\left( \frac{2k}{3}\mul + \frac{2}{9}\Sqr + \frac{1}{9}\Mul\right) 
++\left(2 + \frac{2k}{3}\right)\mul 
++\frac{2}{3}\Mul
+=\left(2 + \frac{4k}{3}\right)\mul + \frac{2}{9}\Sqr + \frac{7}{9}\Mul.\]
+Putting together all of the above, the entire Miller addition step costs
+\[\left(11 + \frac{4k}{3}\right)\mul + \frac{2}{9}\Sqr + \frac{16}{9}\Mul.\]
+
+\subsubsection{Pairings on $\G{2} \times \G{1}$}
+
+For pairings on $\G{2} \times \G{1}$ the input points $P \in \G{2}$ and $Q \in \G{1}$, and in the Miller addition function $\ell_{P_1,P_2}(Q)$ we have that
+$P_1 = P = (X_1:Y_1:1)$ and $P_2 = R = (X_2:Y_2:Z_2)$, which is some multiple of $P$. 
+In exactly the same way as discussed for the Miller doubling function,
+the point addition can be performed in the group $\mathcal{H}_a(\F{q^{k/3}})$
+in place of $\mathcal{H}(\F{q^k})$, so that the operation count occurs in
+$\F{q^{k/3}})$. That is, point addition can be performed in 9 multiplications in 
+$\F{q^{k/3}}$, which amounts to $1\Mul$. 
+For even embedding degrees this can be done faster, which we adress below.
+As for pairings on $\G{1} \times \G{2}$, we will need to compute the line function
+$$l_{P,R}(Q): - (E - Y_2) \cdot X_{Q} + (E - Y_2) \cdot X_1 + (Y_{Q}-Y_1)(A-X_2), $$
+where $E = Y_1 \cdot Z_2$ and $A = X_1 \cdot Z_2$.
+Let $P = \varphi(P')$ and $R = \varphi(R')$ be the images of 
+$P' = (X_1',Y_1',1)$ and $R' = (X_2',Y_2',Z_2') \in \mathcal{H}_a(\F{q^{k/3}})$ respectively
+under the twist isomorphism $\varphi$ of Equation \eqref{twistiso}.
+Then 
+$$l_{P,R}(Q): - (E' - Y_2') \cdot X_{Q} + (C'-Y_2'X_1' + Y_Q(A'-X_2'))\omega, $$
+where $E' = Y_1' \cdot Z_2'$, $A = A'\omega$, $C = C'\omega$ and 
+$A' = X_1'Z_2'$ and $C' = Y_1'X_2'$ are the values that were computed during the point addition.
+This can be computed in 
+$\frac{2}{9}\Mul + \frac{2k}{3}\mul$
+via
 \[\begin{array}{cccc}
-u = (Z_3 + Y_3)\cdot X_{Q'}; &
-v = (1+Y_{Q'})X_3; &
-n = u^2\omega^2 + (u\cdot v)\omega + v^2,
-\end{array}\]
-and the multiplication of $n_{P_1+P_2}(Q)$ with $l_{P_1,P_2}(Q)$ costs $\frac{2}{3}\Mul$ 
-as $l_{P_1+P_2}(Q)$ has no coefficient of $\omega^2$.
-
-Putting the above together, the full Miller doubling step costs
-\begin{align*}
-&(5\mul + 2\sqr) + \left(\sqr + \frac{4k}{3}\mul + \frac{2}{9}\Sqr + \frac{7}{9}\Mul\right)  + 1\Sqr + 1\Mul \\
-=&3\sqr + \left(5 + \frac{4k}{3}\right)\mul + \frac{11}{9}\Sqr + \frac{16}{9}\Mul,
-\end{align*}
-and the full Miller addition step costs 
-\[9\mul + \left( \left(2+\frac{4k}{3}\right)\mul + \frac{2}{9}\Sqr + \frac{7}{9}\Mul\right) + 1\Mul
-=\left( 11+\frac{4k}{3}\right)\mul + \frac{2}{9}\Sqr + \frac{16}{9}\Mul.\]
-
-\subsection{Pairings on $\G{2} \times \G{1}$}
-
-As with the previous two sections, we compute the line function 
-$$\ell_{P_1,P_2}(Q) = l_{P_1,P_2}(Q)/v_{P_1 + P_2}(Q).$$
-Also as above, we write $\mul$ and $\sqr$ for the cost of multiplication and squaring in $\F{q}$ respectively and we write $\Mul$ an $\Sqr$ for the cost of multiplication and squaring in $\F{q^k}$ respectively. For pairings on $\G{2} \times \G{1}$ we have that $P_1, P_2 \in \G{2}$ and $Q \in \G{1}$.
-
-As with odd embedding degrees for pairings on $\G{1} \times \G{2}$, 
-the denominator elimination technique of~\cite{2010/Gu} does not apply
- and we again use the ideas of~\cite{2008/lin} and~\cite{2009/deg15}.
-Write $P_1 + P_2 = (X_3:Y_3:Z_3)$ and $Q = (X_Q:Y_Q:1)$. 
-Recall that Miller's algorithm starts from a chosen point $P \in \G{2}$
-from which $P_1$ and $P_2$ are derived -- in particular $P_1 + P_2$ is
-multiple of $P$, say $mP$.
-Using the twist isomorphism \eqref{twistiso} we can assume that
-$P$ is the image of a point $P' \in \mathcal{H}_{\omega}(\F{q^{k/3}})$,
-so that $P_1 + P_2 = mP$ is given by $\varphi(mP')$.
-It follows that there exist $X_3', Y_3',Z_3' \in \F{q^{k/3}}$ such that
-$P_1 + P_2 = (X_3'\omega : Y_3':Z_3')$. 
-The line $v_{P_1+P_2}(Q)$ passing through $P_1+P_2$ and $-(P_1 + P_2)$ 
-evaluated at $Q$
-is hence given by
-\[v_{P_1+P_2}(Q): 
-(Z_3' + Y_3')X_Q - (1+Y_Q)X_3'\omega.\]
-Analogously to the denominator elimination in the previous, we
-replace $\frac{1}{v_{P_1+P_2}(Q)}$ by the numerator 
-$$n_{P_1+P_2}(Q) = ((Z_3' + Y_3')X_Q)^2 
-+ (Z_3' + Y_3')X_Q(1+Y_Q)X_3'\omega 
-+ ((1+Y_Q)X_3')^2\omega^2.$$
-
-That is, we replace the line function $\ell_{P_1,P_2}(Q)$ by $n_{P_1,P_2}(Q) \cdot l_{P_1,P_2}(Q)$.
-When $P_1 = P_2 = R$, the line $l_{P_1,P_2}(Q)$ is the tangent line at $R$ evaluated at $Q$, which is given by
-\[l_{R,R}(Q): aX_1'^2 X_Q \omega^2 + T Y_Q + S.\]
-where $S$ and $T$ are the values that were computed in the point doubling computation.
-Observe also that when computing $2R$ we can instead compute
-$\varphi(2\varphi^{-1}(R))$ due to the simplicity of the twist isomorphism \eqref{twistiso},
-so that our operation count for point doubling occurs in $\F{q^{k/3}}$, not $\F{q^k}$; also $S,T \in \F{q^{k/3}}$.
-The numerator $n = n_{2R}(Q)$ can be computed in $\frac{2k}{3}\mul + \frac{1}{9}\Mul + \frac{2}{9}\Sqr$ via
-\[\begin{array}{ccc}
-\alpha = (1+Y_Q)\cdot X_3';&
- \beta = X_Q\cdot (Z_3' + Y_3'); &
-n = \beta^2 + (\alpha \cdot \beta) \omega + \alpha^2 \omega^2
-\end{array}\]
-and the line $l = l_{R,R}(Q)$ can be computed in $\frac{2k}{3}\mul + \frac{1}{9}\Sqr$ via
-\[\begin{array}{ccc}
- \gamma = X_1'^2; &
- \delta = \gamma\cdot\eta; & 
- l = S + T\cdot Y_Q + \delta\omega^2,
-\end{array}\]
-where $\eta = aX_Q$ and can be precomputed.
-The multiplication of $n$ with $l$ costs $\frac{2}{3}\Mul$ as $l$ has no coefficient of $\omega$, hence we compute $\ell_{R,R}(Q)$ in 
-$\frac{1}{3}\Sqr + \frac{7}{9}\Mul + \frac{4k}{3}\mul $.
-Putting together the above, we get a total cost of 
-\[\left(\frac{5}{9}\Mul + \frac{2}{9}\Sqr\right) + \left(\frac{1}{3}\Sqr + \frac{7}{9}\Mul + \frac{4k}{3}\mul \right) + \Mul + \Sqr = \frac{7}{3}\Mul + \frac{14}{9}\Sqr + \frac{4k}{3}\mul\]
-for the whole Miller doubling step.
-
-When $P_1  = P = (X_1:Y_1:1)$ and $P_2 = R = (X_2:Y_2:Z_2)$, 
-the line $l_{P_1,P_2}(Q)$ is the line passing through $P$ and $R$ evaluated at $Q$.
-As above we write $P = (\omega X_1':Y_1':1)$ and 
-$R = (\omega X_2': Y_2': Z_2')$ where $X_1',Y_1',X_2',Y_2',Z_2' \in \F{q^{k/3}}$ 
-so that
-$$l_{P,R}(Q): - (E - Y_2') \cdot X_{Q} + ((E - Y_2') \cdot X_1' + (Y_{Q}-Y_1')(A'-X_2'))\omega, $$
-where $E = Y_1' \cdot Z_2'$, and where $A = A'\omega = X_1'Z_2'\omega$ is the value that was computed during the computation of $P+R$.
-We compute $\ell_{P,R}(Q)$ in
-$k\mul + \Mul + \frac{2}{9}\Sqr$
-as follows:
-\[\begin{array}{ccc}
-\alpha = (1+Y_Q)\cdot X_3';&
- \beta = X_Q\cdot (Z_3' + Y_3'); &
- \epsilon = (E-Y_2')\cdot X_Q;
-\end{array}\]
-\[\begin{array}{cc}
- \zeta = (E-Y_2')\cdot X_1'; &
-  \theta = (Y_Q-Y_1')\cdot(A'-X_2');
-\end{array}\]
-\[\begin{array}{ccc}
-n = \beta^2 + (\alpha \cdot \beta) \omega + \alpha^2 \omega^2; &
-l = -\epsilon + (\zeta+\theta)\omega; &
-\ell_{R,R}(Q) = n\cdot l.
+E' = Y_1' \cdot Z_2'; &
+d_1 = Y_2' \cdot X_1'; &
+d_2 = (E' - Y_2') \cdot X_Q; &
+d_3 = (A' - X_2')\cdot Y_Q.
 \end{array}\]
 
-Observe further that when computing $P+R$ we can instead compute
-$\varphi(\varphi^{-1}(P) + \varphi^{-1}(R))$ due to the simplicity of the twist isomorphism \eqref{twistiso},
-so that our operation count for point addition occurs in $\F{q^{k/3}}$, not $\F{q^k}$, that is,
-point addition costs $9(\frac{k}{3})^2\mul = \Mul$.
+\paragraph*{Even embedding degrees.}
 
-Putting the together above, we see that the whole Miller addition step takes
+Suppose now that $6 | k$.
+As described already for Miller doubling, we may choose $U_2,V_2,W_2 \in \F{q^{k/6}}$ such that
+\[ R' = (U_2:\beta(\alpha V_2 - 54W_2) : \beta(-\alpha V_2 + 54\zeta_3^2 W_2)),
+\]
+where $\beta = \zeta_3-\zeta_3^2$ and 
+$\zeta_3 \in \F{q}$ is a primitive cube root of unity (c.f. Equation \eqref{Rprime}). 
+Note that we do not apply this to $P$ because we want to make use of the mixed addition with $Z_1 = 1$.
 
-\[\Mul + \left( k\mul + \Mul + \frac{2}{9}\Sqr \right) + \Mul = 3\Mul + \frac{2}{9}\Sqr + k\mul.\]
+This gives us a small saving in the point addition calculation: the computations of $C$ and of $F$ now cost $\frac{1}{18}\Mul$ each instead of $\frac{1}{9}\Mul$ each, saving $\frac{1}{18}\Mul$; 
+the cost for point addition is therefore $\frac{17}{18}\Mul$.
 
+As shown in Section~\ref{denelim}, the Miller addition function $\ell_{P,R}(Q)$
+is just given by the line function $l_{P,R}(Q)$ in this case. Multiplication of a general element in $\F{q^k}$ with $\ell_{P,R}(Q)$ costs only $\frac{2}{3}\Mul$
+as $\ell_{P,R}(Q)$ has no coefficient of $\omega^2$.
+
+Putting together all of the above, we get an operation count of
+\[\frac{2k}{3}\mul + \frac{11}{6}\Mul \]
+for the whole Miller addition step.
+
+\paragraph*{Odd embedding degrees.}
+
+By Section~\ref{denelim}, the Miller addition function 
+$\ell_{P,R}(Q)$ is given by $n_{P+R}(Q) \cdot l_{P,R}(Q)$ in this case, where
+$n_{P+R}(Q)$ is as given in Section~\ref{denelim}.
+The multiplication of $n_{P+R}(Q)$ with $l_{P,R}(Q)$ costs only $\frac{2}{3}\Mul$ as $l_{P,R}(Q)$ has no coefficient of $\omega^2$.
+
+Putting together all of the above, we get an operation count of
+\[\frac{4k}{3}\mul + 3\Mul + \frac{2}{9}\Sqr\]
+for the full Miller addition step.
