@@ -135,12 +135,12 @@ These formulas exploit the degree-3 twists where possible: in moving the point a
 For efficient curve arithmetic (before applying the use of twists) we refer to
 Bernstein, Chuengsatiansup, Kohel, and Lange~\cite{2015/hessian}.
 
-We analyze the efficiency of the pairing computation in each case. 
-Our analysis shows that for even embedding degrees, Hessian curves are outperformed by twisted Edwards curves for pairings on $\G{1} \times \G{2}$, and by Weierstrass curves for pairings on $\G{2} \times \G{1}$.
-However, as explained above, our focus is on odd embedding degrees, as we propose 
+We analyze the efficiency of the pairing computation in each case, focussing on the embedding degrees that should correspond to 128- and 192-bit security. 
+Our analysis shows that for embedding degree 12, Hessian curves are outperformed by twisted Edwards curves, but for embedding degrees 15, 21, and 24
+our formulas give the most efficient known pairing implementation.
+We do not consider $18$ as we do not know of any curve constructions for this case.
+As explained above, our main focus is on odd embedding degrees, as we propose 
 the use of $k=15$ and $k=21$ as a countermeasure against the NFS attacks and their variants.
-For embedding degrees 15 and 21 we show that the most efficient pairing
-computation available is the optimal ate pairing with the Hessian form proposed in this paper.
 
 We also give concrete constructions of pairing-friendly Hessian curves for both embedding degrees and a proof-of-concept implementation of the optimal ate pairing for these cases. 
 %Note in particular that among the popular pairing-friendly curve families,
