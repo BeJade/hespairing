@@ -1,209 +1,326 @@
 \section{Comparison}
 \label{sec:cmp}
 
-We would like to emphasize that:
-\begin{itemize}
-\item	Most of the previous work on this topic concentrated on even embedding degrees.
-\item   Most of the previous work on the optimization of operation counts for doubling and addition concentrated on pairings for $\G{1} \times \G{2}$.
-\item   To the best of our knowledge, previous research on Hessian curves for pairings did not utilize cubic twists and was only applicable for even embedding degrees.
-\item   To the best of our knowledge, the only previous research on pairings for curves with odd embedding degrees used curves in Weierstrass form.
-\end{itemize}
+As this paper primarily concerns cubic twists, 
+we only discuss results for embedding degrees that are divisible by 3.
 
-Table~\ref{tbl-cmp1} shows the costs of the computation of the Miller doubling step (DBL) and Table~\ref{tbl-cmp1a} shows the costs of the Miller adding step (mADD) using mixed addition.
-The first column gives the conditions on the embedding degree $k$.
-Note that as this paper particularly concerns cubic twists, we include only embedding degrees that are divisble by 3.
-The second column gives the curve models, where 
-$\mathcal{J}$, $\mathcal{P}$, $\mathcal{E}$, $\mathcal{H}$ denote the
-Weierstrass model with Jacobian coordinates, the
-Weierstrass model with projective coordinates,
-the Edwards model and the
-Hessian model respectively.
-We denote the cost of field multiplication and field squaring over the base field $\F{q}$ by $\mul$ and $\sqr$ respectively and $\Mul$ and $\Sqr$ denote the cost of field multiplication and field squaring over the extension field $\F{q^k}$ respectively.
-The cost of multiplication by curve parameters is omitted from the table.
-
-\begin{table}[h]
-\centering
-\caption{Comparison of DBL for $\G{1} \times \G{2}$ with different curve models and embedding degrees}
-
-\begin{tabular}{| l | l | l | l}
-\hline
-\multicolumn{1}{|c|}{$k$}
-&\multicolumn{1}{|c|}{Curve models}	&\multicolumn{1}{c|}{DBL}		\\
-\hline
-\multicolumn{1}{|c|}{\multirow{6}{*}{
-$\begin{array}{c} \text{even,} \\ 6|k \end{array}$}}
-&$\mathcal{J}$, \cite{2008/IonicaJoux08} \cite{2009/fastertate}
-				&$(k + 1)\mul + 11\sqr + \Mul + \Sqr$		\\
-&$\mathcal{J},a_4 = -3$, \cite{2009/fastertate}
-				&$(k + 6)\mul + 5\sqr + \Mul + \Sqr$	\\
-&$\mathcal{J},a_4 = 0$, \cite{2009/fastertate}		
-				&$(k + 3)\mul + 8\sqr + \Mul + \Sqr$		\\
-&$\mathcal{P},(a_4,a_6) = (0, b^2)$, \cite{2009/craig}
-				&$(k + 3)\mul + 5\sqr + \Mul + \Sqr$		\\
-&$\mathcal{E}$, \cite{2009/fastertate}			
-				&$(k + 6)\mul + 5\sqr + \Mul + \Sqr$			\\
-&$\mathcal{E},j=0$, \cite{2014/LWZ}
-				&$\left(\frac{4k}{3}+ 4\right)\mul + 7\sqr  + \frac{1}{3}\Mul + \Sqr$\\
-&$\mathcal{H}$, \cite{2010/Gu}	&$(k + 3)\mul + 6\sqr + \Mul + \Sqr$ 	\\
-&$\mathcal{H},j=0$, this paper 	&
-$ \left(\frac{2k}{3} + 5\right)\mul + 3\sqr + \frac{2}{3}\Mul + \Sqr$			\\
-\hline
-\multicolumn{1}{|c|}{\multirow{2}{*}{
-$\begin{array}{c} \text{odd,} \\ 3|k \end{array}$}}
-&$\mathcal{P}$, \cite{2010/CLN}	&$(k + 6)\mul + 7\sqr + \Mul + \Sqr$		\\
-&$\mathcal{H},j=0$, this paper
-&$ \left(\frac{4k}{3} + 5\right)\mul + 3\sqr + \frac{16}{9}\Mul + \frac{11}{9}\Sqr$
-\\
-\hline
-\end{tabular}
-\label{tbl-cmp1}
-
-%\justify
-%Note: ``Pre cost'' denotes the precomputation cost.
-%This cost is already included in the first column.
-
-\end{table}
-
-\begin{table}[h]
-\centering
-\caption{Comparison of mADD for $\G{1} \times \G{2}$ with different curve models and embedding degrees}
-
-\begin{tabular}{| l | l | l | l}
-\hline
-\multicolumn{1}{|c|}{$k$}
-&\multicolumn{1}{|c|}{Curve models}	&\multicolumn{1}{c|}{mADD}	\\
-\hline
-\multicolumn{1}{|c|}{\multirow{6}{*}{
-$\begin{array}{c} \text{even,} \\ 6|k \end{array}$}}
-&$\mathcal{J}$, \cite{2008/IonicaJoux08} \cite{2009/fastertate}
-		&$(k+ 6)\mul + 6\sqr + \Mul $	\\
-&$\mathcal{J},a_4 = -3$, \cite{2009/fastertate}
-	&$(k+ 6)\mul + 6\sqr + \Mul$	\\
-&$\mathcal{J},a_4 = 0$, \cite{2009/fastertate}		
-	&$(k + 6)\mul + 6\sqr + \Mul$	\\
-&$\mathcal{P},(a_4,a_6) = (0, b^2)$, \cite{2009/craig}
-		&$(k + 10)\mul + 2\sqr + \Mul$	\\
-&$\mathcal{E}$, \cite{2009/fastertate}			
-		&$(k+ 12)\mul + \Mul$	\\
-&$\mathcal{E},j=0$, \cite{2014/LWZ}
-				&$\left(\frac{4k}{3} + 12\right)\mul  + \frac{1}{3}\Mul$ \\
-&$\mathcal{H}$, \cite{2010/Gu}	&$(k + 10)\mul + \Mul$	\\
-&$\mathcal{H},j=0$, this paper 	&
-$ \left(\frac{2k}{3} + 11\right)\mul + \frac{2}{3}\Mul$	\\
-\hline
-\multicolumn{1}{|c|}{\multirow{2}{*}{
-$\begin{array}{c} \text{odd,} \\ 3|k \end{array}$}}
-&$\mathcal{P}$, \cite{2010/CLN}		&$(k + 13)\mul + 3\sqr + \Mul$	\\
-&$\mathcal{H},j=0$, this paper
-&$\left(\frac{4k}{3} + 11\right)\mul + \frac{16}{9}\Mul + \frac{2}{9}\Sqr $	\\
-\hline
-\end{tabular}
-\label{tbl-cmp1a}
-
-%\justify
-%Note: ``Pre cost'' denotes the precomputation cost.
-%This cost is already included in the first column.
-
-\end{table}
-
-\begin{table}[h]
-\centering
-\caption{Comparison of the costs of DBL and mADD for $\G{2} \times \G{1}$ with different curve models and embedding degrees}
-
-\begin{tabular}{| l | l | l | l |}
-\hline
-\multicolumn{1}{|c|}{$k$}
-&\multicolumn{1}{|c|}{Curve models}	&\multicolumn{1}{|c|}{DBL}	&\multicolumn{1}{|c|}{mADD}	
-\\
-\hline
-\multicolumn{1}{|c|}{\multirow{2}{*}{
-$\begin{array}{c} \text{even,} \\ 6|k \end{array}$}}
-& $\mathcal{P},j=0$, \cite{2009/fastertate}
-& $\frac{41}{36}\Mul + \frac{41}{36}\Sqr$
-& $\frac{4}{3}\Mul + \frac{1}{18}\Sqr$ \\
-& $\mathcal{H},j=0$, this paper
-& $\frac{4k}{3}\mul + \frac{7}{3}\Mul + \frac{14}{9}\Sqr $
-& $k\mul + 3\Mul + \frac{2}{9}\Sqr$ \\
-\hline
-\multicolumn{1}{|c|}{\multirow{2}{*}{
-$\begin{array}{c} \text{odd,} \\ 3|k \end{array}$}}
-%& $\mathcal{P},j=0$, \cite{2009/fastertate}
-%& $3k\mul + \frac{5}{3}\Mul + \frac{16}{9}\Sqr$
-%& $3k\mul + \frac{22}{9}\Mul + \frac{5}{9}\Sqr$ \\
-& $\mathcal{H},j=0$, this paper
-& $\frac{4k}{3}\mul + \frac{7}{3}\Mul + \frac{14}{9}\Sqr $
-& $k\mul + 3\Mul + \frac{2}{9}\Sqr$ \\
-&&& \\
-\hline
-\end{tabular}
-\label{tbl-cmp2}
-
-%\justify
-%Note: ``Pre cost'' denotes the precomputation cost.
-%This cost is already included in the first column.
-
-\end{table}
-
-As is probably clear from Table \ref{tbl-cmp2}, to our knowledge there is very little research on the optimization of curve arithmetic with regards the computation of the Miller function 
-that utilizes twists. 
-In particular we believe that this is the first paper that studies the use of cubic twists for the efficient computation of the Miller line function for a pairing on $\G{2} \times \G{1}$
-for curves with odd embedding degree.
-Curve arithmetic in this context is discussed to some extent in \cite{2009/fastertate}, 
-but the formulas given in Section 6 for the line function correspond to pairings on $\G{1} \times \G{2}$, so it appears that the authors chose to concentrate on pairings for $\G{1} \times \G{2}$ for odd embedding degree.
-
-Comparing Tables \ref{tbl-cmp1}, \ref{tbl-cmp1a}, and \ref{tbl-cmp2}, it is clear that one iteration of Miller's loop is faster for a $\G{1} \times \G{2}$ pairing than for a $\G{2} \times \G{1}$ pairing.
-However, there has been much research on minimizing the number of iterations of Miller's loop for both types of pairing which affects our analysis considerably.
+To our knowledge, most of the previous work
+on the optimization of operation counts for one iteration of Miller's loop
+concentrated on pairings for $\G{1} \times \G{2}$. 
+Of course to properly compare different results, we also need to take
+into account the number of iterations of Miller's loop, which differs
+greatly between $\G{1} \times \G{2}$ and $\G{2} \times \G{1}$.
 
 For pairings on $\G{1} \times \G{2}$, the lowest number of iterations occurs for the twisted ate pairing when twists are available, or the reduced Tate pairing when twists are not available.
 In this paper we are explictly addressing the first case, so the twisted ate pairing gives the minimal number of iterations. 
-Let $t$ be the trace of Frobenius, let $T = t-1$, and let $d$ be the degree of the twist. The number of iterations of Miller's loop for the twisted ate pairing is given by $T_e$, where
+Let $t$ be the trace of Frobenius, let $T = t-1$, and let $d$ be the degree of the twist. The number of iterations of Miller's loop for the twisted ate pairing is given by $\log(T_e)$, where
 $T_e \equiv T^e \pmod{r}$ and $1 < e | d$. 
 Also $T$ is a $d^{\text{th}}$-root of unity in $\F{r}$, so when $d = 6$ the smallest value of
-$T_e$ is $T_2$ where $T_2^3= r-1$, and when $d = 3$ the smallest value of $T_e$ is
-$T_3 = r-1$. For more details on the twisted ate pairing see \cite{2006/hess}.
+$\log(T_e)$ is $\log(T_2) \approx \log(r)/3$, and when $d = 3$ the smallest value of $\log(T_e)$ is
+$\log(T_3) \approx \log(r)$. For more details on the twisted ate pairing see \cite{2006/hess}.
 
-For pairings on $\G{2} \times \G{1}$, the lowest number of iterations occurs for the optimal ate pairing. The best-case-scenario (which can in principle occur for any embedding degree) is $x$ iterations of Miller's loop. For more details on the optimal ate pairing see \cite{2010/vercauteren}. 
+For pairings on $\G{2} \times \G{1}$, the lowest number of iterations occurs for the optimal ate pairing. The best-case-scenario (which can in principle occur for any embedding degree) is $\log(r)/\varphi(k)$ iterations of Miller's loop, where $\varphi$ is the Euler $\varphi$-function. This scenario takes $x$ as the input for the Miller's algorithm (e.g. in place of $r = r(x)$ as in Tate). For more details on the optimal ate pairing see \cite{2010/vercauteren}. 
 
-To motivate the study of pairings of $\G{2} \times \G{1}$, 
-we compare the number of iterations for $\G{1} \times \G{2}$ and $\G{2} \times \G{1}$ when $k$ is odd and divisible by 3. 
-In all the pairing-friendly families given in this paper, the polynomial $r(x)$ is the $k^{\text{th}}$ or $2k^{\text{th}}$ cyclotomic polynomial, both of which have degree given by the Euler function $\varphi(k)$. 
-That is, where the twisted ate pairing (on $\G{1} \times \G{2}$) requires $\log(r-1)$ iterations of Miller's loop,
-the optimal ate pairing (on $\G{2} \times \G{1}$) requires only $\log(r)/\phi(k)$ iterations of Miller's loop. 
-So, if we wish to deduce from Tables~\ref{tbl-cmp1}, \ref{tbl-cmp1a}, and~\ref{tbl-cmp2} which pairing should be used, as a rough guide we could divide the operation counts of Table~\ref{tbl-cmp2} by $\phi(k)$. We give a comparison in the two aforementioned cases $k=15$ and $k=21$ with the NFS attacks and their variants in mind.
+We compared previous results in this area for 
+Weierstrass curves with Jacobian coordinates \cite{2008/IonicaJoux08} \cite{2009/fastertate},
+Weierstrass curves with projective coordinates \cite{2009/craig},
+Edwards curves \cite{2009/fastertate},
+Edwards curves with sextic twists \cite{2014/LWZ},
+and Hessian curves with quadratic twists \cite{2010/Gu}.
+Most of these papers considered only pairings on $\G{1} \times \G{2}$ 
+(many of them were written before Vercauteren's paper on optimal pairings)
+and only even embedding degree (to avoid dealing with denominators).
 
-\begin{example}
-Suppose that $\sqr = \mul$ and set $k = 15$.
-The best operation count for one iteration of the Miller loop to compute the twisted ate pairing (on $\G{1} \times \G{2}$) is given by projective coordinates at 
-$478\mul$ for doubling and $256\mul$ for addition.
-The (only) operation count for one iteration of the Miller loop to compute the optimal ate pairing (on $\G{2} \times \G{1}$) is given by Hessian coordinates at
-$895\mul$ for doubling and $740\mul$ for addition. 
-However, if optimal parameters can be found, the computation of the twisted ate pairing 
-will require $8 = \phi(15)$ times as many iterations of the Miller loop as the computation of the optimal ate, so we expect the optimal ate pairing with Hessian coordinates to outperform the twisted ate pairing with projective coordinates by a factor of between 3 and 4
-(exactly how much better the performance is depends on the Hamming weights of $x$ and $T_3$).
-\end{example}
+\subsection{Comparing results for $\G{2} \times \G{1}$}
 
-\begin{example}
-Suppose that $\sqr = \mul$ and set $k = 21$.
-The best choices for each pairing type are as in the previous example: 
-for $\G{1} \times \G{2}$ projective coordinates uses $916\mul$ for doubling and $478\mul$ for addition per iteration loop,
-and for $\G{2} \times \G{1}$ Hessian coorindates uses $1743\mul$ for doubling and $1442\mul$ for addition per iteration loop.
-The twisted ate pairing ($\G{1} \times \G{2}$) requires $12 = \phi(21)$ times
-as many iterations of the Miller loop as the optimal ate pairing ($\G{2} \times \G{1}$), 
-so for a rough comparison of the performance of the two pairings we divide the operation counts for optimal ate by 12. 
-Given the above, we expect the optimal ate pairing with Hessian coorinates to be the most efficient choice for $k=21$ as it should outperform the twisted ate pairing with projective Weierstrass coordinates by a factor of approximately 4.
-\end{example}
+The only other paper containing operation counts for pairings on $\G{2} \times \G{1}$
+and embedding degree divisible by 3, to our knowledge, is \cite{2009/craig}, which considers projective Weierstrass coordinates.
+In this paper they look at even embedding degrees, so we only compare our results
+for the optimal ate pairing when $k=12$ and 24 (c.f. Construction 3).
+Assume for simplicity that $\sqr \approx 0.8\mul$.
+The formulas presented in \cite{2009/craig} give an operation count of
+$$\frac{41}{36}\Mul + \frac{41}{36}\Sqr \approx
+\left\{ \begin{array}{cc}
+295.2\mul & k=12 \\
+1180.8\mul & k=24
+\end{array} \right.$$ 
+for one Miller doubling step
+and
+$$\frac{4}{3}\Mul + \frac{1}{18}\Sqr \approx
+\left\{ \begin{array}{cc}
+198.4\mul & k=12 \\
+793.6\mul & k=24
+\end{array} \right.$$ 
+for one Miller addition step.
+The formulas presented in this paper give an operation count of
+$$\frac{k}{2}\mul + \Mul + \frac{7}{6}\Sqr \approx
+\left\{ \begin{array}{cc}
+284.4\mul & k=12 \\
+1125.6\mul & k=24
+\end{array} \right.$$ 
+for one Miller doubling step
+and
+$$\frac{2k}{3}\mul + \frac{11}{6}\Mul \approx
+\left\{ \begin{array}{cc}
+272\mul & k=12 \\
+1072\mul & k=24
+\end{array} \right.$$ 
+for one Miller addition step.
+As the formulas for Hessian form are faster for doubling but slower for adding (with respect to projective Weierstrass form), there is a trade-off to assess.
 
-Not included in Tables~\ref{tbl-cmp1}, \ref{tbl-cmp1a}, and \ref{tbl-cmp2} are the 
+Suppose that we wish to compute the optimal ate pairing and that we have 
+an example for which the input for Miller's algorithm is $x$. 
+The pairing can then be computed in $\log(x) = \log(r)/\varphi(k)$
+iterations of Miller's loop - this amounts to $O(\log(x))$ Miller doubling steps,
+$O(\text{hw}(x))$ Miller addition steps, where $\text{hw}(x)$ denotes the Hamming weight of $x$, and the final exponentiation.
+
+When $k=12$, the formulas presented in this paper compute the pairing in
+$$\approx 284.4 O(\log(x)) + 272 O(\text{hw}(x))$$
+multiplications in $\F{q}$ and an exponentiation,
+and the formulas presented in \cite{2009/craig} compute the pairing in
+$$\approx 295.2 O(\log(x)) + 198.4 O(\text{hw}(x))$$
+multiplications in $\F{q}$ and an exponentiation.
+That is, the formulas using Hessian curves outperform the projective Weierstrass curves for $x$-values such that $\log(x) > 6\text{hw}(x)$.
+This is a condition that is not hard to meet (and is desirable for either implementation) so we assume that it is satisfied in Table \ref{tbl-cmp1}.
+
+When $k = 24$, the formulas presented in this paper compute the pairing in
+$$\approx 1125.6 O(\log(x)) + 1072 O(\text{hw}(x))$$
+multiplications in $\F{q}$ and an exponentiation,
+and the formulas presented in \cite{2009/craig} compute the pairing in
+$$\approx 1180.8 O(\log(x)) + 793.6 O(\text{hw}(x))$$
+multiplications in $\F{q}$ and an exponentiation.
+That is, the formulas using Hessian curves outperform the projective Weierstrass curves for $x$-values such that $\log(x) > 5.1\text{hw}(x)$.
+This is a condition that is not hard to meet (and is desirable for either implementation) so we assume that it is satisfied in Table \ref{tbl-cmp1}.
+
+\subsection{Comparing results for $\G{1} \times \G{2}$}
+
+Comparing the aforementioned papers and our own results, we see that
+the fastest curve model for embedding degree divisible by 6 together with a $\G{1} \times \G{2}$ pairing
+is the Edwards form with sextic twists \cite{2014/LWZ}
+at
+$$\left(\frac{4k}{3}+ 4\right)\mul + 7\sqr  + \frac{1}{3}\Mul + \Sqr$$
+for one Miller doubling step and
+$$\left(\frac{4k}{3} + 12\right)\mul  + \frac{1}{3}\Mul$$
+for one Miller addition step.
+
+The fastest curve model for odd embedding degree divisible by 3 together with a $\G{1} \times \G{2}$ pairing, including the formulas presented in this paper,
+is the projective Weierstrass form \cite{2009/craig}
+at
+$$(k+6)\mul + 7\sqr + 1\Mul + 1\Sqr$$
+for one Miller doubling step and
+$$(k+13)\mul + 3\sqr + 1\Mul$$
+for one Miller addition step.
+
+\subsection{Comparing $\G{1} \times \G{2}$ and $\G{2} \times \G{1}$}
+
+In the following table we compare the operation counts from the most efficient 
+curve shape for each subcase
+(optimal ate vs. twisted ate and even vs. odd)
+in what we hope is a meaningful way:
+we give the the number of $\F{q}$-multiplications per Miller doubling/Miller addition multiplied by 
+$\frac{1}{\log(r)} \times $ the number of iterations. We call these numbers DBLc 
+(for double compare) and ADDc (for addition compare).
+We assume here that $\sqr = 0.8\mul$ for simplicity.
+
+\begin{table}[h]
+\centering
+\caption{Best operation counts for DBL (compare) and ADD (compare) for each subcase}
+
+\begin{tabular}{|l| l| l| l| l| l| l|}
+\hline
+\multicolumn{1}{|c|}{$k$}
+&\multicolumn{1}{|c|}{pairing} 
+&\multicolumn{1}{|c|}{Model}
+&\multicolumn{1}{|c|}{\# iterations}
+&\multicolumn{1}{|c|}{DBLc}	
+&\multicolumn{1}{|c|}{ADDc}	
+\\
+\hline
+12 & twisted ate & Edwards \cite{2014/LWZ} & $\log(r)/3$ &
+62.9 & 25.3 \\
+12 & optimal ate & Hessian (this paper) & $\log(r)/4$ &
+71.1 & 68 \\
+\hline
+15 & twisted ate & Projective \cite{2009/craig} & $\log(r)$ &
+431.6 & 255.4 \\
+15 & optimal ate & Hessian (this paper) & $\log(r)/8$ &
+103.1 & 120 \\
+\hline
+21 & twisted ate & Projective \cite{2009/craig} & $\log(r)$ &
+826.4 & 477.4 \\
+21 & optimal ate & Hessian (this paper) & $\log(r)/12$ &
+133.8 & 155.9 \\
+\hline
+24 & twisted ate & Edwards \cite{2014/LWZ} & $\log(r)/3$ &
+231.5 & 78.7 \\
+24 & optimal ate & Hessian (this paper) & $\log(r)/8$ &
+140.7 & 134 \\ \hline
+%$\begin{array}{c} \text{even,} \\ 6|k \end{array}$}}
+%& $\mathcal{P},j=0$, \cite{2009/fastertate}
+%& $\frac{41}{36}\Mul + \frac{41}{36}\Sqr$
+%& $\frac{4}{3}\Mul + \frac{1}{18}\Sqr$ \\
+%& $\mathcal{H},j=0$, this paper
+%& $\frac{k}{2}\mul + \Mul + \frac{7}{6}\Sqr$
+%& $\frac{2k}{3}\mul + \frac{11}{6}\Mul$ \\
+%\hline
+%\multicolumn{1}{|c|}{\multirow{2}{*}{
+%$\begin{array}{c} \text{odd,} \\ 3|k \end{array}$}}
+%%& $\mathcal{P},j=0$, \cite{2009/fastertate}
+%%& $3k\mul + \frac{5}{3}\Mul + \frac{16}{9}\Sqr$
+%%& $3k\mul + \frac{22}{9}\Mul + \frac{5}{9}\Sqr$ \\
+%& $\mathcal{H},j=0$, this paper
+%& $\frac{4k}{3}\mul + \frac{7}{3}\Mul + \frac{14}{9}\Sqr $
+%& $\frac{4k}{3}\mul + 3\Mul + \frac{2}{9}\Sqr$ \\
+%&&& \\
+%\hline
+\end{tabular}
+\label{tbl-cmp1}
+\end{table}
+
+For embedding degree 12 \cite{2014/LWZ} is clearly the most efficient.
+For embedding degrees 15 and 21 our results are clearly the most efficient.
+For embedding degree 24 doubling is more efficient in Hessian form with optimal ate
+while addition is more efficient in Edwards form with twisted ate. 
+We could assess this trade-off in a similar way to the trade-off that was required to compare results for even embedding degrees for optimal ate pairings; 
+our results will outperform those of \cite{2014/LWZ} when the Hamming weight of 
+$x$ is sufficiently low compared to $\log(x)$.
+
+Not included in Tables~\ref{tbl-cmp1} are the 
 precomputation costs (which are relatively low for our constructions) and the final exponentiation costs (which are roughly uniform across all curve shapes).
 %and group operations on twisted Hessian curves allow faster point arithmetic operations than Weierstrass curves. -- this *is* accounted for in the table!
 A significant part of the precomputation cost for many models in the conversion
 between curve models, which is not necessary for our constructions.
 (Recall that for BN, BLS, and KSS, this conversion is always necessary if one wants to take advantage of
 the fast point-arithmetic on Hessian or Edwards curves, as proven in~\cite{2013/bos-pairing}.)
+
+%\begin{table}[h]
+%\centering
+%\caption{Comparison of DBL for $\G{1} \times \G{2}$ with different curve models and embedding degrees}
+%
+%\begin{tabular}{| l | l | l | l}
+%\hline
+%\multicolumn{1}{|c|}{$k$}
+%&\multicolumn{1}{|c|}{Curve models}	&\multicolumn{1}{c|}{DBL}		\\
+%\hline
+%\multicolumn{1}{|c|}{\multirow{6}{*}{
+%$\begin{array}{c} \text{even,} \\ 6|k \end{array}$}}
+%&$\mathcal{J}$, \cite{2008/IonicaJoux08} \cite{2009/fastertate}
+%				&$(k + 1)\mul + 11\sqr + \Mul + \Sqr$		\\
+%&$\mathcal{J},a_4 = -3$, \cite{2009/fastertate}
+%				&$(k + 6)\mul + 5\sqr + \Mul + \Sqr$	\\
+%&$\mathcal{J},a_4 = 0$, \cite{2009/fastertate}		
+%				&$(k + 3)\mul + 8\sqr + \Mul + \Sqr$		\\
+%&$\mathcal{P},(a_4,a_6) = (0, b^2)$, \cite{2009/craig}
+%				&$(k + 3)\mul + 5\sqr + \Mul + \Sqr$		\\
+%&$\mathcal{E}$, \cite{2009/fastertate}			
+%				&$(k + 6)\mul + 5\sqr + \Mul + \Sqr$			\\
+%&$\mathcal{E},j=0$, \cite{2014/LWZ}
+%				&$\left(\frac{4k}{3}+ 4\right)\mul + 7\sqr  + \frac{1}{3}\Mul + \Sqr$\\
+%&$\mathcal{H}$, \cite{2010/Gu}	&$(k + 3)\mul + 6\sqr + \Mul + \Sqr$ 	\\
+%&$\mathcal{H},j=0$, this paper 	&
+%$ \left(\frac{2k}{3} + 5\right)\mul + 3\sqr + \frac{2}{3}\Mul + \Sqr$			\\
+%\hline
+%\multicolumn{1}{|c|}{\multirow{2}{*}{
+%$\begin{array}{c} \text{odd,} \\ 3|k \end{array}$}}
+%&$\mathcal{P}$, \cite{2010/CLN}	&$(k + 6)\mul + 7\sqr + \Mul + \Sqr$		\\
+%&$\mathcal{H},j=0$, this paper
+%&$ \left(\frac{4k}{3} + 5\right)\mul + 3\sqr + \frac{16}{9}\Mul + \frac{11}{9}\Sqr$
+%\\
+%\hline
+%\end{tabular}
+%\label{tbl-cmp1}
+
+%\justify
+%Note: ``Pre cost'' denotes the precomputation cost.
+%This cost is already included in the first column.
+
+%\end{table}
+
+%\begin{table}[h]
+%\centering
+%\caption{Comparison of mADD for $\G{1} \times \G{2}$ with different curve models and embedding degrees}
+%
+%\begin{tabular}{| l | l | l | l}
+%\hline
+%\multicolumn{1}{|c|}{$k$}
+%&\multicolumn{1}{|c|}{Curve models}	&\multicolumn{1}{c|}{mADD}	\\
+%\hline
+%\multicolumn{1}{|c|}{\multirow{6}{*}{
+%$\begin{array}{c} \text{even,} \\ 6|k \end{array}$}}
+%&$\mathcal{J}$, \cite{2008/IonicaJoux08} \cite{2009/fastertate}
+%		&$(k+ 6)\mul + 6\sqr + \Mul $	\\
+%&$\mathcal{J},a_4 = -3$, \cite{2009/fastertate}
+%	&$(k+ 6)\mul + 6\sqr + \Mul$	\\
+%&$\mathcal{J},a_4 = 0$, \cite{2009/fastertate}		
+%	&$(k + 6)\mul + 6\sqr + \Mul$	\\
+%&$\mathcal{P},(a_4,a_6) = (0, b^2)$, \cite{2009/craig}
+%		&$(k + 10)\mul + 2\sqr + \Mul$	\\
+%&$\mathcal{E}$, \cite{2009/fastertate}			
+%		&$(k+ 12)\mul + \Mul$	\\
+%&$\mathcal{E},j=0$, \cite{2014/LWZ}
+%				&$\left(\frac{4k}{3} + 12\right)\mul  + \frac{1}{3}\Mul$ \\
+%&$\mathcal{H}$, \cite{2010/Gu}	&$(k + 10)\mul + \Mul$	\\
+%&$\mathcal{H},j=0$, this paper 	&
+%$ \left(\frac{2k}{3} + 11\right)\mul + \frac{2}{3}\Mul$	\\
+%\hline
+%\multicolumn{1}{|c|}{\multirow{2}{*}{
+%$\begin{array}{c} \text{odd,} \\ 3|k \end{array}$}}
+%&$\mathcal{P}$, \cite{2010/CLN}		&$(k + 13)\mul + 3\sqr + \Mul$	\\
+%&$\mathcal{H},j=0$, this paper
+%&$\left(\frac{4k}{3} + 11\right)\mul + \frac{16}{9}\Mul + \frac{2}{9}\Sqr $	\\
+%\hline
+%\end{tabular}
+%\label{tbl-cmp1a}
+%
+%%\justify
+%%Note: ``Pre cost'' denotes the precomputation cost.
+%%This cost is already included in the first column.
+%
+%\end{table}
+
+%\begin{table}[h]
+%\centering
+%\caption{Comparison of the costs of DBL and mADD for $\G{2} \times \G{1}$ with different curve models and embedding degrees}
+%
+%\begin{tabular}{| l | l | l | l |}
+%\hline
+%\multicolumn{1}{|c|}{$k$}
+%&\multicolumn{1}{|c|}{Curve models}	&\multicolumn{1}{|c|}{DBL}	&\multicolumn{1}{|c|}{mADD}	
+%\\
+%\hline
+%\multicolumn{1}{|c|}{\multirow{2}{*}{
+%$\begin{array}{c} \text{even,} \\ 6|k \end{array}$}}
+%& $\mathcal{P},j=0$, \cite{2009/fastertate}
+%& $\frac{41}{36}\Mul + \frac{41}{36}\Sqr$
+%& $\frac{4}{3}\Mul + \frac{1}{18}\Sqr$ \\
+%& $\mathcal{H},j=0$, this paper
+%& $\frac{k}{2}\mul + \Mul + \frac{7}{6}\Sqr$
+%& $\frac{2k}{3}\mul + \frac{11}{6}\Mul$ \\
+%\hline
+%\multicolumn{1}{|c|}{\multirow{2}{*}{
+%$\begin{array}{c} \text{odd,} \\ 3|k \end{array}$}}
+%%& $\mathcal{P},j=0$, \cite{2009/fastertate}
+%%& $3k\mul + \frac{5}{3}\Mul + \frac{16}{9}\Sqr$
+%%& $3k\mul + \frac{22}{9}\Mul + \frac{5}{9}\Sqr$ \\
+%& $\mathcal{H},j=0$, this paper
+%& $\frac{4k}{3}\mul + \frac{7}{3}\Mul + \frac{14}{9}\Sqr $
+%& $\frac{4k}{3}\mul + 3\Mul + \frac{2}{9}\Sqr$ \\
+%&&& \\
+%\hline
+%\end{tabular}
+%\label{tbl-cmp2}
+
+%\justify
+%Note: ``Pre cost'' denotes the precomputation cost.
+%This cost is already included in the first column.
+
+%\end{table}
+
+
 %As explained in Section~\ref{subsec:w2h}, 
 %this conversion costs $9\Mul + 2\Sqr + 5\mul$ plus one inversion and one cube root computation.
 
-\input numer
+%\input numer
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
