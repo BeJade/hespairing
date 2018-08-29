@@ -13,11 +13,11 @@ The families that we present below are guaranteed to have points of order 3.
 In order to give fast formulas for curve arithmetic, it is desirable for the pairing-friendly curves that we consider to have \emph{twists}.
 Recall that a \emph{degree-$d$ twist} of an elliptic curve $E/\F{q}$ is an elliptic curve $E'/\F{q^e}$ that is
 isomorphic to $E$ over a degree-$d$ extension of $\F{q^e}$ but not over any smaller field.
-Recall also (e.g. \cite{2009/silverman-arithmetic}) that the only degrees of twists that occur for elliptic curves are $d \in \{2,3,4,6\}$ such that $d|k$, and that degree 3 and 6 twists occur only for elliptic curves with $j$-invariant 0.
+Recall also (e.g.,~\cite{2009/silverman-arithmetic}) that the only degrees of twists that occur for elliptic curves are $d \in \{2,3,4,6\}$ such that $d|k$, and that degree 3 and 6 twists occur only for elliptic curves with $j$-invariant 0.
 We concentrate in this article on twists of degree 3, as motivated by our aforementioned interest in embedding degrees $k = 15$ and 21.
-Twisted Hessian curves with $j$-invariant zero are of the form
+Twisted Hessian curves with $j$-invariant 0 are of the form
 \[\mathcal{H}_a: aX^3 + Y^3 + Z^3 = 0.\]
-This motivates our interest in Hessian curves in particular:
+This motivates our interest in Hessian curves in particular.
 Suppose that $a \in \F{q}$ is a non-cube such that
 for $\omega \in \F{q^3}$ with $a = \omega^3$, the element
 $\omega$ generates $\F{q^k}$ as a $\F{q^{k/3}}$-vector space.
@@ -30,7 +30,7 @@ Then $\mathcal{H}_{a}$ is a degree-3 twist of $\mathcal{H}_1$; the two curves ar
 \end{equation}
 In particular, if $R' \in \mathcal{H}_{a}(\F{q^{k/3}})$, then
 $\varphi(R') \in \G{2}$.
-Analogously to \cite{2003/bls}, we choose the $\G{2}$ input point for the pairing
+Analogously to~\cite{2003/bls}, we choose the $\G{2}$ input point for the pairing
 from $\varphi(\mathcal{H}_{a}(\F{q^{k/3}}))$.
 The simplicity of the twist isomorphism 
 allows us to do many calculations in $\F{q^{k/3}}$ instead of $\F{q^k}$,
@@ -44,8 +44,8 @@ As we want to make use of the natural twist of degree 3,
 the embedding degrees that we consider are also divisible by 3, 
 so that we are in fact considering embedding degrees divisible by 6.
 
-As mentioned above, degree 6 twists only occur for elliptic curves
-with $j$-invariant zero. 
+As mentioned above, degree-6 twists only occur for elliptic curves
+with $j$-invariant 0. 
 Let $a$ and $\omega$ be as in the previous section
 and let $\alpha \in \F{q^2}$ generate $\F{q^{k/3}}$ as a 
 $\F{q^{k/6}}$-vector space. Then
@@ -54,7 +54,7 @@ $\F{q^{k/6}}$-vector space. Then
 +\omega^2\F{q^{k/6}} + \alpha\omega^2\F{q^{k/6}}.\] 
 Define the triangular elliptic curve
 \[T/\F{q} : \alpha^2 VW(V + aW) = U^3.\]
-Then we can adapt the isomorphism of \cite[Theorem 5.3]{2015/hessian}
+Then we can adapt the isomorphism of~\cite[Theorem 5.3]{2015/hessian}
 to see that $T$ is a degree-2 twist of $\mathcal{H}_a$ via
 the isomorphism
 \begin{equation}\label{quadtwist}
@@ -159,7 +159,7 @@ So to choose a family for which the elliptic curve $E$ can be rewritten in Hessi
 Recall that $E$ is an elliptic curve defined over a finite field $\F{q}$ where $q$ is prime,
 and $r$ is the largest prime factor of $\# E(\F{q})$.
 The embedding degree $k$ is the smallest integer $k$ such that $r | q^k -1$.
-Constructions of parametric families of pairing-friendly curves give an elliptic curve $E$ with integral coeffiients and polynomials $q(x)$ and $r(x)$,
+Constructions of parametric families of pairing-friendly curves give an elliptic curve $E$ with integral coefficients and polynomials $q(x)$ and $r(x)$,
 where for each $x_0$ such that $q(x_0)$ is prime and $r(x_0)$ has a large prime factor, the reduction of $E$ mod $q(x_0)$ is a pairing-friendly curve with parameters $q = q(x_0)$ and $r = r(x_0)$.
 
 Cyclotomic families are families of curves where the underlying field $K$ is a cyclotomic field,
@@ -171,7 +171,7 @@ i.e., fields contain $\sqrt{-3}$.
 Therefore, we choose the discriminant $D = 3$.
 
 The following constructions generate pairing-friendly Weierstrass curves
-which have a (twisted) Hessian model \cite[Section 5]{2015/hessian}.
+which have a (twisted) Hessian model~\cite[Section 5]{2015/hessian}.
 Note that twists of these curves (see Section~\ref{twist}) are also expressible in twisted Hessian form.
 %We categorized these constructions by embedding degrees.
 %Constructions 1 and 2 are for embedding degree divisible by 3, but not 6;
