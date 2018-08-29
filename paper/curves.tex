@@ -15,26 +15,59 @@ Recall that a \emph{degree-$d$ twist} of an elliptic curve $E/\F{q}$ is an ellip
 isomorphic to $E$ over a degree-$d$ extension of $\F{q^e}$ but not over any smaller field.
 Recall also (e.g. \cite{2009/silverman-arithmetic}) that the only degrees of twists that occur for elliptic curves are $d \in \{2,3,4,6\}$ such that $d|k$, and that degree 3 and 6 twists occur only for elliptic curves with $j$-invariant 0.
 We concentrate in this article on twists of degree 3, as motivated by our aforementioned interest in embedding degrees $k = 15$ and 21.
-Hessian curves with $j$-invariant zero are of the form
-\[\mathcal{H}: aX^3 + Y^3 + Z^3 = 0.\]
+Twisted Hessian curves with $j$-invariant zero are of the form
+\[\mathcal{H}_a: aX^3 + Y^3 + Z^3 = 0.\]
 This motivates our interest in Hessian curves in particular:
-Let
-$$ \mathcal{H}_{\omega}: a \omega^3 X^3 + Y^3 + Z^3 = 0, $$
-where $\omega \in \F{q^k} $ generates $\F{q^k}$ as a $\F{q^{k/3}}$-vector space.
-Then $\mathcal{H}_{\omega}$ is a degree-3 twist of $\mathcal{H}$; the two curves are isomorphic via
+Suppose that $a \in \F{q}$ is a non-cube such that
+for $\omega \in \F{q^3}$ with $a = \omega^3$, the element
+$\omega$ generates $\F{q^k}$ as a $\F{q^{k/3}}$-vector space.
+Then $\mathcal{H}_{a}$ is a degree-3 twist of $\mathcal{H}_1$; the two curves are isomorphic via
 \begin{equation}\label{twistiso}
 \begin{array}{rccc}
-\varphi: & \mathcal{H}_{\omega} & \rightarrow & \mathcal{H} \\
+\varphi: & \mathcal{H}_{a} & \rightarrow & \mathcal{H}_1 \\
 & (X:Y:Z) & \mapsto & (\omega X:Y:Z).
 \end{array}
 \end{equation}
-In particular, if $R' \in \mathcal{H}_{\omega}(\F{q^{k/3}})$, then
+In particular, if $R' \in \mathcal{H}_{a}(\F{q^{k/3}})$, then
 $\varphi(R') \in \G{2}$.
 Analogously to \cite{2003/bls}, we choose the $\G{2}$ input point for the pairing
-from $\varphi(\mathcal{H}_{\omega}(\F{q^{k/3}}))$.
+from $\varphi(\mathcal{H}_{a}(\F{q^{k/3}}))$.
 The simplicity of the twist isomorphism 
 allows us to do many calculations in $\F{q^{k/3}}$ instead of $\F{q^k}$,
 as explained in detail on a case-by-case basis in Section \ref{sec:lines}.
+
+\subsection{Degree six twists of Hessian curves}\label{sextic}
+
+In this article we include, for completeness, formulas for computing pairings
+of Hessian curves with even embedding degree. 
+As we want to make use of the natural twist of degree 3, 
+the embedding degrees that we consider are also divisible by 3, 
+so that we are in fact considering embedding degrees divisible by 6.
+
+As mentioned above, degree 6 twists only occur for elliptic curves
+with $j$-invariant zero. 
+Let $a$ and $\omega$ be as in the previous section
+and let $\alpha \in \F{q^2}$ generate $\F{q^{k/3}}$ as a 
+$\F{q^{k/6}}$-vector space. Then
+\[\F{q^k} = \F{q^{k/6}} + \alpha\F{q^{k/6}} 
++\omega\F{q^{k/6}} + \alpha\omega\F{q^{k/6}}
++\omega^2\F{q^{k/6}} + \alpha\omega^2\F{q^{k/6}}.\] 
+Define the triangular elliptic curve
+\[T/\F{q} : \alpha^2 VW(V + aW) = U^3.\]
+Then we can adapt the isomorphism of \cite[Theorem 5.3]{2012/hessian}
+to see that $T$ is a degree-2 twist of $\mathcal{H}_a$ via
+the isomorphism
+\begin{equation}\label{quadtwist}
+\begin{array}{rccc}
+\psi: & T & \rightarrow & \mathcal{H}_a \\ 
+& (U:V:W) & \mapsto &
+(U:\beta(\alpha V - 54W) : \beta(-\alpha V + 54\zeta_3^2 W)),
+\end{array}
+\end{equation}
+where $\beta = \zeta_3-\zeta_3^2$ and 
+$\zeta_3 \in \F{q}$ is a primitive cube root of unity.
+In particular, the triangular elliptic curve $T$ is a degree-6 twist of $\mathcal{H}_1$ via the composition $\varphi \circ \psi$,
+where $\varphi$ is as given in \eqref{twistiso}.
 
 \subsection{Checking for points of order 3}\label{twist}
 
@@ -137,20 +170,20 @@ These constructions are based on a cyclotomic field containing a cube root of un
 i.e., fields contain $\sqrt{-3}$.
 Therefore, we choose the discriminant $D = 3$.
 
-The following constructions are for generating pairing-friendly Weierstrass curves
+The following constructions generate pairing-friendly Weierstrass curves
 which have a (twisted) Hessian model \cite[Section 5]{2015/hessian}.
 Note that twists of these curves (see Section~\ref{twist}) are also expressible in twisted Hessian form.
-We categorized these constructions by embedding degrees.
-Constructions 1 and 2 are for embedding degree divisible by 3, but not 6;
-our analysis shows that for embedding degree divisible by 6 there are 
-other choices of curve shapes that are preferable to Hessian form
-(with respect to the efficiency of the pairing implementation), 
-so these are the most relevant constructions for this paper.
-Construction 3 is for even embedding degree divisible by 6 which
-we include only for completeness.
-Note that $q(x)$ is a prime,
-$r(x)$ is the size of a subgroup of $E(\F{q(x)})$ (which may not have prime order),
-and $t(x)$ is a trace of Frobenius of $E/\F{q(x)}$.
+%We categorized these constructions by embedding degrees.
+%Constructions 1 and 2 are for embedding degree divisible by 3, but not 6;
+%our analysis shows that for embedding degree divisible by 6 there are 
+%other choices of curve shapes that are preferable to Hessian form
+%(with respect to the efficiency of the pairing implementation), 
+%so these are the most relevant constructions for this paper.
+%Construction 3 is for even embedding degree divisible by 6 which
+%we include only for completeness.
+%Note that $q(x)$ is a prime,
+%$r(x)$ is the size of a subgroup of $E(\F{q(x)})$ (which may not have prime order),
+%and $t(x)$ is a trace of Frobenius of $E/\F{q(x)}$.
 We denote the cyclotomic polynomial of degree $n$ by $\Phi_{n}(x)$ .
 
 %Recall that in Section~\ref{sec:Tate}, we defined
