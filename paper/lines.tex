@@ -39,7 +39,7 @@ $v_{P_1 + P_2}(Q)$, with $P_2 = R$ and $P_1 \in \{R,P\}$, which we can do (to so
 For curves in (twisted) Hessian form, the neutral group element is given by 
 $(0:-1:1)$,
 and negation by
-\[-(x,y) = (x/y,1/y)\]
+$-(x,y) = (x/y,1/y)$
 (in affine coordinates). 
 This means that the line $v_{P_1 + P_2}$
 passing through $P_3 = P_1 + P_2$ and $(0:-1:1)$ has a more complicated form than for many other popular curve shapes (such as
@@ -144,7 +144,6 @@ U = X_1^2; & V = S \cdot Y_{Q'}; & W = \eta \cdot U;
 \end{array}\]
 \[l_{R,R}(Q)= V+T + W\omega,\]
 where $\eta = aX_{Q'}$ and can be precomputed.
-
 We now split into cases.
 
 \paragraph*{Even embedding degrees.}
@@ -155,7 +154,7 @@ the computation of the whole Miller (doubling) function $\ell_{R,R}(Q)$.
 Furthermore, a general element of $\F{q^k}$ considered as element of the 
 $\F{q^{k/3}}$-vector space generated
 by $\omega$ will be of the form 
-\[c_1 \omega + c_2 \omega^2 + c_3 \omega^3,\]
+$c_1 \omega + c_2 \omega^2 + c_3 \omega^3,$
 but for $\ell_{2R}(Q)$ we have that $c_2 = 0$. 
 In particular, the multiplication of $\ell_{2R}(Q)$ with $f^2$ in
 Step 3 of Algorithm~\ref{algo:miller} will not be the full cost of a general multiplication in $\F{q^k}$ (that
@@ -224,7 +223,7 @@ R' = (X_1':Y_1':Z_1') = (U_1:\beta(\alpha V_1 - 54W_1) : \beta(-\alpha V_1 + 54\
 where $\beta = \zeta_3-\zeta_3^2$ and 
 $\zeta_3 \in \F{q}$ is a primitive cube root of unity.
 Here $\omega$ and $\alpha$ are as in Section~\ref{sextic}.
-In particular we have that $X_1' \in \F{q^{k/6}}$ and
+We also have $X_1' \in \F{q^{k/6}}$ and
 $Y_1',Z_1' \in \F{q^{k/3}}$.
 
 This gives us a small saving in the point doubling calculation.
@@ -236,7 +235,10 @@ but a multiplication of a $\F{q^{k/6}}$-element $X_1'$ with a
 $\F{q^{k/3}}$-element $(A-B)$,
 costing $2\left(\frac{k}{6}\right)^2\mul = \frac{1}{18}\Mul$
 using schoolbook multiplication instead of $\frac{1}{9}\Mul$.
-So we save $\frac{1}{18}\Mul$ on the point doubling for even embedding degrees, giving an operation count of $\frac{1}{2}\Mul + \frac{2}{9}\Sqr$.
+So we save $\frac{1}{18}\Mul$ on the point doubling for even embedding degrees
+%, giving an operation count of 
+resulted in
+$\frac{1}{2}\Mul + \frac{2}{9}\Sqr$.
 
 As shown in Section \ref{denelim}, the Miller doubling function $\ell_{R,R}(Q)$ is just given by the line function $l_{R,R}(Q)$ in this case, the computation of which we now address.
 As above we have that $R = (X_1:Y_1:Z_1) = (X_1'\omega:Y_1':Z_1')$ 
