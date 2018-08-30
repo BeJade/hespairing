@@ -6,12 +6,13 @@ we only discuss results for embedding degrees that are divisible by 3.
 To our knowledge, most of the previous work
 on the optimization of operation counts for one iteration of Miller's loop
 concentrated on pairings for $\G{1} \times \G{2}$. 
-Of course to properly compare different results, we also need to take
+%Of course
+To properly compare different results, we need to take
 into account the number of iterations of Miller's loop, which differs
 greatly between $\G{1} \times \G{2}$ and $\G{2} \times \G{1}$.
 
 For pairings on $\G{1} \times \G{2}$, the lowest number of iterations occurs for the twisted ate pairing when twists are available, or the reduced Tate pairing when twists are not available.
-In this paper we are explicitly addressing the first case, so the twisted ate pairing gives the minimal number of iterations. 
+In this paper, we explicitly address the first case, so the twisted ate pairing gives the minimal number of iterations. 
 Let $t$ be the trace of Frobenius, let $T = t-1$, and let $d$ be the degree of the twist. The number of iterations of Miller's loop for the twisted ate pairing is given by $\log(T_e)$, where
 $T_e \equiv T^e \pmod{r}$ and $1 < e | d$. 
 Also $T$ is a $d$-th root of unity in $\F{r}$, so when $d = 6$ the smallest value of
