@@ -24,8 +24,8 @@
 
 \usepackage{amsfonts}
 \usepackage{amssymb}
-%\usepackage{amsmath}
-\usepackage{amsthm}
+\usepackage{amsmath}
+%\usepackage{amsthm}
 \usepackage{multirow}
 \usepackage{graphicx}
 \usepackage{algorithm}
@@ -44,29 +44,33 @@
 \title{Pairing-Friendly Twisted Hessian Curves}
 
 
-\ifpublic
-\author{
-Chitchanok Chuengsatiansup\inst{1}
-\and
-Chloe Martindale\inst{2}
-}
-\authorrunning{Chuengsatiansup, Martindale}
+%\ifpublic
+%\author{
+%Chitchanok Chuengsatiansup\inst{1}
+%\and
+%Chloe Martindale\inst{2}
+%}
+%\authorrunning{Chuengsatiansup, Martindale}
+%
+%\institute{
+%INRIA and ENS de Lyon\\
+%46 All\'{e}e d'Italie 69364 Lyon Cedex 07, France \\
+%\email{chitchanok.chuengsatiansup@ens-lyon.fr}
+%\and
+%Department of Mathematics and Computer Science\\
+%Technische Universiteit Eindhoven\\
+%P.O. Box 513, 5600 MB Eindhoven, The Netherlands\\
+%\email{c.r.martindale@tue.nl}
+%}
+%\fi
 
-\institute{
-INRIA and ENS de Lyon\\
-46 All\'{e}e d'Italie 69364 Lyon Cedex 07, France \\
-\email{chitchanok.chuengsatiansup@ens-lyon.fr}
-\and
-Department of Mathematics and Computer Science\\
-Technische Universiteit Eindhoven\\
-P.O. Box 513, 5600 MB Eindhoven, The Netherlands\\
-\email{c.r.martindale@tue.nl}
-}
-\fi
-
+\author{}
+\institute{}
 
 \date{}
 \maketitle
+
+\vspace{-1cm}
 \begin{abstract}
 This paper presents efficient formulas to compute Miller doubling and Miller addition utilizing degree-3 twists on curves with $j$-invariant 0 written in Hessian form. 
 We give the formulas for both odd and even embedding degrees and for pairings on both $\mathbb{G}_1 \times \mathbb{G}_2$ and $\mathbb{G}_{2} \times \mathbb{G}_{1}$.
@@ -110,7 +114,10 @@ CHIST-ERA USEIT (NWO project 651.002.004).
 \input comparison
 
 %\input discussion
+
+\ifpublic
 \input conclusions
+\fi
 
 
 \bibliographystyle{plain}
