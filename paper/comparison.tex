@@ -3,7 +3,6 @@
 
 As this paper primarily concerns cubic twists, 
 we only discuss results for embedding degrees that are divisible by 3.
-
 To our knowledge, most of the previous work
 on the optimization of operation counts for one iteration of Miller's loop
 concentrated on pairings for $\G{1} \times \G{2}$. 
@@ -12,21 +11,21 @@ into account the number of iterations of Miller's loop, which differs
 greatly between $\G{1} \times \G{2}$ and $\G{2} \times \G{1}$.
 
 For pairings on $\G{1} \times \G{2}$, the lowest number of iterations occurs for the twisted ate pairing when twists are available, or the reduced Tate pairing when twists are not available.
-In this paper we are explictly addressing the first case, so the twisted ate pairing gives the minimal number of iterations. 
+In this paper we are explicitly addressing the first case, so the twisted ate pairing gives the minimal number of iterations. 
 Let $t$ be the trace of Frobenius, let $T = t-1$, and let $d$ be the degree of the twist. The number of iterations of Miller's loop for the twisted ate pairing is given by $\log(T_e)$, where
 $T_e \equiv T^e \pmod{r}$ and $1 < e | d$. 
-Also $T$ is a $d^{\text{th}}$-root of unity in $\F{r}$, so when $d = 6$ the smallest value of
+Also $T$ is a $d$-th root of unity in $\F{r}$, so when $d = 6$ the smallest value of
 $\log(T_e)$ is $\log(T_2) \approx \log(r)/3$, and when $d = 3$ the smallest value of $\log(T_e)$ is
-$\log(T_3) \approx \log(r)$. For more details on the twisted ate pairing see \cite{2006/hess}.
+$\log(T_3) \approx \log(r)$. For more details on the twisted ate pairing see~\cite{2006/hess}.
 
-For pairings on $\G{2} \times \G{1}$, the lowest number of iterations occurs for the optimal ate pairing. The best-case-scenario (which can in principle occur for any embedding degree) is $\log(r)/\varphi(k)$ iterations of Miller's loop, where $\varphi$ is the Euler $\varphi$-function. This scenario takes $x$ as the input for the Miller's algorithm (e.g. in place of $r = r(x)$ as in Tate). For more details on the optimal ate pairing see \cite{2010/vercauteren}. 
+For pairings on $\G{2} \times \G{1}$, the lowest number of iterations occurs for the optimal ate pairing. The best-case-scenario (which can in principle occur for any embedding degrees) is $\log(r)/\varphi(k)$ iterations of Miller's loop, where $\varphi$ is the Euler $\varphi$-function. This scenario takes $x$ as the input for the Miller's algorithm (e.g. in place of $r = r(x)$ as in Tate). For more details on the optimal ate pairing see~\cite{2010/vercauteren}. 
 
 We compared previous results in this area for 
-Weierstrass curves with Jacobian coordinates \cite{2008/IonicaJoux08} \cite{2009/fastertate},
-Weierstrass curves with projective coordinates \cite{2009/craig},
-Edwards curves \cite{2009/fastertate},
-Edwards curves with sextic twists \cite{2014/LWZ},
-and Hessian curves with quadratic twists \cite{2010/Gu}.
+Weierstrass curves with Jacobian coordinates~\cite{2008/IonicaJoux08}~\cite{2009/fastertate},
+Weierstrass curves with projective coordinates~\cite{2009/craig},
+Edwards curves~\cite{2009/fastertate},
+Edwards curves with sextic twists~\cite{2014/LWZ},
+and Hessian curves with quadratic twists~\cite{2010/Gu}.
 Most of these papers considered only pairings on $\G{1} \times \G{2}$ 
 (many of them were written before Vercauteren's paper on optimal pairings)
 and only even embedding degree (to avoid dealing with denominators).
@@ -34,11 +33,11 @@ and only even embedding degree (to avoid dealing with denominators).
 \subsection{Comparing results for $\G{2} \times \G{1}$}
 
 The only other paper containing operation counts for pairings on $\G{2} \times \G{1}$
-and embedding degree divisible by 3, to our knowledge, is \cite{2009/craig}, which considers projective Weierstrass coordinates.
-In this paper they look at even embedding degrees, so we only compare our results
+and embedding degree divisible by 3, to our knowledge, is~\cite{2009/craig}, which considers projective Weierstrass coordinates.
+In that paper they look at even embedding degrees, so we only compare our results
 for the optimal ate pairing when $k=12$ and 24 (c.f. Construction 3).
 Assume for simplicity that $\sqr \approx 0.8\mul$.
-The formulas presented in \cite{2009/craig} give an operation count of
+The formulas presented in~\cite{2009/craig} give an operation count of
 $$\frac{41}{36}\Mul + \frac{41}{36}\Sqr \approx
 \left\{ \begin{array}{cc}
 295.2\mul & k=12 \\
@@ -71,32 +70,32 @@ As the formulas for Hessian form are faster for doubling but slower for adding (
 Suppose that we wish to compute the optimal ate pairing and that we have 
 an example for which the input for Miller's algorithm is $x$. 
 The pairing can then be computed in $\log(x) = \log(r)/\varphi(k)$
-iterations of Miller's loop - this amounts to $O(\log(x))$ Miller doubling steps,
-$O(\text{hw}(x))$ Miller addition steps, where $\text{hw}(x)$ denotes the Hamming weight of $x$, and the final exponentiation.
+iterations of Miller's loop -- this amounts to $O(\log(x))$ Miller doubling steps,
+$O(\mathsf{Ham}(x))$ Miller addition steps, where $\mathsf{Ham}(x)$ denotes the Hamming weight of $x$, and the final exponentiation.
 
 When $k=12$, the formulas presented in this paper compute the pairing in
-$$\approx 284.4 O(\log(x)) + 272 O(\text{hw}(x))$$
+$$\approx 284.4 \cdot O(\log(x)) + 272 \cdot O(\mathsf{Ham}(x))$$
 multiplications in $\F{q}$ and an exponentiation,
-and the formulas presented in \cite{2009/craig} compute the pairing in
-$$\approx 295.2 O(\log(x)) + 198.4 O(\text{hw}(x))$$
+and the formulas presented in~\cite{2009/craig} compute the pairing in
+$$\approx 295.2 \cdot O(\log(x)) + 198.4 \cdot O(\mathsf{Ham}(x))$$
 multiplications in $\F{q}$ and an exponentiation.
-That is, the formulas using Hessian curves outperform the projective Weierstrass curves for $x$-values such that $\log(x) > 6\text{hw}(x)$.
-This is a condition that is not hard to meet (and is desirable for either implementation) so we assume that it is satisfied in Table \ref{tbl-cmp1}.
+That is, the formulas using Hessian curves outperform the projective Weierstrass curves for $x$-value such that $\log(x) > 6 \cdot \mathsf{Ham}(x)$.
+This is a condition that is not hard to achieve (and is desirable for either implementation) so we assume that it is satisfied for the comparison in Table \ref{tbl-cmp1}.
 
 When $k = 24$, the formulas presented in this paper compute the pairing in
-$$\approx 1125.6 O(\log(x)) + 1072 O(\text{hw}(x))$$
+$$\approx 1125.6 \cdot O(\log(x)) + 1072 \cdot O(\mathsf{Ham}(x))$$
 multiplications in $\F{q}$ and an exponentiation,
-and the formulas presented in \cite{2009/craig} compute the pairing in
-$$\approx 1180.8 O(\log(x)) + 793.6 O(\text{hw}(x))$$
+and the formulas presented in~\cite{2009/craig} compute the pairing in
+$$\approx 1180.8 \cdot O(\log(x)) + 793.6 \cdot O(\mathsf{Ham}(x))$$
 multiplications in $\F{q}$ and an exponentiation.
-That is, the formulas using Hessian curves outperform the projective Weierstrass curves for $x$-values such that $\log(x) > 5.1\text{hw}(x)$.
-This is a condition that is not hard to meet (and is desirable for either implementation) so we assume that it is satisfied in Table \ref{tbl-cmp1}.
+That is, the formulas using Hessian curves outperform the projective Weierstrass curves for $x$-value such that $\log(x) > 5.1 \cdot \mathsf{Ham}(x)$.
+Again, this condition is not hard to achieve (and is desirable for either implementation) so we assume that it is satisfied for the comparison in Table \ref{tbl-cmp1}.
 
 \subsection{Comparing results for $\G{1} \times \G{2}$}
 
-Comparing the aforementioned papers and our own results, we see that
+To compare the aforementioned papers and our results, we see that
 the fastest curve model for embedding degree divisible by 6 together with a $\G{1} \times \G{2}$ pairing
-is the Edwards form with sextic twists \cite{2014/LWZ}
+is the Edwards form with sextic twists~\cite{2014/LWZ}
 at
 $$\left(\frac{4k}{3}+ 4\right)\mul + 7\sqr  + \frac{1}{3}\Mul + \Sqr$$
 for one Miller doubling step and
@@ -104,7 +103,7 @@ $$\left(\frac{4k}{3} + 12\right)\mul  + \frac{1}{3}\Mul$$
 for one Miller addition step.
 
 The fastest curve model for odd embedding degree divisible by 3 together with a $\G{1} \times \G{2}$ pairing, including the formulas presented in this paper,
-is the projective Weierstrass form \cite{2009/craig}
+is the projective Weierstrass form~\cite{2009/craig}
 at
 $$(k+6)\mul + 7\sqr + 1\Mul + 1\Sqr$$
 for one Miller doubling step and
@@ -117,9 +116,9 @@ In the following table we compare the operation counts from the most efficient
 curve shape for each subcase
 (optimal ate vs. twisted ate and even vs. odd)
 in what we hope is a meaningful way:
-we give the the number of $\F{q}$-multiplications per Miller doubling/Miller addition multiplied by 
+we give the number of $\F{q}$-multiplications per Miller doubling/Miller addition multiplied by 
 $\frac{1}{\log(r)} \times $ the number of iterations. We call these numbers DBLc 
-(for double compare) and ADDc (for addition compare).
+(for doubling compare) and ADDc (for addition compare).
 We assume here that $\sqr = 0.8\mul$ for simplicity.
 
 \begin{table}[h]
@@ -136,22 +135,22 @@ We assume here that $\sqr = 0.8\mul$ for simplicity.
 &\multicolumn{1}{|c|}{ADDc}	
 \\
 \hline
-12 & twisted ate & Edwards \cite{2014/LWZ} & $\log(r)/3$ &
+12 & twisted ate & Edwards~\cite{2014/LWZ} & $\log(r)/3$ &
 62.9 & 25.3 \\
 12 & optimal ate & Hessian (this paper) & $\log(r)/4$ &
 71.1 & 68 \\
 \hline
-15 & twisted ate & Projective \cite{2009/craig} & $\log(r)$ &
+15 & twisted ate & Projective~\cite{2009/craig} & $\log(r)$ &
 431.6 & 255.4 \\
 15 & optimal ate & Hessian (this paper) & $\log(r)/8$ &
 103.1 & 120 \\
 \hline
-21 & twisted ate & Projective \cite{2009/craig} & $\log(r)$ &
+21 & twisted ate & Projective~\cite{2009/craig} & $\log(r)$ &
 826.4 & 477.4 \\
 21 & optimal ate & Hessian (this paper) & $\log(r)/12$ &
 133.8 & 155.9 \\
 \hline
-24 & twisted ate & Edwards \cite{2014/LWZ} & $\log(r)/3$ &
+24 & twisted ate & Edwards~\cite{2014/LWZ} & $\log(r)/3$ &
 231.5 & 78.7 \\
 24 & optimal ate & Hessian (this paper) & $\log(r)/8$ &
 140.7 & 134 \\ \hline
@@ -177,21 +176,21 @@ We assume here that $\sqr = 0.8\mul$ for simplicity.
 \label{tbl-cmp1}
 \end{table}
 
-For embedding degree 12 \cite{2014/LWZ} is clearly the most efficient.
-For embedding degrees 15 and 21 our results are clearly the most efficient.
-For embedding degree 24 doubling is more efficient in Hessian form with optimal ate
+For embedding degree 12,~\cite{2014/LWZ} is clearly the most efficient.
+For embedding degrees 15 and 21, our results are clearly the most efficient.
+For embedding degree 24, doubling is more efficient in Hessian form with optimal ate
 while addition is more efficient in Edwards form with twisted ate. 
 We could assess this trade-off in a similar way to the trade-off that was required to compare results for even embedding degrees for optimal ate pairings; 
-our results will outperform those of \cite{2014/LWZ} when the Hamming weight of 
+our results will outperform those of~\cite{2014/LWZ} when the Hamming weight of 
 $x$ is sufficiently low compared to $\log(x)$.
 
 Not included in Tables~\ref{tbl-cmp1} are the 
 precomputation costs (which are relatively low for our constructions) and the final exponentiation costs (which are roughly uniform across all curve shapes).
 %and group operations on twisted Hessian curves allow faster point arithmetic operations than Weierstrass curves. -- this *is* accounted for in the table!
-A significant part of the precomputation cost for many models in the conversion
+A significant part of the precomputation cost for many models is the conversion
 between curve models, which is not necessary for our constructions.
 (Recall that for BN, BLS, and KSS, this conversion is always necessary if one wants to take advantage of
-the fast point-arithmetic on Hessian or Edwards curves, as proven in~\cite{2013/bos-pairing}.)
+the fast point arithmetic on Hessian or Edwards curves, as proven in~\cite{2013/bos-pairing}.)
 
 %\begin{table}[h]
 %\centering
