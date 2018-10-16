@@ -94,7 +94,7 @@ Again, this condition is not hard to achieve (and is desirable for either implem
 
 \subsection{Comparing results for $\G{1} \times \G{2}$}
 
-To compare the aforementioned papers and our results, we see that
+Comparing the aforementioned papers \cite{2008/IonicaJoux08}, \cite{2009/fastertate}, \cite{2009/craig}, \cite{2014/LWZ}, \cite{2010/Gu}, and our own results, we see that
 the fastest curve model for embedding degree divisible by 6 together with a $\G{1} \times \G{2}$ pairing
 is the Edwards form with sextic twists~\cite{2014/LWZ}
 at
@@ -113,7 +113,7 @@ for one Miller addition step.
 
 \subsection{Comparing $\G{1} \times \G{2}$ and $\G{2} \times \G{1}$}
 
-In the following table we compare the operation counts from the most efficient 
+In the following table we compare the operation counts from the \emph{most efficient} 
 curve shape for each subcase
 (optimal ate vs. twisted ate and even vs. odd)
 in what we hope is a meaningful way:
@@ -121,6 +121,7 @@ we give the number of $\F{q}$-multiplications per Miller doubling/Miller additio
 $\frac{1}{\log(r)} \times $ the number of iterations. We call these numbers DBLc 
 (for doubling compare) and ADDc (for addition compare).
 We assume here that $\sqr = 0.8\mul$ for simplicity.
+Recall that the most efficient option for each subcase was given in the previous subsections.
 
 \begin{table}[h]
 \centering
@@ -185,13 +186,20 @@ We could assess this trade-off in a similar way to the trade-off that was requir
 our results will outperform those of~\cite{2014/LWZ} when the Hamming weight of 
 $x$ is sufficiently low compared to $\log(x)$.
 
-Not included in Tables~\ref{tbl-cmp1} are the 
+Not included in Table~\ref{tbl-cmp1} are the 
 precomputation costs (which are relatively low for our constructions) and the final exponentiation costs (which are roughly uniform across all curve shapes).
 %and group operations on twisted Hessian curves allow faster point arithmetic operations than Weierstrass curves. -- this *is* accounted for in the table!
 A significant part of the precomputation cost for many models is the conversion
 between curve models, which is not necessary for our constructions.
 (Recall that for BN, BLS, and KSS, this conversion is always necessary if one wants to take advantage of
 the fast point arithmetic on Hessian or Edwards curves, as proven in~\cite{2013/bos-pairing}.)
+
+\begin{remark}
+Also not included in table~\ref{tbl-cmp1}, or indeed in this paper, is a meaningful comparison between different embedding degrees. 
+Such a comparison should take account the required base field and extension field size for each case, 
+and timing comparisons the most efficient field arithmetic for both the base field and the extension field in each case. 
+This is unfortunately beyond the scope of this paper so we leave this for future work.
+\end{remark}
 
 %\begin{table}[h]
 %\centering
