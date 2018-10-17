@@ -17,7 +17,7 @@ Recall also (e.g.,~\cite{2009/silverman-arithmetic}) that the only degrees of tw
 We concentrate in this article on twists of degree 3, as motivated by our aforementioned interest in embedding degrees $k = 15$ and 21.
 Twisted Hessian curves with $j$-invariant 0 are of the form
 \[\mathcal{H}_a: aX^3 + Y^3 + Z^3 = 0.\]
-This motivates our interest in Hessian curves in particular.
+%This motivates our interest in Hessian curves in particular.
 Suppose that $a \in \F{q}$ is a non-cube such that
 for $\omega \in \F{q^3}$ with $a = \omega^3$, the element
 $\omega$ generates $\F{q^k}$ as a $\F{q^{k/3}}$-vector space.
@@ -67,7 +67,7 @@ the isomorphism
 where $\beta = \zeta_3-\zeta_3^2$ and 
 $\zeta_3 \in \F{q}$ is a primitive cube root of unity.
 In particular, the triangular elliptic curve $T$ is a degree-6 twist of $\mathcal{H}_1$ via the composition $\varphi \circ \psi$,
-where $\varphi$ is as given in \eqref{twistiso}.
+where $\varphi$ is as given in Equation~\ref{twistiso}.
 
 \subsection{Checking for points of order 3}\label{twist}
 
@@ -75,7 +75,7 @@ Let $E/\F{q}$ be an elliptic curve. There is a Hessian model of $E$ if and only 
 To apply the formulas in the following sections we require both $E$ and the 
 degree-3 twist of $E$ that we consider to have order 3.
 Recall that
-$$\#E(\F{q}) = q+1-t,$$
+$\#E(\F{q}) = q+1-t,$
 where $t$ is the trace of Frobenius; 
 by~\cite{2006/hess} the two non-trivial degree-3 twists $E'$ satisfy:
 \begin{align*}
@@ -163,7 +163,7 @@ Constructions of parametric families of pairing-friendly curves give an elliptic
 where for each $x_0$ such that $q(x_0)$ is prime and $r(x_0)$ has a large prime factor, the reduction of $E$ mod $q(x_0)$ is a pairing-friendly curve with parameters $q = q(x_0)$ and $r = r(x_0)$.
 
 Cyclotomic families are families of curves where the underlying field $K$ is a cyclotomic field,
-the size $r$ of the largest prime-order subgroup of the group of $\F{q}$-points is a cyclotomic polynomial,
+the size $r$ of the largest prime-order subgroup of the group of $\F{q}$-point is a cyclotomic polynomial,
 and the field $K$ contains $\sqrt{-D}$ for some small discriminant $D$.
 We searched through~\cite{2010/freeman} and found three cyclotomic-family constructions that satisfy the conditions outlined in the previous section.
 These constructions are based on a cyclotomic field containing a cube root of unity,
@@ -187,7 +187,7 @@ Note that twists of these curves (see Section~\ref{twist}) are also expressible 
 We denote the cyclotomic polynomial of degree $n$ by $\Phi_{n}(x)$ .
 
 Recall the L-notation:
-\[L_N[\ell,c] = \exp [ (c + o(1))(\ln N)^{\ell}(\ln\ln N)^{1-\ell}.\]
+$L_N[\ell,c] = \exp [ (c + o(1))(\ln N)^{\ell}(\ln\ln N)^{1-\ell}.$
 The best complexity for NFS attacks up until recently was $L_{p^k}[1/3, 1.923]$, 
 but now due to work of \cite{2016/KB} the best complexity for composite $k$ is reduced to
 $L_{p^k}[1/3, 1.526]$.
