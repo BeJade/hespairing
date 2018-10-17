@@ -68,29 +68,31 @@ $$\frac{2k}{3}\mul + \frac{16}{9}\Mul \approx
 for one Miller addition step.
 As the formulas for Hessian form are faster for doubling but slower for adding (with respect to projective Weierstrass form), there is a trade-off to assess.
 
-Suppose that we wish to compute the optimal ate pairing and that we have 
-an example for which the input for Miller's algorithm is $x$. 
-The pairing can then be computed in $\log(x) = \log(r)/\varphi(k)$
-iterations of Miller's loop --- this amounts to $O(\log(x))$ Miller doubling steps,
-$O(\mathsf{Ham}(x))$ Miller addition steps, where $\mathsf{Ham}(x)$ denotes the Hamming weight of $x$, and the final exponentiation.
+%Suppose that we wish to compute the optimal ate pairing and that we have 
+%an example for which the input for Miller's algorithm is $x$. 
+%The pairing can then be computed in $\log(x) = \log(r)/\varphi(k)$
+%iterations of Miller's loop --- this amounts to $O(\log(x))$ Miller doubling steps,
+%$O(\mathsf{Ham}(x))$ Miller addition steps, where $\mathsf{Ham}(x)$ denotes the Hamming weight of $x$, and the final exponentiation.
+%
+%When $k=12$, the formulas presented in~\cite{2009/craig} compute the pairing in
+%$$\approx 295.2 \cdot O(\log(x)) + 198.4 \cdot O(\mathsf{Ham}(x))$$
+%multiplications in $\F{q}$ and an exponentiation,
+%and the formulas presented in this paper compute the pairing in
+%$$\approx 294.0 \cdot O(\log(x)) + 264.0 \cdot O(\mathsf{Ham}(x))$$
+%multiplications in $\F{q}$ and an exponentiation.
+%%That is, the formulas using Hessian curves outperform the projective Weierstrass curves for $x$-value such that $\log(x) > 54.67 \cdot \mathsf{Ham}(x)$.
+%%This is a condition that is not hard to achieve (and is desirable for either implementation) so we assume that it is satisfied for the comparison in Table \ref{tbl-cmp1}.
+%
+%When $k = 24$, the formulas presented in~\cite{2009/craig} compute the pairing in
+%$$\approx 1180.8 \cdot O(\log(x)) + 793.6 \cdot O(\mathsf{Ham}(x))$$
+%multiplications in $\F{q}$ and an exponentiation,
+%and the formulas presented in this paper compute the pairing in
+%$$\approx 1164.0 \cdot O(\log(x)) + 1040.0 \cdot O(\mathsf{Ham}(x))$$
+%multiplications in $\F{q}$ and an exponentiation.
+%%That is, the formulas using Hessian curves outperform the projective Weierstrass curves for $x$-value such that $\log(x) > 14.67 \cdot \mathsf{Ham}(x)$.
+%%Again, this condition is not hard to achieve (and is desirable for either implementation) so we assume that it is satisfied for the comparison in Table \ref{tbl-cmp1}.
 
-When $k=12$, the formulas presented in~\cite{2009/craig} compute the pairing in
-$$\approx 295.2 \cdot O(\log(x)) + 198.4 \cdot O(\mathsf{Ham}(x))$$
-multiplications in $\F{q}$ and an exponentiation,
-and the formulas presented in this paper compute the pairing in
-$$\approx 294.0 \cdot O(\log(x)) + 264.0 \cdot O(\mathsf{Ham}(x))$$
-multiplications in $\F{q}$ and an exponentiation.
-%That is, the formulas using Hessian curves outperform the projective Weierstrass curves for $x$-value such that $\log(x) > 54.67 \cdot \mathsf{Ham}(x)$.
-%This is a condition that is not hard to achieve (and is desirable for either implementation) so we assume that it is satisfied for the comparison in Table \ref{tbl-cmp1}.
 
-When $k = 24$, the formulas presented in~\cite{2009/craig} compute the pairing in
-$$\approx 1180.8 \cdot O(\log(x)) + 793.6 \cdot O(\mathsf{Ham}(x))$$
-multiplications in $\F{q}$ and an exponentiation,
-and the formulas presented in this paper compute the pairing in
-$$\approx 1164.0 \cdot O(\log(x)) + 1040.0 \cdot O(\mathsf{Ham}(x))$$
-multiplications in $\F{q}$ and an exponentiation.
-%That is, the formulas using Hessian curves outperform the projective Weierstrass curves for $x$-value such that $\log(x) > 14.67 \cdot \mathsf{Ham}(x)$.
-%Again, this condition is not hard to achieve (and is desirable for either implementation) so we assume that it is satisfied for the comparison in Table \ref{tbl-cmp1}.
 
 %\subsection{Comparing results for $\G{1} \times \G{2}$}
 %
@@ -110,6 +112,8 @@ multiplications in $\F{q}$ and an exponentiation.
 %for one Miller doubling step and
 %$$(k+13)\mul + 3\sqr + 1\Mul$$
 %for one Miller addition step.
+
+
 
 \subsection{Comparing $\G{1} \times \G{2}$ and $\G{2} \times \G{1}$}
 

@@ -186,16 +186,21 @@ Note that twists of these curves (see Section~\ref{twist}) are also expressible 
 %and $t(x)$ is a trace of Frobenius of $E/\F{q(x)}$.
 We denote the cyclotomic polynomial of degree $n$ by $\Phi_{n}(x)$ .
 
-Recall the L-notation:
-$L_N[\ell,c] = \exp [ (c + o(1))(\ln N)^{\ell}(\ln\ln N)^{1-\ell}.$
-The best complexity for NFS attacks up until recently was $L_{p^k}[1/3, 1.923]$, 
-but now due to work of \cite{2016/KB} the best complexity for composite $k$ is reduced to
-$L_{p^k}[1/3, 1.526]$.
-In particular, with the earlier figure, a 256-bit prime $p$ together with embedding degree $k=12$ gave a security complexity of 139 bits, but that has now been brought down to 110 bits.
-To compensate, a pairing implementation using embedding degree 12 aiming for 128-bit security would have to increase the size of the base field to about 364 bits. We propose increasing the embedding degree instead to $k=15$, for which the base field does not have to increased so dramatically; see details below.
 
-Similarly, with the earlier figure, a 384-bit prime $p$ together with embedding degree $k=18$
-gave a security complexity of 194 bits, but that has now been brought down to 154 bits. To compensate, a pairing implementation using embedding degree 18 aiming for 192-bit security would have to increase the size of the base field to about 653 bits. We propose increasing the embedding degree instead to $k=21$ or $k=24$, for which the base field does not have to be increased so dramatically; see details below.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Recall the L-notation:
+%$L_N[\ell,c] = \exp [ (c + o(1))(\ln N)^{\ell}(\ln\ln N)^{1-\ell}.$
+%The best complexity for NFS attacks up until recently was $L_{q^k}[1/3, 1.923]$, 
+%but now due to work of \cite{2016/KB} the best complexity for composite $k$ is reduced to
+%$L_{q^k}[1/3, 1.526]$.
+%In particular, with the earlier figure, a 256-bit prime $q$ together with embedding degree $k=12$ gave a security complexity of 139 bits, but that has now been brought down to 110 bits.
+%To compensate, a pairing implementation using embedding degree 12 aiming for 128-bit security would have to increase the size of the base field to about 364 bits.
+%We propose increasing the embedding degree instead to $k=15$, for which the base field does not have to increased so dramatically; see details below.
+%
+%Similarly, with the earlier figure, a 384-bit prime $q$ together with embedding degree $k=18$ gave a security complexity of 194 bits, but that has now been brought down to 154 bits.
+%To compensate, a pairing implementation using embedding degree 18 aiming for 192-bit security would have to increase the size of the base field to about 653 bits.
+%We propose increasing the embedding degree instead to $k=21$ or $k=24$, for which the base field does not have to be increased so dramatically; see details below.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -220,15 +225,15 @@ This implies in particular that the curves are defined by an equation of the for
 The only possible twists are cubic ($d=3$) twists.
 The $\rho$-value of this family is $\rho = (2k/3 + 2)/\varphi(k)$ where $\varphi$ is the Euler $\varphi$-function.
 For $k = 21$ this gives $\rho = 4/3$.
-Suppose that we desire 192-bit security: embedding degree 21 as an `update' to the previous favourite of embedding degree 18. 
-The Pollard-$\rho$ attack has complexity $\sqrt{r}$, so the minimum value of $r$ available is
-$\log(r) \approx 384$. Then
-$\log(p) \approx 384\rho \approx 512$, and 
-$\log(L_{p^{21}}[1/3, 1.526]) \approx 185$,
-so this gives 185-bit security, and the base field $\F{p}$ is 512 bits. 
-To get 192-bit security we have to inrease $r$ to 420 bits, 
-for which we get $\log(p) \approx 560 $ and
-$k\log (p) \approx 11760$.
+%Suppose that we desire 192-bit security: embedding degree 21 as an `update' to the previous favourite of embedding degree 18. 
+%The Pollard-$\rho$ attack has complexity $\sqrt{r}$, so the minimum value of $r$ available is
+%$\log(r) \approx 384$. Then
+%$\log(q) \approx 384\rho \approx 512$, and 
+%$\log(L_{q^{21}}[1/3, 1.526]) \approx 185$,
+%so this gives 185-bit security, and the base field $\F{q}$ is 512 bits. 
+%To get 192-bit security we have to inrease $r$ to 420 bits, 
+%for which we get $\log(q) \approx 560 $ and
+%$k\log (q) \approx 11760$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -245,12 +250,12 @@ q(x) &= \frac{1}{3} (x+1)^2 (x^{2k/3} - x^{k/3} + 1) - x^{2k/3+1}.
 \end{align*}
 This satisfies all the same properties as Construction 1.
 For $k=15$ the $\rho$-value is $\rho=3/2$.
-Suppose that we desire 128-bit security: embedding degree 15 as an `update' to the previous favourite of embedding degree 12.
-The Pollard-$\rho$ attack has complexity $\sqrt{r}$, so the minium value of $r$ available is
-$\log(r) \approx 256$. Then
-$\log(p) \approx 384$, and
-$\log(L_{p^{15}}[1/3, 1.526]) \approx 143$,
-so this gives 143-bit security.
+%Suppose that we desire 128-bit security: embedding degree 15 as an `update' to the previous favourite of embedding degree 12.
+%The Pollard-$\rho$ attack has complexity $\sqrt{r}$, so the minium value of $r$ available is
+%$\log(r) \approx 256$. Then
+%$\log(q) \approx 384$, and
+%$\log(L_{q^{15}}[1/3, 1.526]) \approx 143$,
+%so this gives 143-bit security.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -273,13 +278,13 @@ The $\rho$-value for this construction is given by $\rho = (k/3+2)/\varphi(k)$
 where $\varphi$ is the Euler $\varphi$-function.
 For $k=12$ this gives $\rho = 3/2$ and for $k=24$ this gives $\rho = 5/4$.
 Suppose that we desire 192-bit security with embedding degree $k=24$.
-Due to Pollard-rho, the minimum value of $\log(r)$ is $2\cdot 192 = 384$, 
-which gives $\log(p) = \log(r) \cdot \rho = 480$,
-and
-$\log(L_{p^{24}}[1/3, 1.526]) \approx 190$,
-so this gives 190-bit security.
-To get 192-bit security we need to increase $\log(r)$ to 392 bits, for which
-$\log(p) \approx 490$ and $k\log(p) \approx 11760$.
+%Due to Pollard-rho, the minimum value of $\log(r)$ is $2\cdot 192 = 384$, 
+%which gives $\log(q) = \log(r) \cdot \rho = 480$,
+%and
+%$\log(L_{q^{24}}[1/3, 1.526]) \approx 190$,
+%so this gives 190-bit security.
+%To get 192-bit security we need to increase $\log(r)$ to 392 bits, for which
+%$\log(q) \approx 490$ and $k\log(q) \approx 11760$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
