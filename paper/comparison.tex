@@ -19,7 +19,7 @@ Also $T$ is a $d$-th root of unity in $\F{r}$, so when $d = 6$ the smallest valu
 $\log(T_e)$ is $\log(T_2) \approx \log(r)/3$, and when $d = 3$ the smallest value of $\log(T_e)$ is
 $\log(T_3) \approx \log(r)$. For more details on the twisted ate pairing see~\cite{2006/hess}.
 
-For pairings on $\G{2} \times \G{1}$, the lowest number of iterations occurs for the optimal ate pairing. The best-case-scenario (which can in principle occur for any embedding degrees) is $\log(r)/\varphi(k)$ iterations of Miller's loop, where $\varphi$ is the Euler $\varphi$-function. This scenario takes $x$ as the input for the Miller's algorithm (e.g., in place of $r = r(x)$ as in Tate). For more details on the optimal ate pairing see~\cite{2010/vercauteren}. 
+For pairings on $\G{2} \times \G{1}$, the lowest number of iterations occurs for the optimal ate pairing. The best-case-scenario (which can in principle occur for any embedding degree) is $\log(r)/\varphi(k)$ iterations of Miller's loop, where $\varphi$ is the Euler $\varphi$-function. This scenario takes $x$ as the input for the Miller's algorithm (e.g., in place of $r = r(x)$ as in Tate). For more details on the optimal ate pairing see~\cite{2010/vercauteren}. 
 
 We compared previous results in this area for 
 Weierstrass curves with Jacobian coordinates~\cite{2008/IonicaJoux08}~\cite{2009/fastertate},
@@ -43,77 +43,71 @@ $$\frac{41}{36}\Mul + \frac{41}{36}\Sqr \approx
 \left\{ \begin{array}{cc}
 295.2\mul & k=12 \\
 1180.8\mul & k=24
-\end{array} \right.$$ 
-for one Miller doubling step
-and
+\end{array} \right. 
+\text{ for Miller doubling and}$$ 
 $$\frac{4}{3}\Mul + \frac{1}{18}\Sqr \approx
 \left\{ \begin{array}{cc}
 198.4\mul & k=12 \\
 793.6\mul & k=24
-\end{array} \right.$$ 
-for one Miller addition step.
+\end{array} \right. 
+\text{ for Miller addition}.$$ 
 The formulas presented in this paper give an operation count of
 $$\frac{k}{2}\mul + \Mul + \frac{5}{4}\Sqr \approx
 \left\{ \begin{array}{cc}
 294.0\mul & k=12 \\
 1164.0\mul & k=24
-\end{array} \right.$$ 
-for one Miller doubling step
-and
+\end{array} \right. 
+\text{ for Miller doubling and}$$ 
 $$\frac{2k}{3}\mul + \frac{16}{9}\Mul \approx
 \left\{ \begin{array}{cc}
 264.0\mul & k=12 \\
 1040.0\mul & k=24
-\end{array} \right.$$ 
-for one Miller addition step.
+\end{array} \right. 
+\text{ for Miller addition.}$$ 
 As the formulas for Hessian form are faster for doubling but slower for adding (with respect to projective Weierstrass form), there is a trade-off to assess.
-
-%Suppose that we wish to compute the optimal ate pairing and that we have 
-%an example for which the input for Miller's algorithm is $x$. 
-%The pairing can then be computed in $\log(x) = \log(r)/\varphi(k)$
-%iterations of Miller's loop --- this amounts to $O(\log(x))$ Miller doubling steps,
-%$O(\mathsf{Ham}(x))$ Miller addition steps, where $\mathsf{Ham}(x)$ denotes the Hamming weight of $x$, and the final exponentiation.
+Suppose that we wish to compute the optimal ate pairing and that we have 
+an example for which the input for Miller's algorithm is $x$. 
+The pairing can then be computed in $\log(x) = \log(r)/\varphi(k)$
+iterations of Miller's loop --- this amounts to $O(\log(x))$ Miller doubling steps,
+$O(\mathsf{Ham}(x))$ Miller addition steps, where $\mathsf{Ham}(x)$ denotes the Hamming weight of $x$, and the final exponentiation.
 %
-%When $k=12$, the formulas presented in~\cite{2009/craig} compute the pairing in
-%$$\approx 295.2 \cdot O(\log(x)) + 198.4 \cdot O(\mathsf{Ham}(x))$$
-%multiplications in $\F{q}$ and an exponentiation,
-%and the formulas presented in this paper compute the pairing in
-%$$\approx 294.0 \cdot O(\log(x)) + 264.0 \cdot O(\mathsf{Ham}(x))$$
-%multiplications in $\F{q}$ and an exponentiation.
-%%That is, the formulas using Hessian curves outperform the projective Weierstrass curves for $x$-value such that $\log(x) > 54.67 \cdot \mathsf{Ham}(x)$.
+When $k=12$, the formulas presented in~\cite{2009/craig} compute the pairing in
+$\approx 295.2 \cdot O(\log(x)) + 198.4 \cdot O(\mathsf{Ham}(x))$
+multiplications in $\F{q}$ and an exponentiation,
+and the formulas presented in this paper compute the pairing in
+$\approx 294.0 \cdot O(\log(x)) + 264.0 \cdot O(\mathsf{Ham}(x))$
+multiplications in $\F{q}$ and an exponentiation.
+That is, the formulas using Hessian curves outperform the projective Weierstrass curves 
+only for an $x$-value such that $\log(x) > 54.67 \cdot \mathsf{Ham}(x)$.
 %%This is a condition that is not hard to achieve (and is desirable for either implementation) so we assume that it is satisfied for the comparison in Table \ref{tbl-cmp1}.
 %
-%When $k = 24$, the formulas presented in~\cite{2009/craig} compute the pairing in
+When $k = 24$, 
+%the formulas presented in~\cite{2009/craig} compute the pairing in
 %$$\approx 1180.8 \cdot O(\log(x)) + 793.6 \cdot O(\mathsf{Ham}(x))$$
 %multiplications in $\F{q}$ and an exponentiation,
 %and the formulas presented in this paper compute the pairing in
 %$$\approx 1164.0 \cdot O(\log(x)) + 1040.0 \cdot O(\mathsf{Ham}(x))$$
 %multiplications in $\F{q}$ and an exponentiation.
-%%That is, the formulas using Hessian curves outperform the projective Weierstrass curves for $x$-value such that $\log(x) > 14.67 \cdot \mathsf{Ham}(x)$.
+the formulas using Hessian curves outperform the projective Weierstrass curves for an $x$-value such that $\log(x) > 14.67 \cdot \mathsf{Ham}(x)$.
 %%Again, this condition is not hard to achieve (and is desirable for either implementation) so we assume that it is satisfied for the comparison in Table \ref{tbl-cmp1}.
 
-
-
-%\subsection{Comparing results for $\G{1} \times \G{2}$}
+\subsection{Comparing results for $\G{1} \times \G{2}$}
 %
-%Comparing the aforementioned papers \cite{2008/IonicaJoux08}, \cite{2009/fastertate}, \cite{2009/craig}, \cite{2014/LWZ}, \cite{2010/Gu}, and our own results, we see that
-%the fastest curve model for embedding degree divisible by 6 together with a $\G{1} \times \G{2}$ pairing
-%is the Edwards form with sextic twists~\cite{2014/LWZ}
-%at
-%$$\left(\frac{4k}{3}+ 4\right)\mul + 7\sqr  + \frac{1}{3}\Mul + \Sqr$$
-%for one Miller doubling step and
-%$$\left(\frac{4k}{3} + 12\right)\mul  + \frac{1}{3}\Mul$$
-%for one Miller addition step.
-%
-%The fastest curve model for odd embedding degree divisible by 3 together with a $\G{1} \times \G{2}$ pairing, including the formulas presented in this paper,
-%is the projective Weierstrass form~\cite{2009/craig}
-%at
-%$$(k+6)\mul + 7\sqr + 1\Mul + 1\Sqr$$
-%for one Miller doubling step and
-%$$(k+13)\mul + 3\sqr + 1\Mul$$
-%for one Miller addition step.
-
-
+Comparing the aforementioned papers \cite{2008/IonicaJoux08}, \cite{2009/fastertate}, \cite{2009/craig}, \cite{2014/LWZ}, \cite{2010/Gu}, and our own results, we see that
+the fastest curve model for embedding degree divisible by 6 together with a $\G{1} \times \G{2}$ pairing
+is the Edwards form with sextic twists~\cite{2014/LWZ}
+at
+$\left(\frac{4k}{3}+ 4\right)\mul + 7\sqr  + \frac{1}{3}\Mul + \Sqr$
+for one Miller doubling step and
+$\left(\frac{4k}{3} + 12\right)\mul  + \frac{1}{3}\Mul$
+for one Miller addition step.
+The fastest curve model for odd embedding degree divisible by 3 together with a $\G{1} \times \G{2}$ pairing
+is the projective Weierstrass form~\cite{2009/craig}
+at
+$(k+6)\mul + 7\sqr + 1\Mul + 1\Sqr$
+for one Miller doubling step and
+$(k+13)\mul + 3\sqr + 1\Mul$
+for one Miller addition step.
 
 \subsection{Comparing $\G{1} \times \G{2}$ and $\G{2} \times \G{1}$}
 
@@ -127,23 +121,6 @@ $\frac{1}{\log(r)} \times $ the number of iterations. We call these numbers DBLc
 We assume here that $\sqr = 0.8\mul$ for simplicity.
 %Recall that the most efficient option for each subcase was given in the previous subsections.
 The most efficient option for each subcase is as follows.
-
-The fastest curve model for embedding degree divisible by 6 together with a $\G{1} \times \G{2}$ pairing
-is the Edwards form with sextic twists~\cite{2014/LWZ}
-costing
-$\left(\frac{4k}{3}+ 4\right)\mul + 7\sqr  + \frac{1}{3}\Mul + \Sqr$
-for one Miller doubling step and
-$\left(\frac{4k}{3} + 12\right)\mul  + \frac{1}{3}\Mul$
-for one Miller addition step.
-
-The fastest curve model for odd embedding degree divisible by 3 together with a $\G{1} \times \G{2}$ pairing %, including the formulas presented in this paper,
-is the projective Weierstrass form~\cite{2009/craig}
-costing
-$(k+6)\mul + 7\sqr + 1\Mul + 1\Sqr$
-for one Miller doubling step and
-$(k+13)\mul + 3\sqr + 1\Mul$
-for one Miller addition step.
-
 
 \begin{table}[h]
 \centering
@@ -161,8 +138,10 @@ for one Miller addition step.
 \hline
 12 & twisted ate & Edwards~\cite{2014/LWZ} & $\log(r)/3$ &
 62.9 & 25.3 \\
+12 & optimal ate & Projective~\cite{2009/craig} & $\log(r)/4$ & 
+73.8 & 49.6 \\
 12 & optimal ate & Hessian (this paper) & $\log(r)/4$ &
-71.1 & 68 \\
+73.5 & 66.0 \\
 \hline
 15 & twisted ate & Projective~\cite{2009/craig} & $\log(r)$ &
 431.6 & 255.4 \\
@@ -176,6 +155,8 @@ for one Miller addition step.
 \hline
 24 & twisted ate & Edwards~\cite{2014/LWZ} & $\log(r)/3$ &
 231.5 & 78.7 \\
+24 & optimal ate & Projective~\cite{2009/craig} & $\log(r)/8$ & 
+147.5 & 99.2 \\
 24 & optimal ate & Hessian (this paper) & $\log(r)/8$ &
 140.7 & 134 \\ \hline
 %$\begin{array}{c} \text{even,} \\ 6|k \end{array}$}}

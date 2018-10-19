@@ -17,7 +17,7 @@ and multiplying an element $f \in \F{q^k}$ by $\ell_{P,R}$.
 We attempt in the following sections to optimize each of these parts
 for
 Hessian curves 
-\[\mathcal{H}/\F{q}: X^3 + Y^3 + Z^3 = 0\]
+$\mathcal{H}/\F{q}: X^3 + Y^3 + Z^3 = 0$
 of $j$-invariant 0 
 for pairings on both $\G{1} \times \G{2}$ (such as the Tate pairing)
 and $\G{2} \times \G{1}$ (such as the ate pairing).
@@ -60,13 +60,13 @@ The following is essentially a rephrasing of the denominator elimination techniq
 
 Assume now that $6|k$. In particular, by the discussion in
 Section~\ref{sextic}, the triangular curve
-\[T:\alpha^2VW(V + \omega^3W) = U^3,\]
+$T:\alpha^2VW(V + \omega^3W) = U^3,$
 with $\alpha$ and $\omega$ as in Section~\ref{sextic},
 defines a quadratic twist of $\mathcal{H}_{\omega^3}$ via the isomorphism
 $\psi$ of Equation~\ref{quadtwist}.
 We choose our point $Q' \in \mathcal{H}_{\omega^3}(\F{q^{k/3}})$ from the
 image under $\psi$ of $T(\F{q^{k/6}})$, so that there exist $U, V, W \in \F{q^{k/6}}$ for which
-$$Q' = (U:\beta(\alpha V - 54W) : \beta(-\alpha V + 54\zeta_3^2 W)),$$
+$Q' = (U:\beta(\alpha V - 54W) : \beta(-\alpha V + 54\zeta_3^2 W)),$
 where $\beta = \zeta_3-\zeta_3^2$ and 
 $\zeta_3 \in \F{q}$ is a primitive cube root of unity.
 Evaluation of $v_{P_3}$ at $Q = \varphi(Q')$ then gives
@@ -78,9 +78,8 @@ This value will go to 1 in the final expontentiation step of Miller's algorithm
 
 Unfortunately the denominator elimination technique of~\cite{2010/Gu} does not apply to this case;
 instead we extend ideas of~\cite{2008/lin} and~\cite{2009/deg15}.
-
 Observe that
-\[\frac{1}{x-y} = \frac{x^2 + xy + y^2}{x^3-y^3}.\]
+$\frac{1}{x-y} = \frac{x^2 + xy + y^2}{x^3-y^3}.$
 Let $Q' = (X_{Q'},Y_{Q'},Z_{Q'})$.
 Plugging $x = (Z_3 + Y_3)X_{Q'}\omega$ and $y = (Z_{Q'}+Y_{Q'})X_3$ in $\frac{1}{v_{P_3}(Q)}$ with $Q = \varphi(Q')$,
 we get that the denominator $x^3 - y^3$ is in $\F{q^{k/3}}$ so will go to 1 in the final exponentiation, hence can be set to 1 for the whole computation.
@@ -127,7 +126,7 @@ $R$ will be a multiple of $P$.
 We first address the computation of $l_{R,R}(Q)$.
 This line is the tangent line to $\mathcal{H}_1$ at $R$ evaluated at $Q$, 
 which is given by
-\[l_{R,R}(Q): X_1^2 X_Q + T Y_Q + S,\]
+$l_{R,R}(Q): X_1^2 X_Q + T Y_Q + S,$
 where $R = (X_1:Y_1:Z_1)$ 
 and $T=Y_1^2$, and $S=Z_1^2$ are the values 
 that were computed in the point doubling computation.
@@ -139,10 +138,9 @@ Then we can write $l_{R,R}(Q)$ as
 \[l_{R,R}(Q): (S \cdot Y_{Q'} + T) + a X_{Q'} \cdot X_1^2 \omega,\]
 which can be computed with cost
 $\frac{2k}{3}\mul + \sqr$ via
-\[\begin{array}{ccc}
+\[\begin{array}{cccc}
 U = X_1^2; & V = S \cdot Y_{Q'}; & W = \eta \cdot U;
-\end{array}\]
-\[l_{R,R}(Q)= V+T + W\omega,\]
+& l_{R,R}(Q)= V+T + W\omega, \end{array}\]
 where $\eta = aX_{Q'}$ and can be precomputed.
 We now split into cases.
 
@@ -169,7 +167,7 @@ $$\left( 5 + \frac{2k}{3}\right)\mul + 3\sqr + \frac{2}{3}\Mul + 1\Sqr.$$
 \paragraph*{Odd embedding degrees.}
 
 By Section \ref{denelim}, we have
-\[\ell_{2R}(Q) = n_{2R}(Q) \cdot l_{R,R}(Q),\]
+$\ell_{2R}(Q) = n_{2R}(Q) \cdot l_{R,R}(Q),$
 where $n_{2R}(Q)$ is as given in Section \ref{denelim}.
 %The multiplication of $n_{2R}(Q)$ with $l_{R,R}(Q)$ 
 %costs $\frac{2}{3}\Mul$ 
@@ -232,9 +230,9 @@ but a multiplication of a $\F{q^{k/6}}$-element $X_1'$ with a
 $\F{q^{k/3}}$-element $(A-B)$,
 costing $2\left(\frac{k}{6}\right)^2\mul = \frac{1}{18}\Mul$
 using schoolbook multiplication instead of $\frac{1}{9}\Mul$.
-So we save $\frac{1}{18}\Mul$ on the point doubling for even embedding degrees
+So we save $\frac{1}{18}\Mul$ on the point doubling for even embedding degrees,
 %, giving an operation count of 
-resulted in
+resulting in
 $\frac{1}{2}\Mul + \frac{2}{9}\Sqr$.
 
 As shown in Section \ref{denelim}, the Miller doubling function $\ell_{R,R}(Q)$ is just given by the line function $l_{R,R}(Q)$ in this case, the computation of which we now address.
@@ -242,8 +240,8 @@ As above we have that $R = (X_1:Y_1:Z_1) = (X_1'\omega:Y_1':Z_1')$
 so that Equation~\ref{l2R} becomes
 \[l_{R,R}(Q): (X_1')^2X_Q\omega^2 + T Y_Q + S.\]
 The values $S$ and $T$ are computed during the point doubling computation and lie in $\F{q^{k/3}}$,
-so the computation of $\ell_{R,R}(Q) = l_{R,R}(Q)$ costs an additional squaring in $\F{q^{k/6}}$, multiplication of a $\F{q^{k/6}}$-element with a $\F{q}$-element, and multiplication of a $\F{q^{k/3}}$-element with a $\F{q}$-element, that is 
-$\frac{k}{2}\mul + \frac{1}{36}\Sqr$, via
+so the computation of $\ell_{R,R}(Q) = l_{R,R}(Q)$ costs an additional squaring in $\F{q^{k/6}}$, multiplication of a $\F{q^{k/6}}$-element with a $\F{q}$-element, and multiplication of a $\F{q^{k/3}}$-element with a $\F{q}$-element, giving 
+$\frac{k}{2}\mul + \frac{1}{36}\Sqr$ via
 \[\begin{array}{ccc}
 c_1 = (X_1')^2; & c_2 = c_1 \cdot  X_Q; & c_3 = T \cdot Y_Q.
 \end{array}\]
@@ -258,7 +256,7 @@ $$\frac{k}{2}\mul + \Mul + \frac{5}{4}\Sqr.$$
 \paragraph*{Odd embedding degrees.}
 
 By Section~\ref{denelim}, the Miller doubling function $\ell_{R,R}(Q)$ is given by
-\[\ell_{R,R}(Q) = n_{2R}(Q) \cdot l_{R,R}(Q),\]
+$\ell_{R,R}(Q) = n_{2R}(Q) \cdot l_{R,R}(Q),$
 where $n_{2R}(Q)$ is as given in Section~\ref{denelim}.
 As described above for even embedding degrees, we have that
 \[l_{R,R}(Q): (X_1')^2X_Q\omega^2 + T Y_Q + S,\]
@@ -288,10 +286,10 @@ C = Y_1 \cdot X_2;\	\qquad
 D = Y_1 \cdot Y_2;\	\qquad
 F = \eta \cdot X_2;\\
 G &= (D + Z_2) \cdot (A - C);\	\quad
-H = (D - Z_2) \cdot (A + C);\\
+H = (D - Z_2) \cdot (A + C);\ \quad
+X_3 = G - H;\\
 J &= (D + F) \cdot (A - Y_2);\	\quad
-K = (D - F) \cdot (A + Y_2);\\
-X_3 &= G - H;\	\qquad
+K = (D - F) \cdot (A + Y_2);\ \quad
 Y_3 = K - J;\\
 Z_3 &= J + K - G - H - 2(Z_2 - F) \cdot (C + Y_2),
 \end{align*}
@@ -333,7 +331,7 @@ Putting together all of the above, the entire Miller addition step costs
 \paragraph*{Odd embedding degrees.}
 
 By Section~\ref{denelim}, the Miller addition function $\ell_{P_1,P_2}(Q)$ is given by
-\[\ell_{P_1,P_2}(Q) = n_{P_1+P_2}(Q) \cdot l_{P_1,P_2}(Q),\]
+$\ell_{P_1,P_2}(Q) = n_{P_1+P_2}(Q) \cdot l_{P_1,P_2}(Q),$
 where $n_{P_1+P_2}(Q)$ is as given in Section~\ref{denelim}.
 %The multiplication of $n_{P_1+P_2}$ with $l_{P_1,P_2}(Q)$ costs
 %$\frac{2}{3}\Mul$ as $l_{P_1,P_2}(Q)$ has no coefficient of $\omega^2$,
