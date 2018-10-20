@@ -39,26 +39,26 @@ In that paper they look at even embedding degrees, so we only compare our result
 for the optimal ate pairing when $k=12$ and 24 (c.f. Construction 3).
 Assume for simplicity that $\sqr \approx 0.8\mul$.
 The formulas presented in~\cite{2009/craig} give an operation count of
-$$\frac{41}{36}\Mul + \frac{41}{36}\Sqr \approx
+$$\tfrac{41}{36}\Mul + \tfrac{41}{36}\Sqr \approx
 \left\{ \begin{array}{cc}
 295.2\mul & k=12 \\
 1180.8\mul & k=24
 \end{array} \right. 
 \text{ for Miller doubling and}$$ 
-$$\frac{4}{3}\Mul + \frac{1}{18}\Sqr \approx
+$$\tfrac{4}{3}\Mul + \tfrac{1}{18}\Sqr \approx
 \left\{ \begin{array}{cc}
 198.4\mul & k=12 \\
 793.6\mul & k=24
 \end{array} \right. 
 \text{ for Miller addition}.$$ 
 The formulas presented in this paper give an operation count of
-$$\frac{k}{2}\mul + \Mul + \frac{5}{4}\Sqr \approx
+$$\tfrac{k}{2}\mul + \Mul + \tfrac{5}{4}\Sqr \approx
 \left\{ \begin{array}{cc}
 294.0\mul & k=12 \\
 1164.0\mul & k=24
 \end{array} \right. 
 \text{ for Miller doubling and}$$ 
-$$\frac{2k}{3}\mul + \frac{16}{9}\Mul \approx
+$$\tfrac{2k}{3}\mul + \tfrac{16}{9}\Mul \approx
 \left\{ \begin{array}{cc}
 264.0\mul & k=12 \\
 1040.0\mul & k=24
@@ -92,22 +92,23 @@ the formulas using Hessian curves outperform the projective Weierstrass curves f
 %%Again, this condition is not hard to achieve (and is desirable for either implementation) so we assume that it is satisfied for the comparison in Table \ref{tbl-cmp1}.
 
 \subsection{Comparing results for $\G{1} \times \G{2}$}
-%
-Comparing the aforementioned papers \cite{2008/IonicaJoux08}, \cite{2009/fastertate}, \cite{2009/craig}, \cite{2014/LWZ}, \cite{2010/Gu}, and our own results, we see that
-the fastest curve model for embedding degree divisible by 6 together with a $\G{1} \times \G{2}$ pairing
+
+Comparing the aforementioned papers \cite{2008/IonicaJoux08}, \cite{2009/fastertate}, \cite{2009/craig}, \cite{2014/LWZ}, \cite{2010/Gu},
+and our own results, we see that the fastest curve model for embedding degree divisible by 6 together with a $\G{1} \times \G{2}$ pairing
 is the Edwards form with sextic twists~\cite{2014/LWZ}
-at
+using
 $\left(\frac{4k}{3}+ 4\right)\mul + 7\sqr  + \frac{1}{3}\Mul + \Sqr$
 for one Miller doubling step and
 $\left(\frac{4k}{3} + 12\right)\mul  + \frac{1}{3}\Mul$
 for one Miller addition step.
 The fastest curve model for odd embedding degree divisible by 3 together with a $\G{1} \times \G{2}$ pairing
 is the projective Weierstrass form~\cite{2009/craig}
-at
+using
 $(k+6)\mul + 7\sqr + 1\Mul + 1\Sqr$
 for one Miller doubling step and
 $(k+13)\mul + 3\sqr + 1\Mul$
 for one Miller addition step.
+
 
 \subsection{Comparing $\G{1} \times \G{2}$ and $\G{2} \times \G{1}$}
 
@@ -136,29 +137,19 @@ The most efficient option for each subcase is as follows.
 &\multicolumn{1}{|c|}{ADDc}	
 \\
 \hline
-12 & twisted ate & Edwards~\cite{2014/LWZ} & $\log(r)/3$ &
-62.9 & 25.3 \\
-12 & optimal ate & Projective~\cite{2009/craig} & $\log(r)/4$ & 
-73.8 & 49.6 \\
-12 & optimal ate & Hessian (this paper) & $\log(r)/4$ &
-73.5 & 66.0 \\
+\multirow{3}{*}{12} & twisted ate & Edwards~\cite{2014/LWZ} & $\log(r)/3$ & 62.9 & 25.3 \\
+ & optimal ate & Projective~\cite{2009/craig} & $\log(r)/4$ & 73.8 & 49.6 \\
+ & optimal ate & Hessian (this paper) & $\log(r)/4$ & 73.5 & 66.0 \\
 \hline
-15 & twisted ate & Projective~\cite{2009/craig} & $\log(r)$ &
-431.6 & 255.4 \\
-15 & optimal ate & Hessian (this paper) & $\log(r)/8$ &
-103.1 & 120 \\
+\multirow{2}{*}{15} & twisted ate & Projective~\cite{2009/craig} & $\log(r)$ & 431.6 & 255.4 \\
+ & optimal ate & Hessian (this paper) & $\log(r)/8$ & 103.1 & 120 \\
 \hline
-21 & twisted ate & Projective~\cite{2009/craig} & $\log(r)$ &
-826.4 & 477.4 \\
-21 & optimal ate & Hessian (this paper) & $\log(r)/12$ &
-133.8 & 155.9 \\
+\multirow{2}{*}{21} & twisted ate & Projective~\cite{2009/craig} & $\log(r)$ & 826.4 & 477.4 \\
+ & optimal ate & Hessian (this paper) & $\log(r)/12$ & 133.8 & 155.9 \\
 \hline
-24 & twisted ate & Edwards~\cite{2014/LWZ} & $\log(r)/3$ &
-231.5 & 78.7 \\
-24 & optimal ate & Projective~\cite{2009/craig} & $\log(r)/8$ & 
-147.5 & 99.2 \\
-24 & optimal ate & Hessian (this paper) & $\log(r)/8$ &
-140.7 & 134 \\ \hline
+\multirow{3}{*}{24} & twisted ate & Edwards~\cite{2014/LWZ} & $\log(r)/3$ & 231.5 & 78.7 \\
+ & optimal ate & Projective~\cite{2009/craig} & $\log(r)/8$ & 147.5 & 99.2 \\
+ & optimal ate & Hessian (this paper) & $\log(r)/8$ & 140.7 & 134 \\ \hline
 %$\begin{array}{c} \text{even,} \\ 6|k \end{array}$}}
 %& $\mathcal{P},j=0$, \cite{2009/fastertate}
 %& $\frac{41}{36}\Mul + \frac{41}{36}\Sqr$
