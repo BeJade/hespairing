@@ -93,20 +93,20 @@ the formulas using Hessian curves outperform the projective Weierstrass curves f
 
 \subsection{Comparing results for $\G{1} \times \G{2}$}
 
-Comparing the aforementioned papers \cite{2008/IonicaJoux08}, \cite{2009/fastertate}, \cite{2009/craig}, \cite{2014/LWZ}, \cite{2010/Gu},
-and our own results, we see that the fastest curve model for embedding degree divisible by 6 together with a $\G{1} \times \G{2}$ pairing
+Comparing the aforementioned papers~\cite{2008/IonicaJoux08},~\cite{2009/fastertate},~\cite{2009/craig},~\cite{2014/LWZ},~\cite{2010/Gu},
+and our results, we see that the fastest curve model for embedding degree divisible by 6 together with a $\G{1} \times \G{2}$ pairing
 is the Edwards form with sextic twists~\cite{2014/LWZ}
 using
-$\left(\frac{4k}{3}+ 4\right)\mul + 7\sqr  + \frac{1}{3}\Mul + \Sqr$
+$\left(\frac{4k}{3} + 4\right)\mul + 7\sqr + \frac{1}{3}\Mul + \Sqr$
 for one Miller doubling step and
-$\left(\frac{4k}{3} + 12\right)\mul  + \frac{1}{3}\Mul$
+$\left(\frac{4k}{3} {+} 12\right)\mul {+} \frac{1}{3}\Mul$
 for one Miller addition step.
 The fastest curve model for odd embedding degree divisible by 3 together with a $\G{1} \times \G{2}$ pairing
 is the projective Weierstrass form~\cite{2009/craig}
 using
-$(k+6)\mul + 7\sqr + 1\Mul + 1\Sqr$
+$(k+6)\mul + 7\sqr + \Mul + \Sqr$
 for one Miller doubling step and
-$(k+13)\mul + 3\sqr + 1\Mul$
+$(k+13)\mul + 3\sqr + \Mul$
 for one Miller addition step.
 
 
@@ -116,7 +116,7 @@ In the following table we compare the operation counts from the \emph{most effic
 curve shape for each subcase
 (optimal ate vs. twisted ate and even vs. odd)
 in what we hope is a meaningful way:
-we give the number of $\F{q}$-multiplication per Miller doubling/Miller addition multiplied by 
+we give the number of $\F{q}$-multiplication per Miller doubling/addition multiplied by 
 $\frac{1}{\log(r)} \times $ the number of iterations. We call these numbers DBLc 
 (for doubling compare) and ADDc (for addition compare).
 We assume here that $\sqr = 0.8\mul$ for simplicity.
@@ -127,7 +127,7 @@ The most efficient option for each subcase is as follows.
 \centering
 \caption{Best operation counts for DBLc and ADDc for each embedding degree and type of pairing}
 
-\begin{tabular}{|l| l| l| l| l| l| l|}
+\begin{tabular}{|l| l| l| l| r| r|}
 \hline
 \multicolumn{1}{|c|}{$k$}
 &\multicolumn{1}{|c|}{pairing} 
@@ -142,14 +142,14 @@ The most efficient option for each subcase is as follows.
  & optimal ate & Hessian (this paper) & $\log(r)/4$ & 73.5 & 66.0 \\
 \hline
 \multirow{2}{*}{15} & twisted ate & Projective~\cite{2009/craig} & $\log(r)$ & 431.6 & 255.4 \\
- & optimal ate & Hessian (this paper) & $\log(r)/8$ & 103.1 & 120 \\
+ & optimal ate & Hessian (this paper) & $\log(r)/8$ & 103.1 & 120.0 \\
 \hline
 \multirow{2}{*}{21} & twisted ate & Projective~\cite{2009/craig} & $\log(r)$ & 826.4 & 477.4 \\
  & optimal ate & Hessian (this paper) & $\log(r)/12$ & 133.8 & 155.9 \\
 \hline
 \multirow{3}{*}{24} & twisted ate & Edwards~\cite{2014/LWZ} & $\log(r)/3$ & 231.5 & 78.7 \\
  & optimal ate & Projective~\cite{2009/craig} & $\log(r)/8$ & 147.5 & 99.2 \\
- & optimal ate & Hessian (this paper) & $\log(r)/8$ & 140.7 & 134 \\ \hline
+ & optimal ate & Hessian (this paper) & $\log(r)/8$ & 140.7 & 134.0 \\ \hline
 %$\begin{array}{c} \text{even,} \\ 6|k \end{array}$}}
 %& $\mathcal{P},j=0$, \cite{2009/fastertate}
 %& $\frac{41}{36}\Mul + \frac{41}{36}\Sqr$
